@@ -18,10 +18,9 @@ class MiniCartItem extends Component {
             onClick = {this.handleClick.bind(this, {item_id: this.props.productItemData.item_id})}>Remove</a>
         }
         return (
-            <div>
-
+            <div className='cart-item'>
             <span class="cd-qty">{this.props.productItemData.qty}x</span> {this.props.productItemData.name}
-				<div class="cd-price">{this.props.productItemData.qty * this.props.productItemData.price}</div>
+				<div class="cd-price">₹ {this.props.productItemData.qty * this.props.productItemData.price}</div>
                 {removeLink}
             </div>
         )

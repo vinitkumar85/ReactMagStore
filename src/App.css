@@ -114,15 +114,15 @@
 #snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */
   min-width: 250px; /* Set a default minimum width */
-  background-color:coral; /* Black background color */
-  color: #333; /* White text color */
+  background-color:#edc565; /* Black background color */
+  color: #111; /* White text color */
   text-align: center; /* Centered text */
   border-radius: 6px; /* Rounded borders */
   padding: 16px; /* Padding */
   position: fixed; /* Sit on top of the screen */
   z-index: 1; /* Add a z-index if needed */
   right: 10px; /* Center the snackbar */
-  bottom: 70%; /* 30px from the bottom */
+  bottom: 65%; /* 30px from the bottom */
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -138,35 +138,35 @@ animation: fadein 0.5s, fadeout 0.5s 3s;
 /* Animations to fade the snackbar in and out */
 @-webkit-keyframes fadein {
   from {bottom: 30%; opacity: 0;} 
-  to {bottom: 70%; opacity: 1;}
+  to {bottom: 65%; opacity: 1;}
 }
 
 @keyframes fadein {
   from {bottom: 30%; opacity: 0;}
-  to {bottom: 70%; opacity: 1;}
+  to {bottom: 65%; opacity: 1;}
 }
 
 @-webkit-keyframes fadeout {
   from {bottom: 30%; opacity: 1;} 
-  to {bottom: 70%; opacity: 0;}
+  to {bottom: 65%; opacity: 0;}
 }
 
 @keyframes fadeout {
   from {bottom: 30%; opacity: 1;}
-  to {bottom: 70%; opacity: 0;}
+  to {bottom: 65%; opacity: 0;}
 }
 
 
 #cd-cart {
   right: -100%;
-  background: #f6f6f6;
+  background: #fff;
   -webkit-transition: right 0.3s;
   -moz-transition: right 0.3s;
   transition: right 0.3s;
   position: fixed;
   width: 420px;
   height: 100%;
-  top: 70px;
+  top: 160px;
 }
 #cd-cart.speed-in {
   right: 0;
@@ -183,6 +183,8 @@ animation: fadein 0.5s, fadeout 0.5s 3s;
 }
 #cd-cart .cd-cart-items {
   padding: 0;
+  max-height: 300px;
+  overflow: auto;
 }
 #cd-cart .cd-cart-items > div {
   position: relative;

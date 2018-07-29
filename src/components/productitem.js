@@ -37,21 +37,23 @@ class ProductItem extends Component {
                 }
             })
         return (
-            <div className='col-sm-2'>
+            <div className='col-sm-2 product-card'>
              <HashRouter>
                  <div>
-                <Link  to={`/product/${this.props.productItemData.sku}`}><img className='img-responsive' src={'http://localhost:8888/shubhkit/pub/media/catalog/product/'+this.imgpath}/></Link>
+                <Link  to={`/product/${this.props.productItemData.sku}`}><img className='img-responsive' src={'http://localhost:8888/shubhkit/pub/media/catalog/product/'+this.imgpath}/></Link>  
                <h4><Link  to={`/product/${this.props.productItemData.sku}`}>{this.props.productItemData.name} </Link></h4>
-                <p><strong>Price:</strong> {this.props.productItemData.price}</p>
-                <div className="form-group">
-                <label for="qty">Qty : </label> 
-                 <select  className="form-group" value={this.state.value} id="qty" onChange={this.handleChange}>
+                <p><strong>Price: ₹ </strong> {this.props.productItemData.price}</p>
+                <div className="form-group row">
+                <label for="qty" className="col-sm-4">Qty : </label>
+                <span className="col-sm-6">
+                <select  className="form-control" value={this.state.value} id="qty" onChange={this.handleChange}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
+                </span>
                 </div>
                 <p className="btn-wrap">
                 <button className={`btn btn-success btn-lg ${this.props.isCartStart ? 'is-loading' : ''}`} disabled= {this.props.isCartStart} 

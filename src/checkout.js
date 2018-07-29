@@ -10,7 +10,7 @@ class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
+            title: 'Mr',
             fname: '',
             lname: '',
             email: '',
@@ -19,6 +19,8 @@ class Checkout extends Component {
             pincode: '',
             region: '',
             toDashboard: 'false',
+            shippingCharge: null,
+            orderTotal: null,
             orderData: null,
             isDivDisabled: true
     };
@@ -151,7 +153,7 @@ class Checkout extends Component {
         )
         .then((response) => {
           console.table(response.data);
-          this.setState({isDivDisabled: false});
+          this.setState({isDivDisabled: false, shippingCharge: response.data.totals.base_shipping_amount, orderTotal: response.data.totals.base_grand_total});
         })
         }, 200);
       };
@@ -201,26 +203,17 @@ class Checkout extends Component {
         return (
           <div className='container-fluid'>
            <div className="row">
-           <div className='col-sm-3'>
+           <div className='col-sm-3 checkout-cart'>
               <h2>Cart Summary:</h2>
                 {this.props.cartData.map((product) => (
                     <MiniCartItem productItemData = {product} onDeleteItemClick = {this.props.onDeleteCartClick}/>
                 ))}
+              
+
            </div>
           <div className='col-sm-5'>
             <h2>Shipping Details:</h2>
             <form onSubmit={this.handleSubmit}>
-
-            <div className="form-group col-sm-12">
-            <label for="title">Title:</label>
-            <select  className="form-group" value={this.state.value} id="title" onChange={this.handleChange}>
-              <option value="Mr">MR</option>
-              <option value="Mrs">MRs</option>
-              <option value="Miss">Miss</option>
-              <option value="Dr">Dr</option>
-            </select>
-            </div>
-
             <div className="form-group col-sm-6">
             <label for="fname">First Name:</label>
             <input value={this.state.value} onChange={this.handleChange} type="text" class="form-control" id="fname"/>
@@ -264,8 +257,16 @@ class Checkout extends Component {
             </div>
             <div className={`col-sm-4 ${this.state.isDivDisabled ? 'disabled-section' : ''}`}>
                 <h2>Payment Mode:</h2>
-                <h4>Cash on Delivery</h4>
-                <input type="button" className='btn btn-success btn-lg' onClick={this.handleConfirmation} value="Confirm Order" />
+                
+                <p>We are currently supporting only cash on delivery</p>
+                <h4><label class="radio-inline"><input type="radio" name="optradio" checked/> Cash on Delivery</label></h4>
+                <div className='cart-total'>
+                <p>Sub Total : ₹ {this.props.cartData.reduce((sum, product) => sum + (product.price * product.qty), 0)}</p>
+                <p>Shipping Charges : ₹ {this.state.shippingCharge}</p>
+                <h3>Order Total : ₹ {this.state.orderTotal}</h3>
+              </div>
+
+                <input type="button" className='btn btn-full btn-success btn-lg' onClick={this.handleConfirmation} value="Confirm Order" />
             </div>
             </div>
           </div>

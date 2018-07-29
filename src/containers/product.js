@@ -32,13 +32,13 @@ class Product extends Component {
         const styles = {
             primg: {
                 width: '100%',
-                height: '300px',
-                background: '#cccccc'
+                height: '400px',
+                background: '#ffffff'
             },
             pritxt: {
                 width: '100%',
                 height: '30px',
-                background: '#cccccc'
+                background: '#ffffff'
             }
         }
 
@@ -65,23 +65,26 @@ class Product extends Component {
 
         return (
             this.props.productInfo && this.props.productInfo.product &&<div className='container-fluid'>
-                <h1>Product Details</h1>
                 <div className='col-sm-4'>
                 <img className='img-responsive' src={'http://localhost:8888/shubhkit/pub/media/catalog/product/'+this.props.productInfo.productImg}/>
                </div>
                <div className='col-sm-7 active'>
                 <h3>{this.props.productInfo.product.name}</h3>
                 <span dangerouslySetInnerHTML={this.rawMarkup()} />
-                <div className="form-group">
-                <label for="qty">Qty: </label> 
-                <select  className="form-group" value={this.state.value} id="qty" onChange={this.handleChange}>
+
+                <div className="form-group row">
+                <label for="qty" className="col-sm-12">Qty : </label>
+                <span className="col-sm-2">
+                <select  className="form-control" value={this.state.value} id="qty" onChange={this.handleChange}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
+                </span>
                 </div>
+
                 <button
                  className={`btn btn-success btn-lg ${this.props.isCartAdding ? 'is-loading' : ''}`} disabled= {this.props.isCartAdding}
                   onClick = {this.cartItemClick.bind(this,{sku: this.props.productInfo.product.sku, qty: this.state.qty} )}>Add to cart</button> 

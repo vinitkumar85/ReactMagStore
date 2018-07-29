@@ -17,10 +17,27 @@ body {
     }
 }
 
+.checkout-cart{
+    .cart-item {
+        padding: 1em;
+        border-bottom: 1px solid #e0e6ef;
+        background: #fff;
+      }
+} 
+.cart-total {
+    padding: 1em;
+    background: #fff;
+    margin: 20px 0;
+}
+
 .disabled-section
 {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.btn-full {
+    width: 100%;
 }
 
 .header {
@@ -39,4 +56,13 @@ body {
     a {
         color: #ccc;
     }
+}
+
+.checkout-flow {
+    .container {
+        min-height: 400px;
+    }
+}
+.product-card {
+    padding-bottom: 30px;
 }
