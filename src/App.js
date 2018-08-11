@@ -1,45 +1,24 @@
 import React, { Component } from 'react';
-import './App.scss';
-import './App.css';
+import './sass/App.scss';
 
 import axios from 'axios';
 import ProductList from './containers/productlist';
-import MiniCart from './minicart';
-import HeaderMain from './header';
-import HeaderReduced from './reducedheader';
+import MiniCart from './components/minicart';
+import HeaderMain from './components/header';
+import HeaderReduced from './components/reducedheader';
 import Footer from './components/footer';
-import Home from './home';
+import Home from './components/home';
 import Product from './containers/product';
-import Checkout from './checkout';
-import Confirmation from './confirmation';
-import { BrowserRouter as Router, Route, Switch, Link, HashRouter} from 'react-router-dom';
+import Checkout from './components/checkout';
+import Confirmation from './containers/confirmation';
+import { Route, HashRouter} from 'react-router-dom';
 import CONST from './common/app-const';
-import Searchlist from './searchlist';
+import Searchlist from './components/searchlist';
 import history from './common/history';
 
 import {connect} from 'react-redux';
 
 import * as actionCreaters from './actions/productaction';
-
-
-const DashboardLayout = ({children, ...rest}) => {
-  return (
-    <div className="page page-dashboard">
-      <div className="sidebar">Sidebar here</div>
-      <div className="main">{children}</div>
-    </div>
-  )
-}
-
-const DashboardRoute = ({component: Component, ...rest}) => {
-  return (
-    <Route {...rest} render={matchProps => (
-      <DashboardLayout>
-          <Component {...matchProps} />
-      </DashboardLayout>
-    )} />
-  )
-};
 
 class App extends Component {
   constructor(props) {
@@ -51,6 +30,7 @@ class App extends Component {
       latestCartItem: [],
       cartID: '',
       sku: '',
+      cartError:false,
       addingCart: false,
       cartSucces: false
     }
@@ -60,7 +40,7 @@ class App extends Component {
     this.setState({cartSucces: false});
     this.setState({addingCart: true});
    // setTimeout(() => {
-      axios.post(`../backend/rest/V1/guest-carts/${this.props.cartID}/items`, {cartItem: {sku: item.sku, qty: item.qty, quote_id: this.props.cartID}},
+      axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.cartID}/items`, {cartItem: {sku: item.sku, qty: item.qty, quote_id: this.props.cartID}},
       {
         headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
       }
@@ -68,18 +48,45 @@ class App extends Component {
     .then((response) => {
       this.setState({addingCart: false});
       this.setState({cartSucces: true});
+      this.setState({cartError: false});
       this.setState({latestCartItem: response.data});
        setTimeout(() => {
         this.setState({cartSucces: false});
        }, 3000);
       this.props.updateMiniCart(this.props.cartID)
      // this.props.dispatch(actionCreaters.initiateCart())
-    })
+    }).catch((error) => {
+      // Error
+      if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          // console.log(error.response.data);
+          // console.log(error.response.status);
+          // console.log(error.response.headers);
+      } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+      } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('Error', error.message);
+      }
+      this.setState({addingCart: false});
+      this.setState({cartError: true});
+
+      setTimeout(() => {
+        this.setState({cartError: false});
+       }, 3000);
+
+      //console.log('Error', error.message);
+      //console.log(error.config);
+  });
    // }, 200);
   };
 
   deleteCart = (item) =>{
-    axios.delete(`../backend/rest/V1/guest-carts/${this.props.cartID}/items/${item.item_id}`,
+    axios.delete(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.cartID}/items/${item.item_id}`,
     {
       headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
     })
@@ -88,10 +95,6 @@ class App extends Component {
        // this.props.dispatch(actionCreaters.initiateCart())
       })
   }
-
-
-
-
 
   render() {
     return (
@@ -142,7 +145,7 @@ class App extends Component {
              <MiniCart  onDeleteCartClick = {this.deleteCart} cartData = {this.props.cartItems} latestCart = {this.state.latestCartItem} guestCartID = {this.state.cartID} isCartSuccess = {this.state.cartSucces} />
 
               </div>
-              <Product {...props}  isCartAdding = {this.state.addingCart} onCartClick = {this.makeCartRequest}/>
+              <Product {...props} isCartError = {this.state.cartError}  isCartAdding = {this.state.addingCart} onCartClick = {this.makeCartRequest}/>
               <Footer/>
         </div>
       )}/>

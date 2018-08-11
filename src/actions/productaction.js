@@ -3,7 +3,7 @@ import CONST from '../common/app-const';
 
 export function getProductList(catId){
     return (dispatch) => {
-        axios.get(`../backend/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=16`,
+        axios.get(`${CONST.MAPI.appPath}rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=8`,
         {
           headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
         }
@@ -16,7 +16,7 @@ export function getProductList(catId){
 
   export function getProduct(productId){
     return (dispatch) => {
-        axios.get(`../backend/rest/V1/products/${productId}`,
+        axios.get(`${CONST.MAPI.appPath}rest/V1/products/${productId}`,
         {
           headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
         }
@@ -53,7 +53,7 @@ export function setAction(data, type){
 export function initiateCart () {
     // axios.post('http://localhost:8888/shubhkit/rest/V1/customers/1/carts', {},
     return (dispatch) => {
-    axios.post('http://localhost:8888/shop/backend/rest/V1/guest-carts', {},
+    axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts`, {},
          {
            headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
          }
@@ -68,7 +68,7 @@ export const makeCartRequest = (item, usercartid) => {
     console.log(usercartid);
     return (dispatch) => {
    // setTimeout(() => {
-      axios.post(`../backend/rest/V1/guest-carts/${usercartid}/items`, {cartItem: {sku: item.sku, qty: "1", quote_id: usercartid}},
+      axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${usercartid}/items`, {cartItem: {sku: item.sku, qty: "1", quote_id: usercartid}},
       {
         headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
       }
@@ -84,7 +84,7 @@ export const makeCartRequest = (item, usercartid) => {
 
 export const updateMiniCart = (cartID) => {
     return (dispatch) => {
-    axios.get(`../backend/rest/V1/guest-carts/${cartID}/items`,
+    axios.get(`${CONST.MAPI.appPath}rest/V1/guest-carts/${cartID}/items`,
     {
       headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
     })

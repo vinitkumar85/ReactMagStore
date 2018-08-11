@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { Link, HashRouter} from 'react-router-dom';
+import CONST from '../common/app-const';
 
 class ProductItem extends Component {
     constructor (props){
@@ -37,15 +38,15 @@ class ProductItem extends Component {
                 }
             })
         return (
-            <div className='col-sm-2 product-card'>
+            <div className='col-sm-3 col-xs-6 product-card'>
              <HashRouter>
                  <div>
-                <Link  to={`/product/${this.props.productItemData.sku}`}><img className='img-responsive' src={'http://localhost:8888/shubhkit/pub/media/catalog/product/'+this.imgpath}/></Link>  
+                <Link  to={`/product/${this.props.productItemData.sku}`}><img className='img-responsive' src={`${CONST.MAPI.appPath}pub/media/catalog/product/`+this.imgpath}/></Link>  
                <h4><Link  to={`/product/${this.props.productItemData.sku}`}>{this.props.productItemData.name} </Link></h4>
                 <p><strong>Price: ₹ </strong> {this.props.productItemData.price}</p>
                 <div className="form-group row">
                 <label for="qty" className="col-sm-4">Qty : </label>
-                <span className="col-sm-6">
+                <span className="col-xs-8 col-sm-6">
                 <select  className="form-control" value={this.state.value} id="qty" onChange={this.handleChange}>
                     <option value="1">1</option>
                     <option value="2">2</option>

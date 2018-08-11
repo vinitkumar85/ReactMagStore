@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 import { Redirect } from 'react-router';
-import * as actionCreaters from './actions/productaction';
+import * as actionCreaters from '../actions/productaction';
 import {connect} from 'react-redux';
 
 

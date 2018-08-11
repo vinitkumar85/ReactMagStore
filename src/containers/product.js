@@ -2,7 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 
 import {connect} from 'react-redux';
-
+import CONST from '../common/app-const';
 import * as actionCreaters from '../actions/productaction';
 
 
@@ -50,7 +50,6 @@ class Product extends Component {
         if(!this.props.productInfo || !this.props.productInfo.product){
             return (
                 <div className='container-fluid'>
-                <h1>Product Details</h1>
                 <div className='col-sm-4'>
                 <div style = {styles.primg}></div>
                </div>
@@ -65,8 +64,9 @@ class Product extends Component {
 
         return (
             this.props.productInfo && this.props.productInfo.product &&<div className='container-fluid'>
+                <div className='row'>
                 <div className='col-sm-4'>
-                <img className='img-responsive' src={'http://localhost:8888/shubhkit/pub/media/catalog/product/'+this.props.productInfo.productImg}/>
+                <img className='img-responsive' src={`${CONST.MAPI.appPath}pub/media/catalog/product/`+this.props.productInfo.productImg}/>
                </div>
                <div className='col-sm-7 active'>
                 <h3>{this.props.productInfo.product.name}</h3>
@@ -84,12 +84,14 @@ class Product extends Component {
                 </select>
                 </span>
                 </div>
-
+                <div className={`alert alert-danger ${this.props.isCartError ? '' : 'hidden'} fade in`}>
+                    <strong>Error!</strong> There is some problem in adding to cart 
+                </div>
                 <button
                  className={`btn btn-success btn-lg ${this.props.isCartAdding ? 'is-loading' : ''}`} disabled= {this.props.isCartAdding}
                   onClick = {this.cartItemClick.bind(this,{sku: this.props.productInfo.product.sku, qty: this.state.qty} )}>Add to cart</button> 
                 </div>
-               
+               </div>
             </div>
         )
     }

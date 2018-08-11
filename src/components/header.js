@@ -2,15 +2,11 @@ import React from 'react';
 import { Component } from 'react';
 
 import Search from './search';
-import TopNav from './components/topnav';
+import TopNav from './topnav';
 
 class HeaderMain extends Component {
     constructor (props){
         super(props);
-    }
-
-    searchBtnClick = (item) => {
-        this.props.onSearch(item)
     }
 
     render (){

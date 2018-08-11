@@ -39,7 +39,9 @@ class MiniCart extends Component {
         <div className="miniCart">
            <a href="#" onClick = {this.clickMiniCart} className="miniCartLink"><span className="cart-icon"> </span> <span className="cart-count">{this.props.cartData.reduce((sum, product) => sum + (product.qty), 0)}</span></a>
            <div id ="cd-cart" className={`${this.state.isCartVisible ? 'speed-in' : ''}`}>
-           <h2>Cart</h2>
+           <button type="button" class="close" onClick = {this.clickMiniCart} aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
            
            <div className='cd-cart-items'>
                 {this.props.cartData.map((product, index) => (
@@ -48,7 +50,7 @@ class MiniCart extends Component {
             </div>
 
             <div className="cd-cart-total">
-			<p>Total <span>{this.props.cartData.reduce((sum, product) => sum + (product.price * product.qty), 0)}</span></p>
+			<p>Total <span>₹ {this.props.cartData.reduce((sum, product) => sum + (product.price * product.qty), 0)}</span></p>
 		</div> 
 
  <HashRouter><div class="checkout-btn"><Link  to="/checkout">Continue To Checkout</Link></div></HashRouter>

@@ -1,4 +1,5 @@
 import React from 'react';
+import CONST from '../common/app-const';
 
 const Home = () => {
     return (
@@ -6,7 +7,7 @@ const Home = () => {
             <h1>Welcome to ReactStore</h1>
             <div className='row'>
             <div className='col-sm-12'>
-                <img className='img-responsive' src="http://localhost:8888/shop/backend/pub/media/wysiwyg/home/home-main.jpg"/>
+                <img className='img-responsive' src={`${CONST.MAPI.appPath}pub/media/wysiwyg/home/home-main.jpg`}/>
             </div>
             </div>
         </div>

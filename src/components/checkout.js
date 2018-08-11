@@ -3,7 +3,7 @@ import { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import MiniCartItem from './minicartitem';
-import CONST from './common/app-const';
+import CONST from '../common/app-const';
 
 class Checkout extends Component {
 
@@ -22,7 +22,9 @@ class Checkout extends Component {
             shippingCharge: null,
             orderTotal: null,
             orderData: null,
-            isDivDisabled: true
+            isDivDisabled: true,
+            isAjaxProgress: false,
+            checkoutError: false
     };
     
         this.handleChange = this.handleChange.bind(this);
@@ -136,34 +138,36 @@ class Checkout extends Component {
             }
             }
             setTimeout(() => { 
-                console.log("3");
                 this.shippingRequest(userData)
             }, 200)
       }
 
 
       shippingRequest = (UserData) => {
-        console.log("4");
+        this.setState({isAjaxProgress: true});
         setTimeout(() => {
-          axios.post(`../backend/rest/V1/guest-carts/${this.props.guestCartID}/shipping-information`, 
+          axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.guestCartID}/shipping-information`, 
           UserData,
           {
             headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
           }
         )
         .then((response) => {
-          console.table(response.data);
-          this.setState({isDivDisabled: false, shippingCharge: response.data.totals.base_shipping_amount, orderTotal: response.data.totals.base_grand_total});
-        })
+          this.setState({isDivDisabled: false, checkoutError: false, isAjaxProgress: false, shippingCharge: response.data.totals.base_shipping_amount, orderTotal: response.data.totals.base_grand_total});
+        }).catch((error) => {
+          // Error
+          this.setState({isAjaxProgress: false});
+          this.setState({checkoutError: true});
+        });
         }, 200);
       };
 
 
       paymentRequest = (UserData2) => {
-        console.log("4");
+        this.setState({isAjaxProgress: true});
         setTimeout(() => {
 
-          axios.post(`../backend/rest/V1/guest-carts/${this.props.guestCartID}/payment-information`,
+          axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.guestCartID}/payment-information`,
           UserData2,
           {
             headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
@@ -171,7 +175,7 @@ class Checkout extends Component {
         )
         .then((response) => {
           
-          axios.get(`../backend/rest/default/V1/orders/${response.data}`,
+          axios.get(`${CONST.MAPI.appPath}rest/default/V1/orders/${response.data}`,
             {
               headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
             }
@@ -180,12 +184,17 @@ class Checkout extends Component {
             if (response) {
               this.setState({
                 toDashboard: 'true',
-                orderData: response.data
+                orderData: response.data,
+                isAjaxProgress: false
             });
            }
           })
         }
-        )
+        ).catch((error) => {
+          // Error
+          this.setState({isAjaxProgress: false});
+          this.setState({checkoutError: true});
+        });
         }, 200);
       };
     
@@ -202,7 +211,15 @@ class Checkout extends Component {
         }
         return (
           <div className='container-fluid'>
+          <div id='preloader' className={`${this.state.isAjaxProgress ? '' : 'hidden'}`}>
+            <div className='veil'>
+            </div>
+            <span className='loader'></span>
+          </div>
            <div className="row">
+           <div className={`alert alert-danger ${this.state.checkoutError ? '' : 'hidden'} fade in`}>
+                    <strong>Error!</strong> There is some problem in checkout
+                </div>
            <div className='col-sm-3 checkout-cart'>
               <h2>Cart Summary:</h2>
                 {this.props.cartData.map((product) => (
@@ -266,7 +283,7 @@ class Checkout extends Component {
                 <h3>Order Total : ₹ {this.state.orderTotal}</h3>
               </div>
 
-                <input type="button" className='btn btn-full btn-success btn-lg' onClick={this.handleConfirmation} value="Confirm Order" />
+                <input type="button" className={`btn btn-full  btn-lg ${this.state.isDivDisabled ? 'btn-secondary' : 'btn-success'}`} onClick={this.handleConfirmation} value="Confirm Order" />
             </div>
             </div>
           </div>

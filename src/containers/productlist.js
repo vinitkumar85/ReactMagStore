@@ -39,62 +39,62 @@ class ProductList extends Component {
             return (
                 <div>
                 <div className='row'>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
                     </div>
-                    <div className='col-sm-2'>
+                    <div className='col-sm-3 col-xs-6'>
                         <div style = {styles.primg}></div>
                         <h3 style = {styles.pritxt}> </h3>
                         <p style = {styles.pritxt}> </p>
