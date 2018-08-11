@@ -1,8 +1,16 @@
-The idea of this project to create e-commerce app with react frontend and magento backend.
+# Functional React Shopping Cart for guest users
+
+#### The idea of this project to create e-commerce app with react frontend and magento backend.
+
+## Teachincal Specifications
+- Frontend - React, Redux, Bootstarp, SASS 
+- Backend - Headless Magento2 REST API
+- Search - Elastic search with ReactiveSearch component
+- Search Stack - appbase.io
+- PWA
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
+## DEMO
+[Click here for working demo](http://www.pannalive.com)
 
