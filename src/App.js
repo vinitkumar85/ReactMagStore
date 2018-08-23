@@ -96,7 +96,20 @@ class App extends Component {
       })
   }
 
+  componentWillMount (){
+    if(sessionStorage.getItem('guestCart')){
+        this.props.updateMiniCart(sessionStorage.getItem('guestCart'))
+     }
+  }
+
   render() {
+    if(!sessionStorage.getItem('guestCart') || sessionStorage.getItem('guestCart') == 'undefined' || sessionStorage.getItem('guestCart')==""){
+      sessionStorage.setItem('guestCart', this.props.cartID);
+    }
+    //if(localStorage.getItem('guestCart') !== 'undefined' || localStorage.getItem('guestCart')!==""){
+     
+    //}
+
     return (
       <div>     
          <HashRouter>
@@ -186,7 +199,7 @@ class App extends Component {
   }
 }
 function mapDispatchToProps(dispatch, ownProps){
-  if(!ownProps.cartID){
+  if(!sessionStorage.getItem('guestCart') || sessionStorage.getItem('guestCart') == 'undefined' || sessionStorage.getItem('guestCart')==""){
     dispatch(actionCreaters.initiateCart());
   }
     return {
@@ -198,8 +211,9 @@ function mapDispatchToProps(dispatch, ownProps){
 
 function mapStateToProps(state){
   if(state){
+    console.log(state);
   return {
-       cartID: state.cartID,
+       cartID: state.cartID ||  sessionStorage.getItem('guestCart'),
        cartItems: state.cartItems
       }
       

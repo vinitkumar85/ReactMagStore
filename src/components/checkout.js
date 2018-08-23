@@ -187,6 +187,8 @@ class Checkout extends Component {
                 orderData: response.data,
                 isAjaxProgress: false
             });
+
+            sessionStorage.removeItem('guestCart')
            }
           })
         }
