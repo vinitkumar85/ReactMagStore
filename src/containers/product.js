@@ -9,6 +9,7 @@ import * as actionCreaters from '../actions/productaction';
 class Product extends Component {
     constructor (props){
         super(props);
+        this.props.loadProduct(this.props.match.params.id);
         this.state = {
             qty: 1
         }
@@ -25,6 +26,13 @@ class Product extends Component {
     componentWillMount () {
         this.props.productInfo = [];
     }
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.match.params.id!==this.props.match.params.id){
+          //Perform some operation
+          this.props.loadProduct(nextProps.match.params.id);
+        }
+      }
     
  
     render () {
@@ -105,8 +113,8 @@ function mapStateToProps(state){
     }
 }
 
-function mapDispatchToProps(dispatch, ownProps){
-    dispatch(actionCreaters.getProduct(ownProps.match.params.id));
-}
+const mapDispatchToProps = (dispatch) => ({
+    loadProduct: (id) => dispatch(actionCreaters.getProduct(id))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product)

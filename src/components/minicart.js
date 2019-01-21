@@ -53,7 +53,7 @@ class MiniCart extends Component {
 			<p>Total <span>₹ {this.props.cartData.reduce((sum, product) => sum + (product.price * product.qty), 0)}</span></p>
 		</div> 
 
- <HashRouter><div class="checkout-btn"><Link  to="/checkout">Continue To Checkout</Link></div></HashRouter>
+ <HashRouter><div class="checkout-btn"><Link  to="/login">Continue To Checkout</Link></div></HashRouter>
 
             </div>
             <div>

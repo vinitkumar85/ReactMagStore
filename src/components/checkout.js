@@ -145,11 +145,18 @@ class Checkout extends Component {
 
       shippingRequest = (UserData) => {
         this.setState({isAjaxProgress: true});
+        var path = `${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.guestCartID}/shipping-information`;
+        var token = CONST.MAPI.authToken;
+        var usrId = sessionStorage.getItem('userToken');
+        if(sessionStorage.getItem('userToken')){
+          path = `${CONST.MAPI.appPath}rest/V1/carts/mine/shipping-information`;
+          token = usrId;
+        }
         setTimeout(() => {
-          axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.guestCartID}/shipping-information`, 
+          axios.post(path, 
           UserData,
           {
-            headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
+            headers: {'Authorization': `Bearer ${token}`}
           }
         )
         .then((response) => {
@@ -165,12 +172,19 @@ class Checkout extends Component {
 
       paymentRequest = (UserData2) => {
         this.setState({isAjaxProgress: true});
+        var path = `${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.guestCartID}/payment-information`;
+        var token = CONST.MAPI.authToken;
+        var usrId = sessionStorage.getItem('userToken');
+        if(sessionStorage.getItem('userToken')){
+          path = `${CONST.MAPI.appPath}rest/V1/carts/mine/payment-information`;
+          token = usrId;
+        }
         setTimeout(() => {
 
-          axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.guestCartID}/payment-information`,
+          axios.post(path,
           UserData2,
           {
-            headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
+            headers: {'Authorization': `Bearer ${token}`}
           }
         )
         .then((response) => {

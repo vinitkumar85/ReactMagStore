@@ -1,223 +1,178 @@
 import React, { Component } from 'react';
-import './sass/App.scss';
+import './sass/main.scss';
 
 import axios from 'axios';
 import ProductList from './containers/productlist';
 import MiniCart from './components/minicart';
 import HeaderMain from './components/header';
 import HeaderReduced from './components/reducedheader';
-import Footer from './components/footer';
+import Footer from './components/organisms/Footer';
 import Home from './components/home';
 import Product from './containers/product';
-import Checkout from './components/checkout';
+import Login from './components/login';
 import Confirmation from './containers/confirmation';
-import { Route, HashRouter} from 'react-router-dom';
+import { Route, HashRouter } from 'react-router-dom';
 import CONST from './common/app-const';
 import Searchlist from './components/searchlist';
 import history from './common/history';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+
+import Header from './components/organisms/Header';
+import Banner from './components/molecules/Banner';
+import Reducedheader from './components/molecules/Reducedheader';
+import Aboutcontent from './components/molecules/Aboutcontent';
+import Productlist from './components/organisms/Productlist';
+import Productdetail from './components/organisms/Productdetail';
+import Checkout from './components/organisms/Checkout';
+import Sectionhead from './components/atoms/Sectionhead';
+import Orderconfirmation from './components/organisms/Orderconfirmation';
 
 import * as actionCreaters from './actions/productaction';
+import Cookies from 'js-cookie';
+
+const MainLayout = ({ children }) => (
+  <div>
+  <Header />
+    {children}
+    <div class="shubh__kit__about">
+      <div class="container">
+        {<Aboutcontent />}
+      </div>
+    </div>
+    {<Footer />}
+  </div>
+);
+
+const CheckoutLayout = ({ children }) => (
+  <div>
+  <Reducedheader />
+    {children}
+    {<Footer />}
+  </div>
+);
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      products: [],
-      searchproducts: [],
-      cartItems : [],
-      latestCartItem: [],
-      cartID: '',
-      sku: '',
-      cartError:false,
-      addingCart: false,
-      cartSucces: false
+    this.props.loadProducts(2);
+    this.props.getUserID();
+  }
+  componentWillMount() {
+    console.log('componentWillMount');
+    this.props.productsItems = [];
+    this.props.productsList = [];
+   
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps');
+    this.props.getUserID();
+
+    setTimeout(() => {
+      let username = this.props.usrID;
+    console.log("@@@@@@@@@@@@@@@@@@");
+    console.log(username);
+    if(username){
+      sessionStorage.removeItem('guestCartID');
+      this.props.getUserData(username);
+    } else {
+      this.props.getGuestCartID();
     }
-  }
+     }, 3000);
 
-  makeCartRequest = (item) => { 
-    this.setState({cartSucces: false});
-    this.setState({addingCart: true});
-   // setTimeout(() => {
-      axios.post(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.cartID}/items`, {cartItem: {sku: item.sku, qty: item.qty, quote_id: this.props.cartID}},
-      {
-        headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
-      }
-    )
-    .then((response) => {
-      this.setState({addingCart: false});
-      this.setState({cartSucces: true});
-      this.setState({cartError: false});
-      this.setState({latestCartItem: response.data});
-       setTimeout(() => {
-        this.setState({cartSucces: false});
-       }, 3000);
-      this.props.updateMiniCart(this.props.cartID)
-     // this.props.dispatch(actionCreaters.initiateCart())
-    }).catch((error) => {
-      // Error
-      if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          // console.log(error.response.data);
-          // console.log(error.response.status);
-          // console.log(error.response.headers);
-      } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          console.log(error.request);
-      } else {
-          // Something happened in setting up the request that triggered an Error
-          console.log('Error', error.message);
-      }
-      this.setState({addingCart: false});
-      this.setState({cartError: true});
-
-      setTimeout(() => {
-        this.setState({cartError: false});
-       }, 3000);
-
-      //console.log('Error', error.message);
-      //console.log(error.config);
-  });
-   // }, 200);
-  };
-
-  deleteCart = (item) =>{
-    axios.delete(`${CONST.MAPI.appPath}rest/V1/guest-carts/${this.props.cartID}/items/${item.item_id}`,
-    {
-      headers: {'Authorization': `Bearer ${CONST.MAPI.authToken}`}
-    })
-    .then(response =>{
-      this.props.updateMiniCart(this.props.cartID)
-       // this.props.dispatch(actionCreaters.initiateCart())
-      })
-  }
-
-  componentWillMount (){
-    if(sessionStorage.getItem('guestCart')){
-        this.props.updateMiniCart(sessionStorage.getItem('guestCart'))
-     }
+    
   }
 
   render() {
-    if(!sessionStorage.getItem('guestCart') || sessionStorage.getItem('guestCart') == 'undefined' || sessionStorage.getItem('guestCart')==""){
-      sessionStorage.setItem('guestCart', this.props.cartID);
-    }
-    //if(localStorage.getItem('guestCart') !== 'undefined' || localStorage.getItem('guestCart')!==""){
-     
-    //}
 
     return (
-      <div>     
-         <HashRouter>
       <div>
-
-      <Route exact path="/checkout"
-      render={props => (
-        <div className='checkout-flow'>
-          <div className="header">
-            <HeaderReduced/> 
+        <HashRouter><div>
+          <Route exact path="/"
+            render={props => (
+              <MainLayout>
+              <div>
+                <Banner />
+                <div class="shubh__kit__spacial pb-60 pt-60">
+                  <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
+                    <Sectionhead />
+                    <Productlist productsData={this.props.productsItems} />
+                  </div>
+                </div>
+                <div class="festival__spacial pb-60 pt-60">
+                  <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
+                    <Sectionhead />
+                    <Productlist productsData={this.props.productsList} />
+                  </div>
+                </div>
               </div>
-              <Checkout {...props}  guestCartID = {this.props.cartID} cartData = {this.props.cartItems} />
-              <Footer/>
-        </div>
-      )}/>
-
-      <Route exact path="/confirmation"
-      render={props => (
-        <div className='checkout-flow'>
-          <div className="header">
-            <HeaderMain history={history}/> 
+              </MainLayout>
+            )} />
+          <Route path="/product/:id"
+              render={props => (
+              <MainLayout>
+              				<div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
+                <Productdetail {...props}/>
               </div>
-              <Confirmation  {...props} />
-              <Footer/>
-        </div>
-      )}/>
+              </MainLayout>
+            )} />
 
-      <Route exact path="/"
-      render={props => (
-        <div>
-          <div className="header">
-            <HeaderMain history={history}/> 
-             <MiniCart  onDeleteCartClick = {this.deleteCart} cartData = {this.state.cartItems} latestCart = {this.state.latestCartItem} guestCartID = {this.state.cartID} isCartSuccess = {this.state.cartSucces} />
-
+          <Route path="/checkout"
+              render={props => (
+              <CheckoutLayout>
+              				<div>
+                <Checkout {...props}/>
               </div>
-              <Home {...props}/>
-              <Footer/>
-        </div>
-      )}/>
+              </CheckoutLayout>
+            )} />
 
-      <Route path="/product/:id"
-      render={props => (
-        <div>
-          <div className="header">
-            <HeaderMain history={history}/> 
-             <MiniCart  onDeleteCartClick = {this.deleteCart} cartData = {this.props.cartItems} latestCart = {this.state.latestCartItem} guestCartID = {this.state.cartID} isCartSuccess = {this.state.cartSucces} />
-
+            <Route path="/confirmation"
+              render={props => (
+              <MainLayout>
+              				<div className={`container`}>
+                <Orderconfirmation/>
               </div>
-              <Product {...props} isCartError = {this.state.cartError}  isCartAdding = {this.state.addingCart} onCartClick = {this.makeCartRequest}/>
-              <Footer/>
+              </MainLayout>
+            )} />
+
         </div>
-      )}/>
-
-      <Route 
-       path="/productlist/:catid"
-      render={props => (
-        <div>
-          <div className="header">
-            <HeaderMain history={history}/>
-            <MiniCart  onDeleteCartClick = {this.deleteCart} cartData = {this.props.cartItems} latestCart = {this.state.latestCartItem} guestCartID = {this.state.cartID} isCartSuccess = {this.state.cartSucces} />
-
-              </div>
-              <ProductList {...props} onCartClick = {this.makeCartRequest}  isCartAdding = {this.state.addingCart} />
-              <Footer/>
-        </div>
-      )}/>
-
-      <Route 
-        path="/searchlist/:term"
-      render={props => (
-        <div>
-          <div className="header">
-            <HeaderMain history={history}/>
-            <MiniCart  onDeleteCartClick = {this.deleteCart} cartData = {this.state.cartItems} latestCart = {this.state.latestCartItem} guestCartID = {this.state.cartID} isCartSuccess = {this.state.cartSucces} />
-
-              </div>
-              <Searchlist {...props} />
-              <Footer/>
-        </div>
-      )}/>
-      
-    </div>
-  </HashRouter>
-       
+        </HashRouter>
       </div>
+
     )
   }
 }
-function mapDispatchToProps(dispatch, ownProps){
-  if(!sessionStorage.getItem('guestCart') || sessionStorage.getItem('guestCart') == 'undefined' || sessionStorage.getItem('guestCart')==""){
-    dispatch(actionCreaters.initiateCart());
-  }
-    return {
-        updateMiniCart: (cid) => {
-        dispatch(actionCreaters.updateMiniCart(cid))
-    }
-}
-}
 
-function mapStateToProps(state){
-  if(state){
-    console.log(state);
-  return {
-       cartID: state.cartID ||  sessionStorage.getItem('guestCart'),
-       cartItems: state.cartItems
-      }
-      
+function mapStateToProps(state) {
+  console.log("state");
+
+console.log(state);
+  if (state) {
+    return {
+      productsItems: state.productReducer.homeProducts.firstlist,
+      productsList: state.productReducer.homeProducts.sectlist,
+      usrID: state.productReducer.usrID,
+      cartID: state.productReducer.cartID,
+      showCart: state.productReducer.showCart
+    }
   };
 }
 
+//export default App;
+const mapDispatchToProps = (dispatch) => {
+
+  //dispatch(actionCreaters.initiateCart());
+
+return {
+  loadProducts: (catId) => dispatch(actionCreaters.getHomeList(catId)),
+
+  getGuestCartID: () => dispatch(actionCreaters.initiateCart()),
+  getUserData: (id) => dispatch(actionCreaters.getUserData(id)),
+  getUserID: () => dispatch(actionCreaters.getUserID()),
+  getUpdatedCart: (cid) => dispatch(actionCreaters.updateMiniCart(cid))
+  }
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(App)
+

@@ -11,6 +11,7 @@ class ProductList extends Component {
     constructor (props){
         super(props);
         this.cartItemClick = this.cartItemClick.bind(this);
+        this.props.loadProducts(this.props.match.params.catid);
     }
 
     cartItemClick(item) {
@@ -18,8 +19,17 @@ class ProductList extends Component {
     }
 
     componentWillMount () {
+       console.log('componentWillMount');
         this.props.productsData = [];
     }
+
+    componentWillReceiveProps(nextProps){
+         console.log('componentWillReceiveProps');
+        if(nextProps.match.params.catid!==this.props.match.params.catid){
+          //Perform some operation
+          this.props.loadProducts(nextProps.match.params.catid);
+        }
+      }
 
     render (){
         const styles = {
@@ -114,6 +124,7 @@ class ProductList extends Component {
 }
 
 function mapStateToProps(state){
+     console.log("state"); 
     console.log(state); 
     if(state){
     return {
@@ -122,9 +133,9 @@ function mapStateToProps(state){
     };
 }
 
-
-function mapDispatchToProps(dispatch, ownProps){
-    dispatch(actionCreaters.getProductList(ownProps.match.params.catid));
-}
+const mapDispatchToProps = (dispatch) => ({
+    loadProducts: (catId) => dispatch(actionCreaters.getProductList(catId))
+   // dispatch(actionCreaters.getProductList(ownProps.match.params.catid));
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList)

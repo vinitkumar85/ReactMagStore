@@ -1,0 +1,111 @@
+@import "../../sass/variables";
+
+header {
+	border-bottom: 5px solid $brand-primary;
+}
+.header__top__area{
+	background:$brand-primary;
+	padding: 5px; 
+
+	.top__message{
+		color:$third-color;
+		font-size: 15px;
+    	text-transform: uppercase;
+    	font-weight: 600;
+		span{
+			color:$white;
+			margin-left: 5px;
+		}
+	}
+}
+.header__top__left{
+	line-height: 30px;
+}
+.header__top__right{
+	padding: 6px 0 0;
+}
+.top__menu{	
+	color:$primary-color;
+
+	a{
+	  color:$third-color;
+	  text-decoration: none;
+	}
+}
+.header__logo img{
+	width:200px;
+}
+.header-mid-area{
+	box-shadow: 1px 4px 16px 2px #eee;
+}
+.header__search{
+	padding: 28px 0;
+	float: left;
+}
+.cart__total{
+	padding: 40px 0;
+	float: right;
+}
+.header__mid__area__cart{
+	padding: 18px 20px;
+    border: 1px solid #fb7c51;
+	background-image: url(../../images/cart-icon.svg);
+    background-position: 9px 8px;
+    background-repeat: no-repeat;
+    background-size: 30px;
+    &:hover{
+    	color: $third-color;
+    	text-decoration: none;
+		}
+	&.header__mid__area__cart--inactive {
+		opacity: 0.6;
+		color: $third-color;
+	}
+}
+.cart__no{
+	padding: 0px 0px 0px 25px;
+    font-size: 22px;
+    font-weight: 700;
+    &:hover{
+    	color: $third-color;
+    	text-decoration: none;
+    }
+}
+.header-bottom-area{
+	padding:0;
+}
+.navbar {
+  ul {
+    
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+		color:$brand-primary;
+		font-family: 'Fjalla One', sans-serif;
+    text-transform: uppercase;
+
+    &:hover {
+		color:$primary-color;
+	}
+  }
+
+  .active{
+  	color: $brand-primary;
+    border-bottom: 6px solid $primary-color;
+    margin-bottom: -16px;
+  }
+}
+
+.userlinks__msg {
+	font-weight: bold;
+	text-transform: capitalize;
+	margin-right: 30px;
+}

@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import productReducer from './reducers/productreducer';
-import {createStore , applyMiddleware} from 'redux';
+import {createStore , applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form'
 
 import registerServiceWorker from './registerServiceWorker';
 
-let store = createStore(productReducer, {}, applyMiddleware(thunk));
+const rootReducer = combineReducers({productReducer, form: formReducer})
+
+let store = createStore(rootReducer, applyMiddleware(thunk));
 
 
 ReactDOM.render(
