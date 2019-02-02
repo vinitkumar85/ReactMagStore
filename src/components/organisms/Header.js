@@ -7,19 +7,19 @@ const Header = () => {
     const navlinks = [
 {
     name: 'Home',
-    url: '#'
+    url: '/'
 },
 {
-    name: 'Puja Item',
-    url: '#puja'
+    name: 'Item',
+    url: '/products/5'
 },
 {
-    name: 'Vastu',
-    url: '#puja'
+    name: 'Item2',
+    url: '/products/6'
 },
 {
-    name: 'Yantra',
-    url: '#puja'
+    name: 'Item3',
+    url: '/products/2'
 }
     ]
     return (

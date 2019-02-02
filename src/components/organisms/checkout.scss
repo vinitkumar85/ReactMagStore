@@ -66,8 +66,8 @@
         font-size: 20px;
 
         &.heading-form {
-            background: $third-color;
-            padding: 8px 15px;
+            border-bottom: 1px solid $brand-primary;
+            padding: 8px 0;
             margin: 20px 0;
         }
         &.inactive {

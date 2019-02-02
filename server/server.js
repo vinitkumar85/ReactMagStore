@@ -32,7 +32,39 @@ app.get('/homelist', function (req, res) {
     }));
 })
 
-app.get('/productApi/:catid', function (req, res) {
+function addCartitms(itm, guestId) {
+  var postitms = {};
+  postitms.cartItem = itm;
+  postitms.cartItem.quote_id = guestId;
+  return axios.post(`http://localhost:8888/shop/backend/rest/V1/guest-carts/${guestId}/items`, postitms,
+    {
+      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+    }
+  )
+}
+
+app.post('/addbulkitems', function (req, res) {
+  var arritems = [];
+  var id = req.body.gid;
+  var arr = req.body.productarr;
+
+  arr.map(function (item) {
+    arritems.push(addCartitms(item, id))
+  })
+  axios.all(arritems)
+    .then(axios.spread((...args) => {
+      var cartItems = [];
+      for (let i = 0; i < args.length; i++) {
+        cartItems.push(args[i].data);
+      }
+      res.send(cartItems);
+    })).
+    catch(error => {
+      res.send(error.response.data);
+    });
+})
+
+app.get('/products/:catid', function (req, res) {
   var catId = req.params.catid;
   axios.get('http://localhost:8888/shop/backend/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=' + catId + '&searchCriteria[pageSize]=8',
     {
@@ -95,6 +127,7 @@ app.get('/getGuestToken', function (req, res) {
 
 app.post('/makeCartRequest/:guestid', function (req, res) {
   var guestId = req.params.guestid;
+  console.log(req.body);
   if (guestId) {
     axios.post('http://localhost:8888/shop/backend/rest/V1/guest-carts/' + guestId + '/items', req.body,
       {
@@ -276,29 +309,29 @@ app.post('/payment/', function (req, res) {
     }
   )
     .then((response) => {
-     // res.send(response.data)
+      // res.send(response.data)
 
       axios.get(`http://localhost:8888/shop/backend/rest/default/V1/orders/${response.data}`,
-            {
-              headers: {'Authorization': `Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps`}
-            }
-          )
-          .then(result => {
-            if (result) {
-              res.send(result.data)
-           }
-          }).catch((error) => {
-            if (error.response) {
-              res.send({
-                'type': 'danger',
-                'message': error.response.data.message
-              });
-            } else if (error.request) {
-              console.log(error.request);
-            } else {
-              console.log('Error', error.message);
-            }
-          });
+        {
+          headers: { 'Authorization': `Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps` }
+        }
+      )
+        .then(result => {
+          if (result) {
+            res.send(result.data)
+          }
+        }).catch((error) => {
+          if (error.response) {
+            res.send({
+              'type': 'danger',
+              'message': error.response.data.message
+            });
+          } else if (error.request) {
+            console.log(error.request);
+          } else {
+            console.log('Error', error.message);
+          }
+        });
 
     }).catch((error) => {
       if (error.response) {

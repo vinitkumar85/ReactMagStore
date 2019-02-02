@@ -45,7 +45,7 @@ const Footer = () => {
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="copyright__text text-center"> Copyright © 2018 <a href="#">shubhkit.com</a>
+                        <div class="copyright__text text-center"> Copyright © 2018 <a href="#">abc.com</a>
                         </div>
                     </div>
                 </div>    

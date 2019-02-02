@@ -41,6 +41,14 @@ class Addtocart extends Component {
         }
     }
 
+    handleBulkClick = () => {
+        if (this.props.cartID) {
+            var itmsArr = [{ sku: 'MH01-XS-Black', qty: "1" }, { sku: '24-MB04', qty: "1" }, { sku: 'MH01-XS-Gray', qty: "1" }, { sku: '24-MG01', qty: "1" }]
+            this.props.makeBulkCartRequest(itmsArr, this.props.cartID);
+        }
+    }
+
+
     componentWillReceiveProps(nextProps) {
         this.setState({
             loading: this.props.showPreloader,
@@ -56,6 +64,7 @@ class Addtocart extends Component {
         return (
             <div> {this.props.isCartSuccess == 'true' ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
                 <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: '1' }, this.props.productData.sku) }}>{loadericon}</button>
+                {/* <br/><button class={`btn ${btnclass}`} onClick={() => { this.handleBulkClick()}}>Bulk Add</button> */}
             </div>
         )
     }
@@ -76,7 +85,8 @@ function mapStateToProps(state) {
 
 //export default Addtocart;
 const mapDispatchToProps = (dispatch) => ({
-    addtocart: (itemobj, gid) => dispatch(actionCreaters.makeCartRequest(itemobj, gid))
+    addtocart: (itemobj, gid) => dispatch(actionCreaters.makeCartRequest(itemobj, gid)),
+    makeBulkCartRequest: (itmsArr, gid) => dispatch(actionCreaters.makeBulkCartRequest(itmsArr, gid))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Addtocart)

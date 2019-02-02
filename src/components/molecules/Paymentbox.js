@@ -5,7 +5,7 @@ let Paymentbox = (props) => {
     return ( 
         <div className="row">
             <div className="col-12">
-                <h4 className="heading-form inactive">Payment Details</h4>
+                <h4 className={`heading-form ${props.isPayEnabled ? 'active' : 'inactive'} test`}>Payment Details</h4>
                 <div className={`checkout-form ${activeClass}`}>
                 <p>We are currently supporting only cash on delivery</p>
                 <div className="custom-radio"><input type="radio" name="cash" id="cash" checked/> <label for="cash">Cash on Delivery</label></div>

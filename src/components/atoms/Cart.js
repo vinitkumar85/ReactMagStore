@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import Minicartwrapper from '../organisms/Minicartwrapper';
+import {Link, HashRouter} from 'react-router-dom';
 
 
 class Cart extends React.Component {
@@ -28,6 +29,7 @@ class Cart extends React.Component {
                     <li>
                         {cartcount}
                     </li>
+                    {this.props.cartItems && this.props.cartItems.length > 0 && <li className="checkout"><HashRouter><Link  to="/checkout">Checkout</Link></HashRouter></li>}
                 </ul>
                 <Minicartwrapper isShow = {this.props.showCart} closeCart={this.toggleMiniCart.bind(this)} minicartItms={this.props.cartItems} />
             </div>

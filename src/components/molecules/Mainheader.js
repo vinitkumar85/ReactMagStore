@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from '../atoms/Logo';
-import Inputbox from '../atoms/Inputbox';
+import Search from '../atoms/Search';
 import Cart from '../atoms/Cart';
 
 import './header.scss';
@@ -17,7 +17,7 @@ const Mainheader = () => {
           </div>
           <div class="col-md-6 col-8">
             <div class="col-8 header__search">
-              <Inputbox />
+              <Search />
             </div>
             <div class="col-4 cart__total">
               <Cart />

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import CONST from '../common/app-const';
 import Cookies from 'js-cookie';
 
 export function togglemodal() {
@@ -31,7 +30,7 @@ export function getHomeList() {
 
 export function getProductList(catId) {
   return (dispatch) => {
-    axios.get('/productApi/' + catId)
+    axios.get('/products/' + catId)
       .then((response) => {
         dispatch(setAction(response.data, 'GET_PRODUCTLIST'))
       })
@@ -103,9 +102,7 @@ export const makeCartRequest = (item, usercartid) => {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
       axios.post(`/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: "1" } },
-        {
-          headers: { 'Authorization': `Bearer ${CONST.MAPI.authToken}` }
-        }
+
       )
         .then((response) => {
           dispatch(setAction(response.data, 'ADD_CART'));
@@ -125,9 +122,7 @@ export const makeCartRequest = (item, usercartid) => {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
       axios.post(`/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: "1", quote_id: usercartid } },
-        {
-          headers: { 'Authorization': `Bearer ${CONST.MAPI.authToken}` }
-        }
+
       )
         .then((response) => {
           dispatch(setAction(response.data, 'ADD_CART'));
@@ -143,6 +138,20 @@ export const makeCartRequest = (item, usercartid) => {
             })
         })
     }
+  }
+};
+
+export const makeBulkCartRequest = (prarr, usercartid) => {
+  return (dispatch) => {
+    dispatch(setAction('true', 'INIT_PRELOADER'));
+    axios.post(`/addbulkitems`, { productarr: prarr, gid: usercartid },
+    )
+      .then((resp) => {
+        axios.get(`/cartUpdate/${usercartid}`)
+          .then((response) => {
+            dispatch(setAction(response.data, 'UPDATE_CART'));
+          })
+      })
   }
 };
 
@@ -212,10 +221,10 @@ export const shippingRequest = (userdata) => {
 
     dispatch(setAction(userdata.addressInformation, 'SET_ADD_INFO'));
 
-    if(userId){
+    if (userId) {
       userdata.userId = userId;
-    } 
-    if(guestUser){
+    }
+    if (guestUser) {
       userdata.guestUser = guestUser;
     }
     axios.post('/shipping', userdata)
@@ -234,22 +243,22 @@ export const paymentRequest = (paymentdata) => {
     let userId = Cookies.get('userid');
     let guestUser = sessionStorage.getItem("guestCartID");
 
-    if(userId){
+    if (userId) {
       paymentdata.userId = userId;
-    } 
-    if(guestUser){
+    }
+    if (guestUser) {
       paymentdata.guestUser = guestUser;
     }
     axios.post('/payment', paymentdata)
       .then((response) => {
-        if(!response.data.billingAddress){
+        if (!response.data.billingAddress) {
           dispatch(setAction(response.data, 'SET_ORDER_INFO'));
           dispatch(setAction(false, 'TOGGLE_CART'));
           dispatch(setAction({}, 'UPDATE_CART'));
           sessionStorage.removeItem('guestCartID')
         }
-       // dispatch(setAction(response.data, 'SET_USR_MSG'));
-       // dispatch(setAction(true, 'ENABLE_PAYMENT_FORM'));
+        // dispatch(setAction(response.data, 'SET_USR_MSG'));
+        // dispatch(setAction(true, 'ENABLE_PAYMENT_FORM'));
       })
   }
 }

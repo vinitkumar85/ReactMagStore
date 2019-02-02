@@ -200,8 +200,9 @@ input[type="url"],
 input[type="password"],
 input[type="email"],
 input[type="file"] {
-    background: none;
-	border: 1px solid #fb7c51;
+	background: none;
+	border: none;
+	border-bottom: 1px solid #fb7c51;
     background-color: #fff;
     height: 40px;
     line-height: 40px;
@@ -288,14 +289,16 @@ input.searchbox {
     box-sizing: border-box;
     font-size: 15px;
 	background-image: url(../images/search-icon.svg);
-    background-position: 260px 4px;
+    background-position: right;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 20px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
     height: 55px;
     background-size: 55px;
-    margin-left: 45px;
+	margin-left: 45px;
+	border: none;
+	border-bottom: 1px solid #fb7c51;
 }
 
 input.zipbox {
@@ -361,6 +364,7 @@ input[type='text'], input[type='password'] {
 .shubh__kit__spacial{
 	background: #fcebe3;
 	position: relative;
+	padding-top: 20px;
 	h2{
 		color:$primary-color;
 		text-transform: uppercase;
@@ -526,9 +530,6 @@ input[type='text'], input[type='password'] {
 	background: $white;
 
 	.product__details_left{
-		.product__details__img{
-			box-shadow: 3px 3px 3px 1px #f5f5f5;
-		}
 		h4{
 			color:$gray;
 			font-size: 18px;
@@ -652,7 +653,6 @@ input[type='text'], input[type='password'] {
 .layout__light{
 	background:$white;
 	color:$black;
-	box-shadow: 2px 0px 0px 6px #fcefea;
 
 	h3{
 		color:$black;
@@ -694,7 +694,6 @@ input[type='text'], input[type='password'] {
 .footer__copyright{
 		padding:10px;
 		background:$brand-primary;
-		box-shadow: 0px -6px 0px 0px #fdeae3;
 	.copyright__text{
 		color:$copyright-color;
 		font-size:16px;
@@ -1108,5 +1107,218 @@ input[type='text'], input[type='password'] {
 	  }
 	}
   }
+
+  .order-confirmation {
+	padding: 30px 0;
+	 h1 {
+		color: $brand-primary;
+		text-transform: uppercase;
+		text-align: center;
+		font-weight: bold;
+		margin-bottom: 20px;
+	 }
+
+	 h5{
+		color: $primary-color;
+		font-size: 22px;
+		text-transform: capitalize;
+	 }
+
+	 strong {
+		color: $primary-color; 
+	 }
+  }
+  .order-infobar {
+	display: flex;
+	border-bottom: 1px solid $brand-primary;
+	justify-content: space-between;
+	padding-bottom: 10px;
+	font-weight: bold;
+	color: $dark-black;
+	margin-bottom: 15px;
+  }
+
+  .product-row {
+	display: flex;
+	border-bottom: 1px solid $body-bg;
+	padding: 8px 0;
+
+	&.product-row--header {
+		font-weight: bold;
+		color: $dark-black;
+		border-bottom-width: 2px;
+	}
+
+	&.product-row--extra {
+		padding: 15px 0;
+		border: none;
+	}
+
+	div {
+		flex-grow: 1;
+		width: 100%;
+		text-align: center;
+		line-height: 22px;
+
+		&:last-child {
+			text-align: right;
+		}
+	}
+  }
+  .red {
+	color: crimson;  
+  }
   
+
+  @-webkit-keyframes placeHolderShimmer {
+	0% {
+	  background-position: -468px 0
+	}
+	100% {
+	  background-position: 468px 0
+	}
+  }
   
+  @keyframes placeHolderShimmer {
+	0% {
+	  background-position: -468px 0
+	}
+	100% {
+	  background-position: 468px 0
+	}
+  }
+  
+
+  
+  @-webkit-keyframes placeHolderShimmer {
+	0% {
+	  background-position: -468px 0
+	}
+	100% {
+	  background-position: 468px 0
+	}
+  }
+  
+  @keyframes placeHolderShimmer {
+	0% {
+	  background-position: -468px 0
+	}
+	100% {
+	  background-position: 468px 0
+	}
+  }
+  
+
+  
+  .timeline-item {
+  display:flex;
+  padding: 30px 0;
+  }
+  
+  .animated-background {
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	-webkit-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+	-webkit-animation-name: placeHolderShimmer;
+	animation-name: placeHolderShimmer;
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+	background: #ffffff;
+	background: #fdf5f1;
+	background: -webkit-gradient(linear, left top, right top, color-stop(8%, #fdf5f1), color-stop(18%, #ffffff), color-stop(33%, #fdf5f1));
+	background: -webkit-linear-gradient(left, #fdf5f1 8%, #ffffff 18%, #fdf5f1 33%);
+	background: linear-gradient(to right, #fdf5f1 8%, #ffffff 18%, #fdf5f1 33%);
+	-webkit-background-size: 800px 104px;
+	background-size: 800px 104px;
+	height: 396px;
+	position: relative;
+  width:100%;
+  margin:0 10px;
+  }
+
+  .search-filter {
+	  background: $primary-color;
+  }
+  
+  .product-palceholder {
+	background: #fff;
+	padding: 60px 0;
+}
+.background {
+	-webkit-animation-duration: 1s;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-name: placeHolderShimmer;
+	-webkit-animation-timing-function: linear;
+	background: #f6f7f9;
+	background-image: linear-gradient(to right, #f6f7f9 0%, #e9ebee 20%, #f6f7f9 40%, #f6f7f9 100%);
+	background-repeat: no-repeat;
+	background-size: 600px 350px;
+	height: 350px;
+  width:800px;
+	position: relative;
+}
+
+.background div {
+	background: #fff;
+	height: 6px;
+	left: 0;
+	position: absolute;
+	right: 0;
+}
+div.a1 {
+	height: 350px;
+	left: 340px;
+	right: auto;
+	top: 0;
+	width: 18px;
+}
+div.a2 {
+	height: 40px;
+	left: 540px;
+	right: auto;
+	top: 0;
+	width: 348px;
+}
+div.a3 {
+	height: 30px;
+	left: 340px;
+	right: auto;
+	top: 40px;
+	width: 548px;
+}
+div.a4 {
+	height: 30px;
+	left: 340px;
+	right: auto;
+	top: 90px;
+	width: 548px;
+}
+div.a5 {
+	height: 30px;
+	left: 340px;
+	right: auto;
+	top: 140px;
+	width: 548px;
+}
+div.a6 {
+	height: 160px;
+	left: 340px;
+	right: auto;
+	top: 190px;
+	width: 548px;
+}
+
+@keyframes placeHolderShimmer{
+  
+0% {
+	background-position: -468px 0;
+}
+100% {
+	background-position: 468px 0;
+}
+}
+

@@ -41,18 +41,48 @@ header {
 .header__search{
 	padding: 28px 0;
 	float: left;
+
+	input {
+		width: 90%;
+		box-sizing: border-box;
+		font-size: 15px;
+		background-image: url(../../images/search-icon.svg);
+		background-position: right;
+		background-repeat: no-repeat;
+		padding: 12px 20px 12px 20px;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+		height: 55px;
+		background-size: 55px;
+		margin-left: 45px;
+		border: none;
+		border-bottom: 1px solid #fb7c51;
+		background-color: #fff;
+	}
 }
 .cart__total{
-	padding: 40px 0;
+	padding: 28px 0;
 	float: right;
+
+	ul {
+		display: flex;
+	}
+	.checkout a {
+		padding: 17px 20px;
+		color: #fff;
+		background: $brand-primary;
+		margin-left: 5px;
+		display: inline-block;
+	}
 }
 .header__mid__area__cart{
-	padding: 18px 20px;
+	padding: 13px 20px;
     border: 1px solid #fb7c51;
-	background-image: url(../../images/cart-icon.svg);
+		background-image: url(../../images/cart-icon.svg);
     background-position: 9px 8px;
     background-repeat: no-repeat;
-    background-size: 30px;
+		background-size: 30px;
+		display: inline-block;
     &:hover{
     	color: $third-color;
     	text-decoration: none;
