@@ -1,11 +1,4 @@
 import React, { Component } from 'react';
-import Topbar from '../molecules/Topbar';
-import Navbar from '../molecules/Navbar';
-import Mainheader from '../molecules/Mainheader';
-import Addtocart from '../atoms/Addtocart';
-import Zipbox from '../atoms/Zipbox';
-import Productname from '../atoms/Productname';
-import Productdesc from '../atoms/Productdesc';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import * as actionCreaters from '../../actions/productaction';
@@ -85,13 +78,10 @@ class Checkout extends Component {
                 "custom_attributes": []
             }
         }
-        console.log(values)
         this.props.shippingRequest(shippingData)
-        //this.props.closePopup();
     }
 
     handlePayment = () => {
-        console.log(this.props.addressInfo);
         let paymentData = {
             "email": this.props.addressInfo.billing_address.email,
             "paymentMethod": {
@@ -104,9 +94,7 @@ class Checkout extends Component {
             },
             "billingAddress": this.props.addressInfo.billing_address
         }
-        console.log("values")
         this.props.paymentRequest(paymentData)
-        //this.props.closePopup();
     }
 
     render() {
@@ -136,7 +124,6 @@ class Checkout extends Component {
 
 
 function mapStateToProps(state) {
-    console.log("checkout cart");
     if (state) {
         return {
             cartItems: state.productReducer.cartItems,

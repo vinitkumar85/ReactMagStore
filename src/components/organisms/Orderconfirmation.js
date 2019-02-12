@@ -1,9 +1,5 @@
 import React from 'react';
 import {Component} from 'react';
-import { Redirect } from 'react-router';
-//import Topbar from '../molecules/Topbar';
-//import Navbar from '../molecules/Navbar';
-//import Mainheader from '../molecules/Mainheader';
 
 class Orderconfirmation extends Component {
     constructor (props) {

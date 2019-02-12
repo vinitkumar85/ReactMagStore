@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Topbar from '../molecules/Topbar';
-import Navbar from '../molecules/Navbar';
-import Mainheader from '../molecules/Mainheader';
 import Addtocart from '../atoms/Addtocart';
 import Zipbox from '../atoms/Zipbox';
 import Productname from '../atoms/Productname';
@@ -24,13 +21,12 @@ class ProductDetail extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.match.params.id !== this.props.match.params.id) {
-			//Perform some operation
 			this.props.loadProduct(nextProps.match.params.id);
 		}
 	}
 
 	render() {
-		if (Object.keys(this.props.productInfo).length == 0) {
+		if (Object.keys(this.props.productInfo).length === 0) {
 			return <div className="product-palceholder"><div class="background">
 					<div class="a1"></div>
 					<div class="a2"></div>
@@ -71,9 +67,7 @@ class ProductDetail extends Component {
 }
 
 function mapStateToProps(state) {
-
 	if (state) {
-		console.log(state)
 		return {
 			productInfo: state.productReducer.productDetails
 		}

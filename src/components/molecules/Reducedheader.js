@@ -1,7 +1,5 @@
 import React from 'react';
 import Logo from '../atoms/Logo';
-import Inputbox from '../atoms/Inputbox';
-import Cart from '../atoms/Cart';
 
 import './header.scss';
 

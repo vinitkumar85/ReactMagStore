@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 let Paymentbox = (props) => {
     let activeClass = props.isPayEnabled ? 'active' : '';

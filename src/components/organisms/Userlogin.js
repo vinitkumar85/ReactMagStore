@@ -32,7 +32,7 @@ class Userlogin extends Component {
 
   loginRequest = (UserData) => {
     // this.setState({isAjaxProgress: true});
-    setTimeout(() => {
+   // setTimeout(() => {
       axios.post(`/userlogin/`,
         UserData
       )
@@ -43,7 +43,7 @@ class Userlogin extends Component {
           console.log("error");
           console.log(error);
         });
-    }, 200);
+   // }, 200);
   };
   render() {
     return (

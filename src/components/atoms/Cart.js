@@ -38,8 +38,6 @@ class Cart extends React.Component {
 }
 
 function mapStateToProps(state) {
-    console.log("add to cart state");
-    console.log(state);
     if (state) {
         return {
             cartItems: state.productReducer.cartItems,

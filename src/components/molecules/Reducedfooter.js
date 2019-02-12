@@ -1,7 +1,4 @@
 import React from 'react';
-//import Topbar from '../molecules/Topbar';
-//import Navbar from '../molecules/Navbar';
-//import Mainheader from '../molecules/Mainheader';
 
 const Reducedfooter = () => {
     return (

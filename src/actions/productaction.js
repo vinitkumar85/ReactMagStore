@@ -237,8 +237,6 @@ export const shippingRequest = (userdata) => {
 
 
 export const paymentRequest = (paymentdata) => {
-  console.log("paymentdata");
-  console.log(paymentdata);
   return (dispatch) => {
     let userId = Cookies.get('userid');
     let guestUser = sessionStorage.getItem("guestCartID");

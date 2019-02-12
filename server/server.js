@@ -5,6 +5,8 @@ const app = express();
 const axios = require('axios');
 const chalk = require('chalk');
 
+const appConfig = require('./config');
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -16,9 +18,9 @@ app.use(express.static(path.join(__dirname, '../build')));
 
 
 function getHomedata(catId) {
-  return axios.get('http://localhost:8888/shop/backend/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=' + catId + '&searchCriteria[pageSize]=4',
+  return axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=4`,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
 }
@@ -36,9 +38,9 @@ function addCartitms(itm, guestId) {
   var postitms = {};
   postitms.cartItem = itm;
   postitms.cartItem.quote_id = guestId;
-  return axios.post(`http://localhost:8888/shop/backend/rest/V1/guest-carts/${guestId}/items`, postitms,
+  return axios.post(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`, postitms,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
 }
@@ -66,9 +68,9 @@ app.post('/addbulkitems', function (req, res) {
 
 app.get('/products/:catid', function (req, res) {
   var catId = req.params.catid;
-  axios.get('http://localhost:8888/shop/backend/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=' + catId + '&searchCriteria[pageSize]=8',
+  axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=8`,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
     .then(response => {
@@ -82,9 +84,9 @@ app.get('/products/:catid', function (req, res) {
 
 app.get('/product/:skuid', function (req, res) {
   var skuid = req.params.skuid;
-  axios.get('http://localhost:8888/shop/backend/rest/V1/products/' + skuid,
+  axios.get(`${appConfig.basePath}/rest/V1/products/${skuid}`,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
     .then(response => {
@@ -98,7 +100,7 @@ app.get('/product/:skuid', function (req, res) {
 
 app.get('/userdata/:uid', function (req, res) {
   var uid = req.params.uid;
-  axios.get(`http://localhost:8888/shop/backend/rest/V1/customers/me`,
+  axios.get(`${appConfig.basePath}/rest/V1/customers/me`,
     {
       headers: { 'Authorization': `Bearer ${uid}` }
     }
@@ -110,9 +112,9 @@ app.get('/userdata/:uid', function (req, res) {
 })
 
 app.get('/getGuestToken', function (req, res) {
-  axios.post('http://localhost:8888/shop/backend/rest/V1/guest-carts', {},
+  axios.post(`${appConfig.basePath}/rest/V1/guest-carts`, {},
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
     .then(response => {
@@ -129,9 +131,9 @@ app.post('/makeCartRequest/:guestid', function (req, res) {
   var guestId = req.params.guestid;
   console.log(req.body);
   if (guestId) {
-    axios.post('http://localhost:8888/shop/backend/rest/V1/guest-carts/' + guestId + '/items', req.body,
+    axios.post(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`, req.body,
       {
-        headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+        headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
       }
     )
       .then(response => {
@@ -147,7 +149,7 @@ app.post('/makeCartRequest/:guestid', function (req, res) {
 
 app.post('/makeCartRequestUser/:ucartid', function (req, res) {
   var ucartid = req.params.ucartid;
-  axios.post('http://localhost:8888/shop/backend/rest/V1/carts/mine', {},
+  axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
     {
       headers: { 'Authorization': `Bearer ${ucartid}` }
     }
@@ -155,7 +157,7 @@ app.post('/makeCartRequestUser/:ucartid', function (req, res) {
     .then(result => {
       req.body.cartItem.quote_id = result.data;
       console.log(req.body);
-      axios.post('http://localhost:8888/shop/backend/rest/V1/carts/mine/items', req.body,
+      axios.post(`${appConfig.basePath}/rest/V1/carts/mine/items`, req.body,
         {
           headers: { 'Authorization': `Bearer ${ucartid}` }
         }
@@ -170,14 +172,14 @@ app.post('/makeCartRequestUser/:ucartid', function (req, res) {
 })
 
 app.post('/userlogin/', function (req, res) {
-  axios.post('http://localhost:8888/shop/backend/rest/V1/integration/customer/token', req.body,
+  axios.post(`${appConfig.basePath}/rest/V1/integration/customer/token`, req.body,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
     .then(response => {
       res.cookie('userid', response.data, { maxAge: 3600000 });
-      axios.get(`http://localhost:8888/shop/backend/rest/V1/customers/me`,
+      axios.get(`${appConfig.basePath}/rest/V1/customers/me`,
         {
           headers: { 'Authorization': `Bearer ${response.data}` }
         }
@@ -222,9 +224,9 @@ app.post('/userlogin/', function (req, res) {
 })
 
 app.post('/userregister/', function (req, res) {
-  axios.post('http://localhost:8888/shop/backend/rest/V1/customers', req.body,
+  axios.post(`${appConfig.basePath}/rest/V1/customers`, req.body,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
     .then(response => {
@@ -260,11 +262,11 @@ app.post('/shipping/', function (req, res) {
 
   var guestId = req.body.guestUser;
   var usrId = req.body.userId;
-  var path = `http://localhost:8888/shop/backend/rest/V1/guest-carts/${guestId}/shipping-information`;
+  var path = `${appConfig.basePath}/rest/V1/guest-carts/${guestId}/shipping-information`;
   var token = 'tlb5vy2barxkh8pgvlpevxr5b62nwmps';
 
   if (usrId) {
-    path = `http://localhost:8888/shop/backend/rest/V1/carts/mine/shipping-information`;
+    path = `${appConfig.basePath}/rest/V1/carts/mine/shipping-information`;
     token = usrId;
   }
   axios.post(path,
@@ -295,11 +297,11 @@ app.post('/payment/', function (req, res) {
 
   var guestId = req.body.guestUser;
   var usrId = req.body.userId;
-  var path = `http://localhost:8888/shop/backend/rest/V1/guest-carts/${guestId}/payment-information`;
+  var path = `${appConfig.basePath}/rest/V1/guest-carts/${guestId}/payment-information`;
   var token = 'tlb5vy2barxkh8pgvlpevxr5b62nwmps';
 
   if (usrId) {
-    path = `http://localhost:8888/shop/backend/rest/V1/carts/mine/payment-information`;
+    path = `${appConfig.basePath}/rest/V1/carts/mine/payment-information`;
     token = usrId;
   }
   axios.post(path,
@@ -311,9 +313,9 @@ app.post('/payment/', function (req, res) {
     .then((response) => {
       // res.send(response.data)
 
-      axios.get(`http://localhost:8888/shop/backend/rest/default/V1/orders/${response.data}`,
+      axios.get(`${appConfig.basePath}/rest/default/V1/orders/${response.data}`,
         {
-          headers: { 'Authorization': `Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps` }
+          headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
         }
       )
         .then(result => {
@@ -350,9 +352,9 @@ app.post('/payment/', function (req, res) {
 app.get('/cartUpdate/:gcartid', function (req, res) {
   var guestId = req.params.gcartid;
 
-  axios.get('http://localhost:8888/shop/backend/rest/V1/guest-carts/' + guestId + '/items',
+  axios.get(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`,
     {
-      headers: { 'Authorization': 'Bearer tlb5vy2barxkh8pgvlpevxr5b62nwmps' }
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
     }
   )
     .then(resp => {
@@ -364,7 +366,7 @@ app.post('/assignCart/:gcartid', function (req, res) {
   var guestId = req.params.gcartid;
   var uid = req.body.userToken;
 
-  axios.put(`http://localhost:8888/shop/backend/rest/V1/guest-carts/${guestId}`,
+  axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}`,
     req.body,
     {
       headers: { 'Authorization': `Bearer ${req.body.userToken}` }
@@ -372,7 +374,7 @@ app.post('/assignCart/:gcartid', function (req, res) {
   )
     .then(resp => {
       console.log(resp.data);
-      axios.post(`http://localhost:8888/shop/backend/rest/V1/carts/mine`, {},
+      axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
         {
           headers: { 'Authorization': `Bearer ${uid}` }
         }
@@ -386,7 +388,7 @@ app.post('/assignCart/:gcartid', function (req, res) {
 
     .catch(error => {
       console.log("error.resp.data");
-      axios.post(`http://localhost:8888/shop/backend/rest/V1/carts/mine`, {},
+      axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
         {
           headers: { 'Authorization': `Bearer ${uid}` }
         }
@@ -402,7 +404,7 @@ app.post('/assignCart/:gcartid', function (req, res) {
 app.get('/cartUpdateUser/:ucartid', function (req, res) {
   var ucartid = req.params.ucartid;
 
-  axios.get('http://localhost:8888/shop/backend/rest/V1/carts/mine/items',
+  axios.get(`${appConfig.basePath}/rest/V1/carts/mine/items`,
     {
       headers: { 'Authorization': `Bearer ${ucartid}` }
     }
