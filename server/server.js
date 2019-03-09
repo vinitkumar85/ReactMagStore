@@ -4,6 +4,8 @@ const path = require('path');
 const app = express();
 const axios = require('axios');
 const chalk = require('chalk');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 
 const appConfig = require('./config');
 
@@ -16,6 +18,42 @@ app.use(bodyParser.json());
 var guestId;
 app.use(express.static(path.join(__dirname, '../build')));
 
+app.use(cookieParser());
+
+// initialize express-session to allow us track the logged-in user across sessions.
+app.use(session({
+  key: 'user_sid',
+  secret: 'somerandonstuffs',
+  resave: false,
+  rolling: false,
+  saveUninitialized: false,
+  cookie: {
+      expires: 3600000
+  }
+}));
+
+var sessionChecker = (req, res, next) => {
+  //console.log(req.cookies);
+  if (req.session.user && req.cookies.user_sid) {
+    console.log("loggedin");
+    next();
+     // res.redirect('/dashboard');
+  } else {
+    console.log("not loggedin");
+      //next();
+      next();
+     // res.redirect('/loginpage');
+  }    
+};
+
+// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+app.use((req, res, next) => {
+  if (req.cookies.user_sid && !req.session.user) {
+      res.clearCookie('user_sid');        
+  }
+  next();
+});
 
 function getHomedata(catId) {
   return axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=4`,
@@ -66,7 +104,8 @@ app.post('/addbulkitems', function (req, res) {
     });
 })
 
-app.get('/products/:catid', function (req, res) {
+//app.get('/products/:catid', function (req, res) {
+app.get('/products/:catid', sessionChecker, (req, res) => {
   var catId = req.params.catid;
   axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=8`,
     {
@@ -83,10 +122,49 @@ app.get('/products/:catid', function (req, res) {
 })
 
 app.get('/product/:skuid', function (req, res) {
+  console.log(req.session);
   var skuid = req.params.skuid;
   axios.get(`${appConfig.basePath}/rest/V1/products/${skuid}`,
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+    }
+  )
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(error => {
+      res.send(error.response.data);
+    });
+
+})
+
+app.post('/removeitem/:id', function (req, res) {
+  //console.log(req.session);
+  var id = req.params.id;
+  var cid = req.body.cartid;
+  console.log(req);
+  axios.delete(`${appConfig.basePath}/rest/V1/guest-carts/${cid}/items/${id}`,
+    {
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+    }
+  )
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(error => {
+      res.send(error.response.data);
+    });
+
+})
+
+app.post('/removeitemuser/:id', function (req, res) {
+  //console.log(req.session);
+  var id = req.params.id;
+  var uid = req.body.usrid;
+  console.log(uid);
+  axios.delete(`${appConfig.basePath}/rest/V1/carts/mine/items/${id}`,
+    {
+      headers: { 'Authorization': `Bearer ${uid}`}
     }
   )
     .then(response => {
@@ -179,6 +257,10 @@ app.post('/userlogin/', function (req, res) {
   )
     .then(response => {
       res.cookie('userid', response.data, { maxAge: 3600000 });
+      req.session.user = response.data;
+
+     
+
       axios.get(`${appConfig.basePath}/rest/V1/customers/me`,
         {
           headers: { 'Authorization': `Bearer ${response.data}` }

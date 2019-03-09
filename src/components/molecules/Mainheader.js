@@ -3,7 +3,7 @@ import Logo from '../atoms/Logo';
 import Search from '../atoms/Search';
 import Cart from '../atoms/Cart';
 
-import './header.scss';
+import '../../sass/header.scss';
 
 const Mainheader = () => {
   return (
@@ -16,10 +16,10 @@ const Mainheader = () => {
             </div>
           </div>
           <div class="col-md-6 col-8">
-            <div class="col-8 header__search">
+            <div class="col-12 col-md-8 header__search">
               <Search />
             </div>
-            <div class="col-4 cart__total">
+            <div class="col-12 col-md-4 cart__total">
               <Cart />
             </div>
           </div>

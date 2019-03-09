@@ -58,13 +58,13 @@ class Userlogin extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-6">
+          <div className="col-12 col-md-6">
             <Loginbox onSubmit={this.handleSubmit} />
           </div>
-          <div className="col-1">
+          <div className="col-12 col-md-1">
             <span className="form-devider"> </span>
           </div>
-          <div className="col-5">
+          <div className="col-12 col-md-5">
             <Registerbox onSubmit={this.handleRegister} />
           </div>
         </div>

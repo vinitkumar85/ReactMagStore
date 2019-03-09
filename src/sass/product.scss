@@ -1,0 +1,118 @@
+@import "variables";
+@import "mixin";
+
+.product__wrapper{
+	padding: 10px 12px 32px 12px;
+	background: #fff;
+	position: relative;
+	border-radius: 6px;
+	float: left;
+	width: 100%;
+}
+.img__box{
+	padding: 10px 5px;
+	float: left;
+	width: 48%;
+	@include respond-above(sm) {
+		float: none;
+		width: auto;
+	}
+}
+.product__content{
+	padding-bottom: 0px;
+	float: left;
+	width: 50%;
+	text-align:left;
+	@include respond-above(sm) {
+		text-align: center;
+		float: none;
+		width: auto;
+	}
+
+	h3{
+		color:$brand-primary;
+		font-size:18px;
+		padding-top: 35px;
+		@include respond-above(sm) {
+			padding-top: 10px;
+		}
+	}
+}
+
+.item__price{
+	color:$black;
+	font-weight: 600;
+	font-size: 18px;
+	margin-bottom: 0px;		
+}	
+.add__to__cart {
+	position: absolute;
+	transform: translate(-50%, -50%);
+    left: 50%;
+    bottom: -60px;
+	text-transform: uppercase;
+
+	&:hover{
+		color:$white;
+	}
+}
+.view__more{
+	position: absolute;
+	   right: 30px;
+	top: 55%;
+
+	a{
+		background: $white;
+		padding: 12px 5px;
+		font-weight: 600;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+		box-shadow: 3px 3px 3px 1px #f6dacc;
+		text-decoration:none;
+	}
+}
+.festival__item{		
+
+    .product__wrapper{
+        padding: 10px 12px 32px 12px;
+        background: #fff;
+        position: relative;
+        border-radius: 6px;
+    }
+    .img__box{
+        padding: 10px 5px;
+    }
+    .product__content{
+        padding-bottom: 0px;
+    }
+    h3{
+        color:$gray;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size:20px;
+        text-align:center;
+    }
+    .item__price{
+        color:$gray;
+        font-weight: 600;
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 0px;		
+    }		
+    
+}
+.view__more{
+    position: absolute;
+       right: 30px;
+    top: 55%;
+
+    a{
+        background: $white;
+        padding: 12px 5px;
+        font-weight: 600;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-shadow: 3px 3px 3px 1px #f6dacc;
+        text-decoration:none;
+    }
+}

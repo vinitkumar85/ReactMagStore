@@ -12,7 +12,7 @@ const Minicart = (props) => {
             <h3 onClick = {props.onclosecart}>Mini Cart</h3>
                 <div className="minicart__box">
                 {props.minicartItms.map((itm, index) => (
-                    <Minicartitem key={index} cartItemData={itm} />
+                    <Minicartitem key={index} cartItemData={itm} onDeleteItemClick = {props.deleteCartItem} />
                 ))}
                 </div>
                 <div className="minicart__total">

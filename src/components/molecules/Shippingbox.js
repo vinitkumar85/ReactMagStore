@@ -11,13 +11,13 @@ let Shippingbox = (props) => {
                 <div className={`checkout-form ${activeClass}`}>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="fname">Firstname</label>
                                 <Field name="fname" component="input" placeholder="Firstname" className="form-control" type="text" />
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="lname">Lastname</label>
                                 <Field name="lname" component="input" placeholder="Lastname" className="form-control" type="text" />
@@ -25,13 +25,13 @@ let Shippingbox = (props) => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="phone">Phone</label>
                                 <Field name="phone" component="input" placeholder="Phone" className="form-control" type="text" />
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="city">City</label>
                                 <Field name="city" component="input" placeholder="City" className="form-control" type="text" />
@@ -39,13 +39,13 @@ let Shippingbox = (props) => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-6">
+                        <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="pincode">Pincode</label>
                                 <Field name="pincode" component="input" placeholder="Pincode" className="form-control" type="text" />
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="uemail">Email</label>
                                 <Field name="uemail" component="input" placeholder="Email" className="form-control" type="text" />

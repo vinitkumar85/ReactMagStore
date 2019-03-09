@@ -37,6 +37,34 @@ export function getProductList(catId) {
   }
 }
 
+export function guestdeleteCartItem(id, cartid) {
+  return (dispatch) => {
+    console.log(cartid);
+    console.log(id);
+    axios.post('/removeitem/' + id, { cartid: cartid })
+      .then((response) => {
+        axios.get(`/cartUpdate/${cartid}`)
+            .then((response) => {
+              dispatch(setAction(response.data, 'UPDATE_CART'));
+            })
+      })
+  }
+}
+
+export function userdeleteCartItem(id, cartid) {
+  return (dispatch) => {
+    console.log(cartid);
+    console.log(id);
+    axios.post('/removeitemuser/' + id, { usrid: cartid})
+      .then((response) => {
+        axios.get(`/cartUpdateUser/${cartid}`)
+            .then((response) => {
+              dispatch(setAction(response.data, 'UPDATE_CART'));
+            })
+      })
+  }
+}
+
 export function getProduct(productId) {
   return (dispatch) => {
     axios.get('product/' + productId)
@@ -101,7 +129,7 @@ export const makeCartRequest = (item, usercartid) => {
   if (userid) {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
-      axios.post(`/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: "1" } },
+      axios.post(`/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty } },
 
       )
         .then((response) => {
@@ -121,7 +149,7 @@ export const makeCartRequest = (item, usercartid) => {
   } else {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
-      axios.post(`/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: "1", quote_id: usercartid } },
+      axios.post(`/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty, quote_id: usercartid } },
 
       )
         .then((response) => {

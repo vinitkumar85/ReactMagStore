@@ -10,6 +10,7 @@ class Addtocart extends Component {
     }
 
     handleClick = (itm, id) => {
+        console.log(itm);
         let loader = this.state.loader.slice();
         loader.push(id);
         this.setState({
@@ -51,8 +52,8 @@ class Addtocart extends Component {
         let disbledbtn = this.props.showPreloader === 'true' ? 'btn-disabled' : '';
 
         return (
-            <div> {this.props.isCartSuccess === 'true' ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
-                <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: '1' }, this.props.productData.sku) }}>{loadericon}</button>
+            <div class="addtocart-wrapper"> {this.props.isCartSuccess === 'true' ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
+                <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: this.props.selectedQty }, this.props.productData.sku) }}>{loadericon}</button>
                 {/* <br/><button class={`btn ${btnclass}`} onClick={() => { this.handleBulkClick()}}>Bulk Add</button> */}
             </div>
         )

@@ -1,0 +1,97 @@
+@import "./variables";
+@import "mixin";
+
+input[type="search"],
+input[type="text"],
+input[type="url"],
+input[type="password"],
+input[type="email"],
+input[type="file"] {
+	background: none;
+	border: none;
+	border-bottom: 1px solid #fb7c51;
+    background-color: #fff;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
+    color: #666;
+    font-size: 14px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+input[type=number] {
+    border: none;
+    width: auto;
+    font-size: 25px;
+    font-weight: 600;
+    margin-top: -6px;
+    padding: 0 26px;
+}
+
+select {
+    border: 1px solid #d4d4d4;
+    background-color: #fff;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+    color: #666;
+    font-size: 14px;
+    box-shadow: none;
+}
+textarea {
+    background: none;
+    border: 1px solid #fb7c51;
+    background-color: #fff;
+    resize: none;
+    padding: 12px;
+    height: 140px;
+    color: #666;
+    font-size: 14px;
+	vertical-align: middle;
+	width: 100%;
+}
+input::-webkit-input-placeholder {
+	color: $secondary-color !important;
+	opacity: 0.7;
+}
+input:-moz-placeholder {
+    color: #888888;
+}
+input::-moz-placeholder {
+    color: #888888;
+}
+input:-ms-input-placeholder {
+    color: #888888;
+}
+textarea::-webkit-input-placeholder {
+    color: #888888;
+}
+textarea:-moz-placeholder {
+    color: #888888;
+}
+textarea::-moz-placeholder {
+    color: #888888;
+}
+textarea:-ms-input-placeholder {
+  color: #888888;
+}
+
+input {
+	@include placeholder {
+		color: $secondary-color;
+	  }
+	}
+
+input[type='text'], input[type='password'] {
+    border-radius: 0;
+}
+    

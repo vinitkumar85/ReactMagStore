@@ -1,40 +1,5 @@
 @import "./variables";
-
-@mixin anything{
-      font-family: "Aleo", sans-serif;
-      font-weight: 700;
-      margin: 0 0 20px 0;
-      line-height: 1.5;
-      color:#000; 
-	}
-
-	@mixin optional-at-root($sel) {
-		@at-root #{if(not &, $sel, selector-append(&, $sel))} {
-		  @content;
-		}
-	  }
-	  
-	  @mixin placeholder {
-		@include optional-at-root('::-webkit-input-placeholder') {
-		  @content;
-		}
-	  
-		@include optional-at-root(':-moz-placeholder') {
-		  @content;
-		}
-	  
-		@include optional-at-root('::-moz-placeholder') {
-		  @content;
-		}
-	  
-		@include optional-at-root(':-ms-input-placeholder') {
-		  @content;
-		}
-		@include optional-at-root('::placeholder') {
-			@content;
-		  }
-	  }
-	
+@import "mixin";
 	@font-face {
 		font-family: 'BebasNeueRegular';
 		src: url('../fonts/NexaFreeBoldwebfont.eot');
@@ -46,6 +11,7 @@
 body {
   font: 100% $font-stack;
   color: $dark-gray;
+  background: #fff;
 }
 img{
 	width:100%;
@@ -68,16 +34,7 @@ ul, ol{
         color:#fff;
     }
 }
-@mixin button-bg($bg) {
-  background: $bg;
-  &:hover {
-    background:darken($bg,8%);
-    transition: all 0.3s ease;
-  }
-  &:active {
-    background:darken($bg,25%);
-  } 
-}
+
 
 .btn {
 	 color:$white;
@@ -90,6 +47,10 @@ ul, ol{
 .btn-dark-brown {
    @include button-bg($brand-primary);
    border-radius: 0;
+   width: 100%;
+   @include respond-above(sm) {
+		width: auto;
+	}
 }
 
 .btn-blue {
@@ -101,7 +62,7 @@ ul, ol{
 }
 
 .btn-orange {
-   @include button-bg($primary-color);
+   @include button-bg($newbranddark);
 }
 .pt-2 {
     padding-top: 2px!important;
@@ -194,95 +155,6 @@ ul, ol{
     margin-right: 50px;
 }
 
-input[type="search"],
-input[type="text"],
-input[type="url"],
-input[type="password"],
-input[type="email"],
-input[type="file"] {
-	background: none;
-	border: none;
-	border-bottom: 1px solid #fb7c51;
-    background-color: #fff;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 12px;
-    color: #666;
-    font-size: 14px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-input[type=number] {
-    -moz-appearance: textfield;
-}
-input[type=number] {
-    border: none;
-    width: auto;
-    font-size: 25px;
-    font-weight: 600;
-    margin-top: -6px;
-    padding: 0 26px;
-}
-
-select {
-    border: 1px solid #d4d4d4;
-    background-color: #fff;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 10px;
-    color: #666;
-    font-size: 14px;
-    box-shadow: none;
-}
-textarea {
-    background: none;
-    border: 1px solid #fb7c51;
-    background-color: #fff;
-    resize: none;
-    padding: 12px;
-    height: 140px;
-    color: #666;
-    font-size: 14px;
-	vertical-align: middle;
-	width: 100%;
-}
-input::-webkit-input-placeholder {
-	color: $secondary-color !important;
-	opacity: 0.7;
-}
-input:-moz-placeholder {
-    color: #888888;
-}
-input::-moz-placeholder {
-    color: #888888;
-}
-input:-ms-input-placeholder {
-    color: #888888;
-}
-textarea::-webkit-input-placeholder {
-    color: #888888;
-}
-textarea:-moz-placeholder {
-    color: #888888;
-}
-textarea::-moz-placeholder {
-    color: #888888;
-}
-textarea:-ms-input-placeholder {
-  color: #888888;
-}
-
-input {
-	@include placeholder {
-		color: $secondary-color;
-	  }
-	}
 
 input.searchbox {
     width: 90%;
@@ -311,12 +183,6 @@ input.zipbox {
     height: 55px;
     background-size: 55px;
 }
-
-input[type='text'], input[type='password'] {
-	border-radius: 0;
-}
-
-
 
 .hero__image {
   
@@ -401,58 +267,7 @@ input[type='text'], input[type='password'] {
 	transition: right 0.5s;
 }
 
-.product__wrapper{
-	padding: 10px 12px 32px 12px;
-	background: #fff;
-	position: relative;
-	border-radius: 6px;
-}
-.img__box{
-	padding: 10px 5px;
-}
-.product__content{
-	padding-bottom: 0px;
 
-	h3{
-		color:$gray;
-		font-size:18px;
-		text-align:center;
-	}
-}
-
-.item__price{
-	color:$black;
-	font-weight: 600;
-	font-size: 18px;
-	text-align: center;
-	margin-bottom: 0px;		
-}	
-.add__to__cart {
-	position: absolute;
-	transform: translate(-50%, -50%);
-    left: 50%;
-    bottom: -60px;
-	text-transform: uppercase;
-
-	&:hover{
-		color:$white;
-	}
-}
-.view__more{
-	position: absolute;
-	   right: 30px;
-	top: 55%;
-
-	a{
-		background: $white;
-		padding: 12px 5px;
-		font-weight: 600;
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
-		box-shadow: 3px 3px 3px 1px #f6dacc;
-		text-decoration:none;
-	}
-}
 .festival__spacial {
 	background: #f6dacc;
 	position: relative;
@@ -480,149 +295,9 @@ input[type='text'], input[type='password'] {
 		    left: calc(50% - 45px);
 		}	
 	}
-	.festival__item{		
 
-		.product__wrapper{
-			padding: 10px 12px 32px 12px;
-			background: #fff;
-			position: relative;
-    		border-radius: 6px;
-		}
-		.img__box{
-			padding: 10px 5px;
-		}
-		.product__content{
-			padding-bottom: 0px;
-		}
-    	h3{
-			color:$gray;
-			text-transform: uppercase;
-			font-weight: 600;
-			font-size:20px;
-			text-align:center;
-		}
-		.item__price{
-			color:$gray;
-			font-weight: 600;
-		    font-size: 20px;
-		    text-align: center;
-		    margin-bottom: 0px;		
-		}		
-		
-	}
-	.view__more{
-		position: absolute;
-   		right: 30px;
-    	top: 55%;
-
-    	a{
-	    	background: $white;
-		    padding: 12px 5px;
-		    font-weight: 600;
-		    border-top-right-radius: 5px;
-		    border-bottom-right-radius: 5px;
-		    box-shadow: 3px 3px 3px 1px #f6dacc;
-		    text-decoration:none;
-    	}
-	}
 }
-.products__des{
-	background: $white;
 
-	.product__details_left{
-		h4{
-			color:$gray;
-			font-size: 18px;
-    		text-align: right;
-    		padding: 16px;
-		}
-
-	}
-	.product__details_right{
-		padding: 30px 40px;
-		h2{
-			color:$brand-primary;
-			font-size: 28px;
-			font-weight:600;
-			text-transform: uppercase;
-		}
-		h3{
-			color:$dark-black;
-			font-size: 24px;
-			font-weight:600;    		
-    		span{
-				color:$red;
-				font-size: 22px;
-				font-weight:600;
-			}				
-		}	
-		h4{
-			color:$gray;
-			font-size: 20px;
-		}
-		p{
-			color:$gray;
-			font-size: 16px;
-		}
-		.product__icon{
-			display:inline-flex;
-			.minus img{
-		   	    width: 40px;
-			}
-			.plus img{
-			    width: 40px;
-			}
-		}
-		.addtocart__large{
-			margin-left: 90px;
-		    margin-top: -5px;
-		    padding: 12px 110px;
-		    text-transform: uppercase;
-		    font-weight: 600;
-		    border-radius: 0;
-		    &:hover{
-		    	color:$third-color;
-		    	text-decoration:none;
-		    }
-		}
-		.zipvalidator {
-		  width: 100%;
-		  position: relative;
-		  margin-bottom: 30px;
-			.zipbutton {
-			  margin-left: -50px;
-			  width: 90px;
-			  height: 55px;
-			  background: #f8aa90;
-			  text-align: center;
-			  color: #fff;
-			  cursor: pointer;
-			  font-size: 15px;
-			  border: 1px solid #f8aa90;
-			}
-		}
-		.description{
-			padding:30px 0;
-			h4{
-				color:$brand-primary;
-				font-size: 20px;
-			    font-weight: 600;
-			    border-bottom: 3px solid;
-			    padding-bottom: 10px;
-			}
-			p{
-				color:$black;
-				font-size: 16px;
-			}
-			ul{
-				padding: 0;
-				li{
-					padding:8px 0
-				}
-			}
-		}
-	}
-}
 .banner {
   width: 100%;
   height: 300px;
@@ -714,7 +389,8 @@ input[type='text'], input[type='password'] {
 		}
 		.header__top__right{
 			float:none!important;
-			text-align: center;
+			text-align: right;
+			padding: 0;
 		}
 	}
 	.header__logo{
@@ -783,23 +459,28 @@ input[type='text'], input[type='password'] {
 	bottom: 0;
 	margin: auto;
 	background-color: rgba(0,0,0, 0.75);
-	z-index: 999;
+	z-index: 1009;
   }
   .popup_inner {
 	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	margin: auto;
 	z-index: 9999;
+
+	@include respond-above(sm) {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: auto;
+	}
   }
 
   .push-section {
-    -webkit-transform:translate3d(-150px, 0, 0);
-    -moz-transform:translate3d(-150px, 0, 0);
-    -o-transform:translate3d(-150px, 0, 0);
-    transform:translate3d(-150px, 0, 0);
-	width: calc(100% - 150px);
+	@include respond-above(sm) {
+		-webkit-transform:translate3d(-150px, 0, 0);
+		-moz-transform:translate3d(-150px, 0, 0);
+		-o-transform:translate3d(-150px, 0, 0);
+		transform:translate3d(-150px, 0, 0);
+		width: calc(100% - 150px);
+	}
 }
 .minicart-wrapper {
 	background: #fdf5f1;
@@ -826,6 +507,7 @@ input[type='text'], input[type='password'] {
 .minicart-item {
 	border-bottom: 1px solid $third-color;
 	padding: 10px 20px;
+	position: relative;
 
 	.minicart-item__name {
 		color: $brand-primary;
@@ -845,7 +527,43 @@ input[type='text'], input[type='password'] {
 		font-size: 15px;
 		text-align: right;
 	}
+	&__remove {
+		position: absolute;
+		text-indent: -9999px;
+		background-color: transparent;
+		height: 16px;
+		width: 16px;
+		border: 1px solid red;
+		border-radius: 50%;
+	}
 }
+.closebtn {
+	position: absolute;
+	padding: 1px;
+	right: 22px;
+	top: 5px;
+	width: 16px;
+	height: 16px;
+	opacity: 0.3;
+	cursor: pointer;
+  }
+  .closebtn:hover {
+	opacity: 1;
+  }
+  .closebtn:before, .closebtn:after {
+	position: absolute;
+	left: 6px;
+	content: ' ';
+	height: 12px;
+	width: 2px;
+	background-color: #333;
+  }
+  .closebtn:before {
+	transform: rotate(45deg);
+  }
+  .closebtn:after {
+	transform: rotate(-45deg);
+  }
 .minicart__box {
 	height: 50vh;
 	overflow: auto;
@@ -866,18 +584,25 @@ input[type='text'], input[type='password'] {
 	margin-top: 10px;
 }
 .modal-dialog {
-	width: 700px;
-	max-width: 700px;
+	width: 98%;
+	@include respond-above(sm) {
+		width: 700px;
+		max-width: 700px;
+	}
 }
 .modal-content {
 	border-radius: 0;
-	width: 700px;
+	width: 98%;
 	background: $body-bg;
 	border: none;
 
+	@include respond-above(sm) {
+		width: 700px;
+	}
+
 	h4 {
 		color: $brand-primary;
-		font-size: 18px;
+		font-size: 22px;
 		font-family: $font-stack;
 		text-transform: uppercase;	
 	}
@@ -888,6 +613,11 @@ input[type='text'], input[type='password'] {
 }
 .modal-body {
 	padding: 20px;
+	height: 550px;
+	overflow: auto;
+	@include respond-above(sm) {
+		height: auto;
+	}
 }
 .modal-title {
 	color: $brand-primary;
@@ -904,9 +634,12 @@ input[type='text'], input[type='password'] {
 .form-devider {
 	display: block;
 	width: 1px;
-	height: 100%;
+	height: 50px;
 	margin: 0 auto;
-	background: $brand-primary;
+	@include respond-above(sm) {
+		height: 100%;
+		background: $brand-primary;
+	}
 
 /* 	&::before {
 		content:" ";
@@ -923,8 +656,6 @@ input[type='text'], input[type='password'] {
 }
 
 .btn-loader {
-
-    
     &:before,
     &:after {
       content: "";
@@ -1027,7 +758,7 @@ input[type='text'], input[type='password'] {
 		font-size: 18px;
 		color: #fff;
 	}
-	p {
+	p.flyer__info {
 		font-size: 13px;
 		color: #fff;
 		margin: 0;
@@ -1109,13 +840,18 @@ input[type='text'], input[type='password'] {
   }
 
   .order-confirmation {
-	padding: 30px 0;
+	padding-top: 30px;
+	padding-bottom: 30px;
 	 h1 {
 		color: $brand-primary;
 		text-transform: uppercase;
-		text-align: center;
+		text-align: left;
 		font-weight: bold;
 		margin-bottom: 20px;
+
+		@include respond-above(sm) {
+			text-align: center;
+		}
 	 }
 
 	 h5{
@@ -1233,10 +969,14 @@ input[type='text'], input[type='password'] {
 	background: linear-gradient(to right, #fdf5f1 8%, #ffffff 18%, #fdf5f1 33%);
 	-webkit-background-size: 800px 104px;
 	background-size: 800px 104px;
-	height: 396px;
+	height: 240px;
 	position: relative;
-  width:100%;
-  margin:0 10px;
+	width:100%;
+	margin:5px 0;
+
+	@include respond-above(md) {
+		height: 390px;
+	}
   }
 
   .search-filter {
@@ -1320,5 +1060,26 @@ div.a6 {
 100% {
 	background-position: 468px 0;
 }
+}
+
+.qtybox {
+	border: none;
+	line-height: 40px;
+	-webkit-appearance: none; 
+	font-size: 22px;
+}
+.qty-ctr {
+	background: $newbrandlt;
+	font-size: 30px;
+	color: $brand-primary;
+	text-align: center;
+	height: 40px;
+	width: 40px;
+	line-height: 40px;
+	border-radius: 50%;
+	display: inline-block;
+	border: none;
+	margin: 0 3px;
+	cursor: pointer;
 }
 

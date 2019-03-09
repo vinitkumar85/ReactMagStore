@@ -1,25 +1,21 @@
 import React from 'react';
 import Navitem from '../atoms/Navitem'
+import '../../sass/nav.scss';
 
 const Topbar = (props) => {
     return (
         <div class="header-bottom-area">
-            <nav class="navbar navbar-expand-lg navbar-light scrolling-navbar">
-                <div class="container">
-                    <div class="row">
-                        <div class="navbar-header">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="navbarCollapse">
-                            <ul class="navbar-nav justify-content-end">
-                                {props.navLinks.map((link, index) => (
-                                    <Navitem key={index} linkItem={link} />
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
+            <nav role="navigation" class="navbar navbar-expand-sm navbar-light scrolling-navbar">
+                <div id="menuToggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu" class="navbar-nav justify-content-end">
+                        {props.navLinks.map((link, index) => (
+                            <Navitem key={index} linkItem={link} />
+                        ))}
+                    </ul>
                 </div>
             </nav>
         </div>

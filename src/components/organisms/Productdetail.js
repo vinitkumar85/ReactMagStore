@@ -5,6 +5,8 @@ import Productname from '../atoms/Productname';
 import Productdesc from '../atoms/Productdesc';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
+import Quantity from '../atoms/Quantity';
+import '../../sass/pdp.scss';
 
 class ProductDetail extends Component {
 	constructor(props) {
@@ -13,6 +15,11 @@ class ProductDetail extends Component {
 		this.state = {
 			qty: 1
 		}
+	}
+
+	changeQty = (qty) => {
+		this.setState({ qty: qty });
+		console.log(qty);
 	}
 
 	componentWillMount() {
@@ -28,13 +35,13 @@ class ProductDetail extends Component {
 	render() {
 		if (Object.keys(this.props.productInfo).length === 0) {
 			return <div className="product-palceholder"><div class="background">
-					<div class="a1"></div>
-					<div class="a2"></div>
-					<div class="a3"></div>
-					<div class="a4"></div>
-					<div class="a5"></div>
-					<div class="a6"></div>
-				</div></div>
+				<div class="a1"></div>
+				<div class="a2"></div>
+				<div class="a3"></div>
+				<div class="a4"></div>
+				<div class="a5"></div>
+				<div class="a6"></div>
+			</div></div>
 		}
 		return (
 			Object.keys(this.props.productInfo).length > 0 && this.props.productInfo.product && <div class="products__des pb-60 pt-60">
@@ -50,13 +57,11 @@ class ProductDetail extends Component {
 						<h4>MRP <i class="fas fa-rupee-sign"></i> 1000 (inclusive of all taxs) </h4>
 						<h3><i class="fas fa-rupee-sign"></i> 1000 <span>330.00</span></h3>
 						<Zipbox />
-						<div class="product__icon">
-							<div class="minus"> <img src="images/minus.jpg" /></div>
-							<input type="number" name="quant" class="input-number" value="1" min="1" max="10" />
-							<div class="plus">	<img src="images/plus.jpg" /> </div>
-
-							<Addtocart pagetype="pdp" productData={this.props.productInfo.product} />
-						</div>
+						<div className="row">
+							<div className="col-12 col-md-6">
+							<Quantity productQty = {this.changeQty}/>
+							</div>
+							<div className="col-12 col-md-6"><Addtocart pagetype="pdp" productData={this.props.productInfo.product} selectedQty={this.state.qty} /></div></div>
 						<Productdesc prdesc={this.props.productInfo.productDesc} />
 					</div>
 

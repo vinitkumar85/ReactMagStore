@@ -27,7 +27,7 @@ class Search extends Component {
                // URLParams={true}
                 showClear={true}
                 categoryField="brand.raw"
-                placeholder="Search for products"
+                placeholder="Search products"
                 onValueSelected= {redirect}
                 //value= {this.props.match.params.term}
               />

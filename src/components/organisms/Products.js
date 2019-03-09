@@ -22,18 +22,22 @@ class Products extends Component {
 
     render() {
         if (Object.keys(this.props.products).length === 0) {
-            return <div class="timeline-item">
-                <div class="animated-background">
-
+            return <div class="row">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
                 </div>
-                <div class="animated-background">
-
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
                 </div>
-                <div class="animated-background">
-
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
                 </div>
-                <div class="animated-background">
-
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
                 </div>
             </div>
         }

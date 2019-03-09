@@ -13,7 +13,7 @@ class Orderconfirmation extends Component {
         let cusname = this.props.location.state.orderData.customer_firstname ? this.props.location.state.orderData.customer_firstname :this.props.location.state.orderData.billing_address.firstname;
         return (
             <div class="row">
-                <div class="col-sm-12 order-confirmation">
+                <div class="col-12 order-confirmation">
                     <h1>Thanks for your Order</h1>
                     <h5>Hi {cusname} </h5>
                    

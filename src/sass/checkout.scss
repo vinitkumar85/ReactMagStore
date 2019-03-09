@@ -1,8 +1,12 @@
-@import "../../sass/variables";
+@import "variables";
+@import "mixin";
 
 .checkout-container {
-	width: 1200px;
-	margin: 0 auto;
+    margin: 0 auto;
+    
+    @include respond-above(md) {
+		width: 1200px;
+	}
 
 	.minicart-wrapper {
 		position: static;
@@ -39,10 +43,12 @@
 .checkout__content {
     background: $body-bg;
     min-height: 600px;
-    margin-left: -20px;
     padding: 40px;
     color: $brand-primary;
     padding-bottom: 40px;
+    @include respond-above(md) {
+        margin-left: -20px;
+	}
 
     label {
         font-size: 13px;

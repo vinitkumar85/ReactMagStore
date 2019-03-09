@@ -7,7 +7,7 @@ import Checkoutentry from '../molecules/Checkoutentry';
 import Shippingbox from '../molecules/Shippingbox';
 import Paymentbox from '../molecules/Paymentbox';
 import Cookies from 'js-cookie';
-import './checkout.scss';
+import '../../sass/checkout.scss';
 
 class Checkout extends Component {
     constructor(props) {
@@ -109,8 +109,8 @@ class Checkout extends Component {
             <div className="checkout-container">
                 <p>{this.props.usrMsg.message}</p>
                 <div className="row">
-                    <div className="col-4"><Minicartwrapper isShow='true' isOrderSummary='true' minicartItms={this.props.cartItems} /></div>
-                    <div className="col-8 checkout__content">
+                    <div className="col-12 col-md-4"><Minicartwrapper isShow='true' isOrderSummary='true' minicartItms={this.props.cartItems} /></div>
+                    <div className="col-12 col-md-8 checkout__content">
                         <Checkoutentry userType={this.props.userFlow} />
                         <Shippingbox userType={this.props.userFlow} onSubmit={this.handleShipping} />
                         <Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} />
