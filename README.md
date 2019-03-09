@@ -11,6 +11,4 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-## DEMO
-[Click here for working demo](http://www.pannalive.com)
 
