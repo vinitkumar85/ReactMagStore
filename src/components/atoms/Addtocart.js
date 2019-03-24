@@ -7,22 +7,28 @@ class Addtocart extends Component {
     constructor(props) {
         super(props);
         this.state = { loader: [], loading: 'false', isCartSuccess: 'false' };
+        this.loadericon = <span>Add to Cart</span>;
     }
 
     handleClick = (itm, id) => {
         console.log(itm);
-        let loader = this.state.loader.slice();
-        loader.push(id);
-        this.setState({
-            loader: loader
-        });
+        this.loadericon = <span>Adding <i class="fa fa-spinner fa-spin"></i></span>;
 
         this.props.showPreloader = 'true';
         this.setState({
             loading: 'true',
             isCartSuccess: 'true'
-        });
+        }, () => {
+            this.loadericon = this.state.loading === 'true' && <span>Adding <i class="fa fa-spinner fa-spin"></i></span>;
+           });
 
+        console.log("userid####");
+        console.log(this.props.usrID);
+
+        console.log("cartID####");
+        console.log(this.props.cartID);
+
+        
         if (this.props.usrID) {
             this.props.addtocart(itm, this.props.usrID);
         }
@@ -41,19 +47,28 @@ class Addtocart extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            loading: this.props.showPreloader,
+            loading: nextProps.showPreloader,
             isCartSuccess: nextProps.isCartSuccess
         });
+
+           if(nextProps.showPreloader === 'false'){
+                this.loadericon = <span>Add to Cart</span>;
+           }
     }
 
     render() {
         const btnclass = this.props.pagetype === 'pdp' ? 'btn-dark-brown addtocart__large' : 'btn-orange add__to__cart';
-        const loadericon = this.state.loading === 'true' && this.props.showPreloader === 'true' ? <span>Adding <i class="fa fa-spinner fa-spin"></i></span> : <span>Add to Cart</span>;
+       
         let disbledbtn = this.props.showPreloader === 'true' ? 'btn-disabled' : '';
 
+        console.log(this.state.loading);
+        console.log(this.loadericon);
+
         return (
-            <div class="addtocart-wrapper"> {this.props.isCartSuccess === 'true' ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
-                <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: this.props.selectedQty }, this.props.productData.sku) }}>{loadericon}</button>
+            <div class="addtocart-wrapper"> {Object.keys(this.props.recentItem).length > 0 ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
+
+            {/* <Flyer itemdata='{"item_id":1151,"sku":"24-UG06","qty":2,"name":"Affirm Water Bottle ","price":7,"product_type":"simple","quote_id":"2401"}' msg="Added" /> */}
+                <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: this.props.selectedQty }, this.props.productData.sku) }}>{this.loadericon}</button>
                 {/* <br/><button class={`btn ${btnclass}`} onClick={() => { this.handleBulkClick()}}>Bulk Add</button> */}
             </div>
         )

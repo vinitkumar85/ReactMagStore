@@ -13,6 +13,23 @@ export function setUserFlow(option) {
   }
 }
 
+export function checkpin(code) {
+  return (dispatch) => {
+    let pinArr = ['110096','110032','110053'];
+    console.log(code);
+    if(pinArr.includes(code)){
+      dispatch(setAction(`We deliver at ${code} and COD available for this location. You are eligible for same day delivery if order before 11AM`, 'SET_DEL_MSG'));
+      dispatch(setAction(code, 'SET_PINCODE')); 
+      console.log(12);
+    }
+    else {
+      dispatch(setAction(`Sorry. we do not deliver at ${code}. COD only availble for East Delhi`, 'SET_DEL_MSG'));
+      dispatch(setAction(null, 'SET_PINCODE'));
+      console.log(111);
+    }  
+  }
+}
+
 export function toggleMiniCart() {
   return (dispatch) => {
     dispatch(setAction(null, 'TOGGLE_CART'))
@@ -44,9 +61,11 @@ export function guestdeleteCartItem(id, cartid) {
     axios.post('/removeitem/' + id, { cartid: cartid })
       .then((response) => {
         axios.get(`/cartUpdate/${cartid}`)
-            .then((response) => {
-              dispatch(setAction(response.data, 'UPDATE_CART'));
-            })
+          .then((response) => {
+            dispatch(setAction(response.data, 'UPDATE_CART'));
+            dispatch(setAction('open', 'CART_STATUS'));
+            dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
+          })
       })
   }
 }
@@ -55,12 +74,15 @@ export function userdeleteCartItem(id, cartid) {
   return (dispatch) => {
     console.log(cartid);
     console.log(id);
-    axios.post('/removeitemuser/' + id, { usrid: cartid})
+    axios.post('/removeitemuser/' + id, { usrid: cartid })
       .then((response) => {
         axios.get(`/cartUpdateUser/${cartid}`)
-            .then((response) => {
-              dispatch(setAction(response.data, 'UPDATE_CART'));
-            })
+          .then((response) => {
+            console.log(2);
+            dispatch(setAction(response.data, 'UPDATE_CART'));
+            dispatch(setAction('open', 'CART_STATUS'));
+            dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
+          })
       })
   }
 }
@@ -69,7 +91,7 @@ export function getProduct(productId) {
   return (dispatch) => {
     axios.get('product/' + productId)
       .then((response) => {
-        var productImg, productDesc;
+        var productImg, productDesc, productSP, productCost;
         response.data.custom_attributes.map((item) => {
           if (item.attribute_code == 'image') {
             productImg = item.value
@@ -77,11 +99,19 @@ export function getProduct(productId) {
           if (item.attribute_code == 'description') {
             productDesc = item.value
           }
+          if (item.attribute_code == 'special_price') {
+            productSP = parseFloat(item.value).toFixed(2);
+          }
+          if (item.attribute_code == 'cost') {
+            productCost = parseFloat(item.value).toFixed(2);
+          }
         })
         var productData = {
           product: response.data,
           productImg: productImg,
-          productDesc: productDesc
+          productDesc: productDesc,
+          productCost: productCost,
+          productSP: productSP
         }
         dispatch(setAction(productData, 'GET_PRODUCT'))
       })
@@ -103,7 +133,9 @@ export function initiateCart() {
       dispatch(setAction(guestUser, 'GET_CARTID'));
       axios.get(`/cartUpdate/${guestUser}`)
         .then((response) => {
-          dispatch(setAction(response.data, 'UPDATE_CART'))
+          dispatch(setAction(response.data, 'UPDATE_CART'));
+          dispatch(setAction('open', 'CART_STATUS'));
+          dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
         })
     }
   }
@@ -124,10 +156,13 @@ export function initiateCart() {
 }
 
 export const makeCartRequest = (item, usercartid) => {
+  
 
-  let userid = Cookies.get('userid');
-  if (userid) {
+  let userid = Cookies.get('usertype');
+  console.log("sfsf");
+  if (Cookies.get('usertype') === "loggeduser") {
     return (dispatch) => {
+      dispatch(setAction({}, 'ADD_CART'));
       dispatch(setAction('true', 'INIT_PRELOADER'));
       axios.post(`/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty } },
 
@@ -139,16 +174,34 @@ export const makeCartRequest = (item, usercartid) => {
           dispatch(setAction(true, 'CART_SUCCESS'));
           setTimeout(function () {
             dispatch(setAction(false, 'CART_SUCCESS'));
-          }, 3000)
-          axios.get(`/cartUpdateUser/${usercartid}`)
+          }, 3000);
+          if(response.data.status ==='error-401'){
+            console.log("Failed php");
+            dispatch(setAction(null, 'GET_USR_ID'));
+            dispatch(setAction([], 'GET_USER_DATA'));
+            dispatch(setAction({'msg':'You are not authorized. Please login again !!'}, 'SET_USR_MSG'));
+            dispatch(setAction([], 'UPDATE_CART'));
+            dispatch(setAction(false, 'TOGGLE_CART'));
+          }
+          else if(response.data.message){
+            dispatch(setAction({'msg':response.data.message}, 'SET_USR_MSG'));
+          }
+          else {
+            axios.get(`/cartUpdateUser/${usercartid}`)
             .then((response) => {
-              dispatch(setAction(response.data, 'UPDATE_CART'));
+              if(response.data.status !=='error-401'){
+                dispatch(setAction(response.data, 'UPDATE_CART'));
+                dispatch(setAction(true, 'TOGGLE_CART'));
+              } 
+              
             })
+          }
         })
     }
   } else {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
+      dispatch(setAction({}, 'ADD_CART'));
       axios.post(`/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty, quote_id: usercartid } },
 
       )
@@ -156,13 +209,19 @@ export const makeCartRequest = (item, usercartid) => {
           dispatch(setAction(response.data, 'ADD_CART'));
           dispatch(setAction(response.data.sku, 'GET_ITEM_ID'));
           dispatch(setAction('false', 'INIT_PRELOADER'));
-          dispatch(setAction('true', 'CART_SUCCESS'));
+          dispatch(setAction(true, 'CART_SUCCESS'));
           setTimeout(function () {
-            dispatch(setAction('false', 'CART_SUCCESS'));
-          }, 3000)
+            dispatch(setAction(false, 'CART_SUCCESS'));
+          }, 3000);
+          if(response.data.message){
+            dispatch(setAction({'msg':response.data.message}, 'SET_USR_MSG'));
+          }
           axios.get(`/cartUpdate/${usercartid}`)
             .then((response) => {
               dispatch(setAction(response.data, 'UPDATE_CART'));
+              dispatch(setAction('open', 'CART_STATUS'));
+              dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
+              dispatch(setAction(true, 'TOGGLE_CART'));
             })
         })
     }
@@ -187,7 +246,8 @@ export const updateMiniCart = (gcartid) => {
   return (dispatch) => {
     axios.get(`/cartUpdate/${gcartid}`)
       .then((response) => {
-        dispatch(setAction(response.data, 'UPDATE_CART'))
+        dispatch(setAction(response.data, 'UPDATE_CART'));
+        dispatch(setAction('open', 'CART_STATUS'));
       })
   }
 }
@@ -197,6 +257,7 @@ export const processloginRequest = (userdata) => {
   return (dispatch) => {
     axios.post('/userlogin', userdata)
       .then((response) => {
+        console.log("userlogin success");
         if (response.data.message) {
           dispatch(setAction(response.data, 'SET_USR_MSG'));
           return false;
@@ -205,10 +266,12 @@ export const processloginRequest = (userdata) => {
         dispatch(setAction(false, 'UPDATE_MODAL'));
         dispatch(setAction(response.data, 'GET_USER_DATA'));
         dispatch(setAction('signeduser', 'SET_USR_FLOW'));
-        let userid = Cookies.get('userid');
+        let userid = "siteuser";
+        console.log("after loign:",userid);
         dispatch(setAction(userid, 'GET_USR_ID'));
 
         if (guestCartID) {
+          console.log("assign guestCartID");
           axios.post(`/assignCart/${guestCartID}`, {
             "customerId": response.data.id,
             "storeId": response.data.store_id,
@@ -217,15 +280,22 @@ export const processloginRequest = (userdata) => {
             .then((result) => {
               axios.get(`/cartUpdateUser/${userid}`)
                 .then((result) => {
-                  dispatch(setAction(result.data, 'UPDATE_CART'))
+                  console.log(41);
+                  if(result.data.status !=='error-401'){
+                    dispatch(setAction(result.data, 'UPDATE_CART'))
+                  }
                 })
             })
         } else {
-          axios.get(`/assignCart/${userid}`)
+          console.log("assign usrid");
+          axios.post(`/assignCart/${userid}`)
             .then((result) => {
               axios.get(`/cartUpdateUser/${userid}`)
                 .then((result) => {
-                  dispatch(setAction(result.data, 'UPDATE_CART'))
+                  console.log(5);
+                  if(result.data.status !=='error-401'){
+                    dispatch(setAction(result.data, 'UPDATE_CART'))
+                  }
                 })
             })
         }
@@ -257,8 +327,14 @@ export const shippingRequest = (userdata) => {
     }
     axios.post('/shipping', userdata)
       .then((response) => {
-        dispatch(setAction(response.data, 'SET_USR_MSG'));
-        dispatch(setAction(true, 'ENABLE_PAYMENT_FORM'));
+        if(response.data.message){
+          dispatch(setAction(response.data, 'SET_USR_MSG'));
+        }
+        if(response.data.totals){
+          dispatch(setAction(true, 'ENABLE_PAYMENT_FORM'));
+          dispatch(setAction('freeze', 'CART_STATUS'));
+          dispatch(setAction(response.data.totals, 'GET_SHIPPING_PRICES'));
+        }
       })
   }
 }
@@ -290,31 +366,39 @@ export const paymentRequest = (paymentdata) => {
 }
 
 export const getUserData = (uid) => {
+  console.info("uid");
+  console.info(uid);
   return (dispatch) => {
     axios.get(`/userdata/${uid}`)
       .then((response) => {
         dispatch(setAction(response.data, 'GET_USER_DATA'));
+        dispatch(setAction(uid, 'GET_USR_ID'));
         axios.get(`/cartUpdateUser/${uid}`)
           .then((response) => {
+            console.log(1);
             dispatch(setAction(response.data, 'UPDATE_CART'))
           })
       })
   }
 }
 
-export const getUserID = () => {
-  let userId = Cookies.get('userid')
+/* export const getUserID = () => {
+  let userId = Cookies.get('userid');
+  console.log(userId);
   return (dispatch) => {
     dispatch(setAction(userId, 'GET_USR_ID'))
   }
-}
+} */
 
 export const logOut = () => {
-  Cookies.remove('userid');
+  //Cookies.remove('usertype');
   return (dispatch) => {
-    dispatch(setAction(null, 'GET_USR_ID'));
-    dispatch(setAction([], 'GET_USER_DATA'));
-    dispatch(setAction([], 'UPDATE_CART'));
-    dispatch(setAction(false, 'TOGGLE_CART'));
+    axios.get('/logout')
+      .then((response) => {
+        dispatch(setAction(null, 'GET_USR_ID'));
+        dispatch(setAction([], 'GET_USER_DATA'));
+        dispatch(setAction([], 'UPDATE_CART'));
+        dispatch(setAction(false, 'TOGGLE_CART'));
+      })
   }
 }

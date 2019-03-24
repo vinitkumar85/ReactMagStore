@@ -63,6 +63,7 @@ ul, ol{
 
 .btn-orange {
    @include button-bg($newbranddark);
+   transition: all 0.3s ease-in;
 }
 .pt-2 {
     padding-top: 2px!important;
@@ -173,15 +174,17 @@ input.searchbox {
 	border-bottom: 1px solid #fb7c51;
 }
 
-input.zipbox {
-    width: 60%;
-    box-sizing: border-box;
-    font-size: 15px;
-    padding: 12px 20px 12px 20px;
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
-    height: 55px;
-    background-size: 55px;
+.zipvalidator {
+	input.zipbox {
+		width: 60%;
+		box-sizing: border-box;
+		font-size: 15px;
+		padding: 12px 20px 12px 20px;
+		-webkit-transition: width 0.4s ease-in-out;
+		transition: width 0.4s ease-in-out;
+		height: 55px;
+		background-size: 55px;
+	}
 }
 
 .hero__image {
@@ -233,15 +236,12 @@ input.zipbox {
 	padding-top: 20px;
 	h2{
 		color:$primary-color;
-		text-transform: uppercase;
-		font-weight: 600;
-		font-size:30px;
-		padding-bottom: 8px;
+		font-weight: 200;
+		font-size:28px;
 		text-align:center;
 
 		span{
 			color:$brand-primary;
-			text-transform: uppercase;
 			font-weight: 600;
 			font-size:30px;
 		}
@@ -251,7 +251,7 @@ input.zipbox {
 		    width: 90px;
 		    height: 3px;
 		    background-color: $primary-color;
-		    bottom: 8px;
+		    bottom: -8px;
 		    left: calc(50% - 45px);
 		}		
 	}
@@ -271,17 +271,14 @@ input.zipbox {
 .festival__spacial {
 	background: #f6dacc;
 	position: relative;
-	h2{
+	h2 {
 		color:$primary-color;
-		text-transform: uppercase;
-		font-weight: 600;
-		font-size:30px;
-		padding-bottom: 8px;
+		font-weight: 200;
+		font-size:28px;
 		text-align:center;
 
 		span{
 			color:$brand-primary;
-			text-transform: uppercase;
 			font-weight: 600;
 			font-size:30px;
 		}
@@ -291,7 +288,7 @@ input.zipbox {
 		    width: 90px;
 		    height: 3px;
 		    background-color: $primary-color;
-		    bottom: 8px;
+		    bottom: -8px;
 		    left: calc(50% - 45px);
 		}	
 	}
@@ -341,7 +338,7 @@ input.zipbox {
 		li{padding: 3px 0;}
 		a {
 		    text-decoration: none;
-		    font-size: 18px;
+		    font-size: 15px;
 		    font-weight: 400;
 		    color:$gray;
 
@@ -494,6 +491,12 @@ input.zipbox {
 	height:100%;
 	z-index: 999;
 
+	.cart-page & {
+		position: static;
+		width: 100%;
+		background: $white;
+	}
+
 	h3{
 		background: $primary-color;
 		padding-left: 20px;
@@ -568,6 +571,11 @@ input.zipbox {
 	height: 50vh;
 	overflow: auto;
 	min-height: 80px;
+
+	.cart-page & {
+		height: auto;
+		min-height: 150px;
+	}
 }
 .minicart__total {
 	background: $third-color;
@@ -597,7 +605,7 @@ input.zipbox {
 	border: none;
 
 	@include respond-above(sm) {
-		width: 700px;
+		width: 800px;
 	}
 
 	h4 {
@@ -722,6 +730,13 @@ input.zipbox {
 			background: $secondary-color;
 		}
 	}
+
+	.cart-page & {
+		text-align: right;
+		a {
+			display: inline-block;
+		}
+	}
 }
 
 .btn.btn-confirm {
@@ -731,70 +746,6 @@ input.zipbox {
 	text-transform: uppercase;
 	margin: 20px 0;
 	border-radius: 0;
-}
-
-.flyer--cart  {
-	position: absolute;
-	z-index: 999;
-	bottom: 40px;
-	left: 0;
-	right: 0;
-	background: $brand-primary;
-	text-align: center;
-	line-height: 2.5;
-	border-radius: 0;
-	margin: 0 10px;
-	transform: scale(0);
-	-webkit-transform: scale(0);
-	animation: slideDown 3.5s 1.0s 1 ease forwards;
-	-webkit-animation: slideDown 3.5s 1.0s 1 ease forwards;
-	-moz-transform:   scale(0);
-	-moz-animation:    slideDown 3.5s 1.0s 1 ease forwards;
-	padding: 8px;
-	color: #fff;
-	font-size: 13px;
-	
-	h5 {
-		font-size: 18px;
-		color: #fff;
-	}
-	p.flyer__info {
-		font-size: 13px;
-		color: #fff;
-		margin: 0;
-	}
-
-	span {
-		display: block;
-	}
-
-	&:after {
-		top: 100%;
-		left: 50%;
-		border: solid transparent;
-		content: " ";
-		height: 0;
-		width: 0;
-		position: absolute;
-		pointer-events: none;
-		border-color: rgba(136, 183, 213, 0);
-		border-top-color: $brand-primary;
-		border-width: 8px;
-		margin-left: -8px;
-	}
-
-  }
-@keyframes slideDown {
-	0%, 100% { -webkit-transform: scale(0); }
-	10%, 90% { -webkit-transform: scale(1); }
-}
-  @-webkit-keyframes slideDown {
-	0%, 100% { -webkit-transform: scale(0); }
-	10%, 90% { -webkit-transform: scale(1); }
-}
-@-moz-keyframes slideDown {
-	0%, 100% { -moz-transform: translateY(-50px); }
-	10%, 90% { -moz-transform: translateY(0px); }
 }
 
 .custom-radio {
@@ -1083,3 +1034,31 @@ div.a6 {
 	cursor: pointer;
 }
 
+#notice {
+    position: fixed;
+    z-index: 1111;
+    top: 0;
+    left: 0;
+    right: 0;
+	background: #fde073;
+	color: darkred;
+    text-align: center;
+    line-height: 2.5;
+    overflow: hidden; 
+    -webkit-box-shadow: 0 0 5px black;
+    -moz-box-shadow:    0 0 5px black;
+	box-shadow:         0 0 5px black;
+	-webkit-transform: translateY(-120px);
+	-webkit-animation: slideDown 5s 1.0s 1 ease forwards;
+	-moz-transform:    translateY(-120px);
+	-moz-animation:    slideDown 5s 1.0s 1 ease forwards;
+}
+
+@-webkit-keyframes slideDown {
+    0%, 100% { -webkit-transform: translateY(-120px); }
+    10%, 90% { -webkit-transform: translateY(0px); }
+}
+@-moz-keyframes slideDown {
+    0%, 100% { -moz-transform: translateY(-120px); }
+    10%, 90% { -moz-transform: translateY(0px); }
+}

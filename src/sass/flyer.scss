@@ -1,0 +1,66 @@
+@import "variables";
+@import "mixin";
+
+	.flyer--cart  {
+        position: absolute;
+        z-index: 999;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        background:$yellow;
+        text-align: center;
+        line-height: 2.5;
+        margin: 0 10px;
+        transform: scale(0);
+        -webkit-transform: scale(0);
+        animation: slideUp 3.5s 1.0s 1 ease forwards;
+        -webkit-animation: slideUp 3.5s 1.0s 1 ease forwards;
+        -moz-transform:   scale(0);
+        -moz-animation:    slideUp 3.5s 1.0s 1 ease forwards;
+        padding: 8px;
+        color: #fff;
+        font-size: 13px;
+        
+        h5.flyer__info {
+            font-size: 18px;
+            color: #fff;
+        }
+        p.flyer__info {
+            font-size: 13px;
+            color: #fff;
+            margin: 0;
+        }
+    
+        span {
+            display: block;
+        }
+    
+        &:after {
+            top: 100%;
+            left: 50%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+            border-color: rgba(136, 183, 213, 0);
+            border-top-color: $yellow;
+            border-width: 8px;
+            margin-left: -8px;
+        }
+
+        .products__des & {
+            bottom: 65px;
+        }
+    
+      }
+    
+    @-webkit-keyframes slideUp {
+        0%, 100% { -webkit-transform: translateY(-120px);  opacity: 0; }
+        10%, 90% { -webkit-transform: translateY(0px);  opacity: 1; }
+    }
+    @-moz-keyframes slideUp {
+        0%, 100% { -moz-transform: translateY(-120px);  opacity: 0; }
+        10%, 90% { -moz-transform: translateY(0px);   opacity: 1;}
+    }

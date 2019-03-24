@@ -2,12 +2,11 @@ import React from 'react';
 
 const Minicartitem = (props) => {
     const handleDelete =(itm) =>{
-        //console.log(itm);
         props.onDeleteItemClick(itm);
     }
     return (
         <div class="minicart-item">
-            <button className="minicart-item__remove closebtn" type="button" onClick = {() => handleDelete(props.cartItemData.item_id)}>Remove</button>
+            {props.spot !== 'checkout'  && <button className="minicart-item__remove closebtn" type="button" onClick = {() => handleDelete(props.cartItemData.item_id)}>Remove</button>}
             <div className="minicart-item__name">
                 {props.cartItemData.name}
             </div>

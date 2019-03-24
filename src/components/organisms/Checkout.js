@@ -12,13 +12,26 @@ import '../../sass/checkout.scss';
 class Checkout extends Component {
     constructor(props) {
         super(props);
-        let userid = Cookies.get('userid');
-        if (userid) {
+        this.shipRef = React.createRef();
+        this.payRef = React.createRef();
+        this.shippingMethod = Object.keys(this.props.cartItems).length > 0 && this.props.cartItems.reduce((sum, product) => sum + (product.qty * product.price), 0) >= 200 ? 'freeshipping' : 'flatrate';
+
+        if (Cookies.get('usertype') === 'loggeduser') {
             this.props.setUserFlow('signeduser');
         } else {
             this.props.setUserFlow('');
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.shippingMethod = Object.keys(this.props.cartItems).length > 0 && this.props.cartItems.reduce((sum, product) => sum + (product.qty * product.price), 0) >= 200 ? 'freeshipping' : 'flatrate';
+        console.log(this.shippingMethod);
+    }
+
+    scrollToMyRef = (elempos) => window.scrollTo({
+        top: elempos,
+        behavior: 'smooth',
+    })
 
     handleShipping = (values) => {
 
@@ -72,8 +85,8 @@ class Checkout extends Component {
                     "extension_attributes": {},
                     "custom_attributes": []
                 },
-                "shipping_method_code": "flatrate",
-                "shipping_carrier_code": "flatrate",
+                "shipping_method_code": this.shippingMethod,
+                "shipping_carrier_code": this.shippingMethod,
                 "extension_attributes": {},
                 "custom_attributes": []
             }
@@ -97,6 +110,7 @@ class Checkout extends Component {
         this.props.paymentRequest(paymentData)
     }
 
+
     render() {
         if (Object.keys(this.props.orderinfo).length > 0) {
             console.log(this.props.orderinfo);
@@ -105,15 +119,24 @@ class Checkout extends Component {
                 state: { orderData: this.props.orderinfo }
             }} />
         }
+        if (this.props.userFlow == 'guestuser') {
+            //this.shipRef.current && this.scrollToMyRef(this.shipRef.current.offsetTop);
+        }
+        if (this.props.enabledPay) {
+            this.payRef.current && this.scrollToMyRef(this.payRef.current.offsetTop);
+        }
+        
         return (
             <div className="checkout-container">
                 <p>{this.props.usrMsg.message}</p>
                 <div className="row">
-                    <div className="col-12 col-md-4"><Minicartwrapper isShow='true' isOrderSummary='true' minicartItms={this.props.cartItems} /></div>
+                    <div className="col-12 col-md-4">
+                        <Minicartwrapper cartTitle = 'Order Summary' isShow='true' spot='checkout'  shippingPriceData = {this.props.shippingTotals} />
+                    </div>
                     <div className="col-12 col-md-8 checkout__content">
                         <Checkoutentry userType={this.props.userFlow} />
-                        <Shippingbox userType={this.props.userFlow} onSubmit={this.handleShipping} />
-                        <Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} />
+                        <div ref={this.shipRef}><Shippingbox userType={this.props.userFlow} onSubmit={this.handleShipping} /></div>
+                        <div ref={this.payRef}><Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} /></div>
                     </div>
                 </div>
 
@@ -131,7 +154,8 @@ function mapStateToProps(state) {
             usrMsg: state.productReducer.usrMsg,
             enabledPay: state.productReducer.enabledPay,
             addressInfo: state.productReducer.addressInfo,
-            orderinfo: state.productReducer.orderinfo
+            orderinfo: state.productReducer.orderinfo,
+            shippingTotals: state.productReducer.shippingTotals
         }
     };
 }

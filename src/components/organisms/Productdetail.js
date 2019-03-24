@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Addtocart from '../atoms/Addtocart';
-import Zipbox from '../atoms/Zipbox';
+import Pinchecker from '../atoms/Pinchecker';
 import Productname from '../atoms/Productname';
 import Productdesc from '../atoms/Productdesc';
+import Productprice from '../atoms/Productprice';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import Quantity from '../atoms/Quantity';
@@ -44,24 +45,23 @@ class ProductDetail extends Component {
 			</div></div>
 		}
 		return (
-			Object.keys(this.props.productInfo).length > 0 && this.props.productInfo.product && <div class="products__des pb-60 pt-60">
+			Object.keys(this.props.productInfo).length > 0 && this.props.productInfo.product && <div class="products__des pb-60">
 				<div class="row">
 					<div class="col-sm-5 product__details_left">
 						<div class="product__details__img">
 							<img src={`http://localhost:8888/shop/backend/pub/media/catalog/product/${this.props.productInfo.productImg}`} class="img-responsive img-fluid" alt="" />
 						</div>
-						<h4>Lorem Ipsum is simply dummy text of the printing </h4>
+						<p>Pictures shown are for illustration purpose only. Actual product may vary.</p>
 					</div>
 					<div class="col-sm-7 product__details_right">
 						<Productname productName={this.props.productInfo.product.name} level="2" />
-						<h4>MRP <i class="fas fa-rupee-sign"></i> 1000 (inclusive of all taxs) </h4>
-						<h3><i class="fas fa-rupee-sign"></i> 1000 <span>330.00</span></h3>
-						<Zipbox />
+						<Productprice productPrice={this.props.productInfo.product.price} productPriceData ={this.props.productInfo} />
+						<Pinchecker />
 						<div className="row">
-							<div className="col-12 col-md-6">
+							<div className="col-12 col-md-4">
 							<Quantity productQty = {this.changeQty}/>
 							</div>
-							<div className="col-12 col-md-6"><Addtocart pagetype="pdp" productData={this.props.productInfo.product} selectedQty={this.state.qty} /></div></div>
+							<div className="col-12 col-md-8"><Addtocart pagetype="pdp" productData={this.props.productInfo.product} selectedQty={this.state.qty} /></div></div>
 						<Productdesc prdesc={this.props.productInfo.productDesc} />
 					</div>
 

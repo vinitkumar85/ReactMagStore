@@ -10,14 +10,13 @@
     li { display: inline-block; }
   
     a {
-      display: block;
-      padding: 6px 30px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-          color:$brand-primary;
-          font-family: 'Fjalla One', sans-serif;
-      text-transform: uppercase;
+		display: block;
+		padding: 6px 30px;
+		text-decoration: none;
+		font-size: 18px;
+		font-weight: 100;
+		color:$brand-primary;
+		font-family: 'Fjalla One', sans-serif;
   
       &:hover {
           color:$primary-color;

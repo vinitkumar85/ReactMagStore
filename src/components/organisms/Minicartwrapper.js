@@ -21,7 +21,7 @@ class Minicartwrapper extends Component {
     render(){
         return (
         <div className={`minicart-wrapper ${this.props.isShow ? 'speed-in' : ''}`}>
-            <Minicart deleteCartItem = {this.deleteItem} onclosecart = {this.props.closeCart} excludeCheckoutBtn = {this.props.isOrderSummary} minicartItms={this.props.minicartItms}/>
+            <Minicart cartTitle = {this.props.cartTitle} cartStatus = {this.props.cartStatus} shippingPrice = {this.props.shippingPriceData} deleteCartItem = {this.deleteItem} onclosecart = {this.props.closeCart} spot = {this.props.spot} minicartItms={this.props.cartItems}/>
         </div>
     )
 }
@@ -30,8 +30,10 @@ class Minicartwrapper extends Component {
 function mapStateToProps(state) {
     if (state) {
         return {
+            cartItems: state.productReducer.cartItems,
             cartID: state.productReducer.cartID,
-            usrID: state.productReducer.usrID
+            usrID: state.productReducer.usrID,
+            cartStatus: state.productReducer.cartStatus
         }
     };
 }

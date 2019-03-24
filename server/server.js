@@ -15,42 +15,41 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-var guestId;
 app.use(express.static(path.join(__dirname, '../build')));
 
 app.use(cookieParser());
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
-  key: 'user_sid',
+  key: 'userid',
   secret: 'somerandonstuffs',
   resave: false,
   rolling: false,
   saveUninitialized: false,
   cookie: {
-      expires: 3600000
+    expires: 3600000
   }
 }));
 
 var sessionChecker = (req, res, next) => {
   //console.log(req.cookies);
-  if (req.session.user && req.cookies.user_sid) {
+  if (req.session.user && req.cookies.userid) {
     console.log("loggedin");
     next();
-     // res.redirect('/dashboard');
+    // res.redirect('/dashboard');
   } else {
-    console.log("not loggedin");
-      //next();
-      next();
-     // res.redirect('/loginpage');
-  }    
+    console.log("not loggedin-----");
+    removeSession(res);
+    //res.redirect('/#/');
+  }
 };
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
-      res.clearCookie('user_sid');        
+  if (req.cookies.userid && !req.session.user) {
+    res.clearCookie('userid');
+    res.clearCookie('usertype');
   }
   next();
 });
@@ -58,7 +57,7 @@ app.use((req, res, next) => {
 function getHomedata(catId) {
   return axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=4`,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
 }
@@ -78,9 +77,15 @@ function addCartitms(itm, guestId) {
   postitms.cartItem.quote_id = guestId;
   return axios.post(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`, postitms,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
+}
+
+function removeSession(res) {
+  res.clearCookie('userid');
+  res.clearCookie('usertype');
+  res.send({'status':'error-401'});
 }
 
 app.post('/addbulkitems', function (req, res) {
@@ -105,11 +110,11 @@ app.post('/addbulkitems', function (req, res) {
 })
 
 //app.get('/products/:catid', function (req, res) {
-app.get('/products/:catid', sessionChecker, (req, res) => {
+app.get('/products/:catid', (req, res) => {
   var catId = req.params.catid;
   axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=8`,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(response => {
@@ -126,7 +131,7 @@ app.get('/product/:skuid', function (req, res) {
   var skuid = req.params.skuid;
   axios.get(`${appConfig.basePath}/rest/V1/products/${skuid}`,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(response => {
@@ -145,7 +150,7 @@ app.post('/removeitem/:id', function (req, res) {
   console.log(req);
   axios.delete(`${appConfig.basePath}/rest/V1/guest-carts/${cid}/items/${id}`,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(response => {
@@ -164,7 +169,7 @@ app.post('/removeitemuser/:id', function (req, res) {
   console.log(uid);
   axios.delete(`${appConfig.basePath}/rest/V1/carts/mine/items/${id}`,
     {
-      headers: { 'Authorization': `Bearer ${uid}`}
+      headers: { 'Authorization': `Bearer ${uid}` }
     }
   )
     .then(response => {
@@ -176,8 +181,9 @@ app.post('/removeitemuser/:id', function (req, res) {
 
 })
 
-app.get('/userdata/:uid', function (req, res) {
-  var uid = req.params.uid;
+app.get('/userdata/:uid', sessionChecker, (req, res) => {
+  console.log(req.session.user);
+  var uid = req.session.user;
   axios.get(`${appConfig.basePath}/rest/V1/customers/me`,
     {
       headers: { 'Authorization': `Bearer ${uid}` }
@@ -192,7 +198,7 @@ app.get('/userdata/:uid', function (req, res) {
 app.get('/getGuestToken', function (req, res) {
   axios.post(`${appConfig.basePath}/rest/V1/guest-carts`, {},
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(response => {
@@ -205,13 +211,23 @@ app.get('/getGuestToken', function (req, res) {
 
 })
 
+app.get('/logout', function (req, res) {
+  if (req.cookies.userid) {
+    res.clearCookie('userid');
+    res.clearCookie('usertype');
+    res.send({ 'msg': 'Succesfully logout' });
+  } else {
+    res.send({ 'msg': 'Failed' });
+  }
+})
+
 app.post('/makeCartRequest/:guestid', function (req, res) {
   var guestId = req.params.guestid;
   console.log(req.body);
   if (guestId) {
     axios.post(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`, req.body,
       {
-        headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+        headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
       }
     )
       .then(response => {
@@ -225,8 +241,8 @@ app.post('/makeCartRequest/:guestid', function (req, res) {
 
 })
 
-app.post('/makeCartRequestUser/:ucartid', function (req, res) {
-  var ucartid = req.params.ucartid;
+app.post('/makeCartRequestUser/:ucartid', sessionChecker, (req, res) => {
+  var ucartid = req.session.user;
   axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
     {
       headers: { 'Authorization': `Bearer ${ucartid}` }
@@ -246,20 +262,27 @@ app.post('/makeCartRequestUser/:ucartid', function (req, res) {
         .catch(error => {
           res.send(error.response.data);
         });
-    })
+    }).catch(error => {
+      //console.log(error.response.status);
+      if(error.response.status == 401){
+        removeSession(res);
+      } else {
+        res.send(error.response.data);
+      }
+    });
 })
 
 app.post('/userlogin/', function (req, res) {
   axios.post(`${appConfig.basePath}/rest/V1/integration/customer/token`, req.body,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(response => {
-      res.cookie('userid', response.data, { maxAge: 3600000 });
+      res.cookie('usertype', 'loggeduser', { maxAge: 3600000 });
       req.session.user = response.data;
 
-     
+
 
       axios.get(`${appConfig.basePath}/rest/V1/customers/me`,
         {
@@ -308,7 +331,7 @@ app.post('/userlogin/', function (req, res) {
 app.post('/userregister/', function (req, res) {
   axios.post(`${appConfig.basePath}/rest/V1/customers`, req.body,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(response => {
@@ -343,7 +366,7 @@ app.post('/userregister/', function (req, res) {
 app.post('/shipping/', function (req, res) {
 
   var guestId = req.body.guestUser;
-  var usrId = req.body.userId;
+  var usrId = req.session.user;
   var path = `${appConfig.basePath}/rest/V1/guest-carts/${guestId}/shipping-information`;
   var token = 'tlb5vy2barxkh8pgvlpevxr5b62nwmps';
 
@@ -378,7 +401,7 @@ app.post('/shipping/', function (req, res) {
 app.post('/payment/', function (req, res) {
 
   var guestId = req.body.guestUser;
-  var usrId = req.body.userId;
+  var usrId = req.session.user;
   var path = `${appConfig.basePath}/rest/V1/guest-carts/${guestId}/payment-information`;
   var token = 'tlb5vy2barxkh8pgvlpevxr5b62nwmps';
 
@@ -397,7 +420,7 @@ app.post('/payment/', function (req, res) {
 
       axios.get(`${appConfig.basePath}/rest/default/V1/orders/${response.data}`,
         {
-          headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+          headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
         }
       )
         .then(result => {
@@ -436,7 +459,7 @@ app.get('/cartUpdate/:gcartid', function (req, res) {
 
   axios.get(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`,
     {
-      headers: { 'Authorization': `Bearer ${appConfig.secretToken}`}
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
   )
     .then(resp => {
@@ -444,14 +467,14 @@ app.get('/cartUpdate/:gcartid', function (req, res) {
     })
 })
 
-app.post('/assignCart/:gcartid', function (req, res) {
+app.post('/assignCart/:gcartid', sessionChecker, (req, res) => {
   var guestId = req.params.gcartid;
-  var uid = req.body.userToken;
+  var uid = req.session.user;
 
   axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}`,
     req.body,
     {
-      headers: { 'Authorization': `Bearer ${req.body.userToken}` }
+      headers: { 'Authorization': `Bearer ${req.session.user}` }
     }
   )
     .then(resp => {
@@ -483,8 +506,8 @@ app.post('/assignCart/:gcartid', function (req, res) {
     });
 })
 
-app.get('/cartUpdateUser/:ucartid', function (req, res) {
-  var ucartid = req.params.ucartid;
+app.get('/cartUpdateUser/:ucartid', sessionChecker, (req, res) => {
+  var ucartid = req.session.user;
 
   axios.get(`${appConfig.basePath}/rest/V1/carts/mine/items`,
     {

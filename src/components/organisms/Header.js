@@ -4,13 +4,14 @@ import Navbar from '../molecules/Navbar';
 import Mainheader from '../molecules/Mainheader';
 
 const delta = 5;
-const navbarHeight = 400;
+const navbarHeight = 200;
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            navClass: "static-header"
+            navClass: "static-header",
+            headerClass: ''
         }
         this.navlinks = [
             {
@@ -18,16 +19,28 @@ class Header extends Component {
                 url: '/'
             },
             {
-                name: 'Item',
-                url: '/products/5'
+                name: 'Pooja Kits',
+                url: '/products/47'
             },
             {
-                name: 'Item2',
-                url: '/products/6'
+                name: 'Agarbatties / Dhoop',
+                url: '/products/43'
             },
             {
-                name: 'Item3',
-                url: '/products/2'
+                name: 'Dharmik Books',
+                url: '/products/45'
+            },
+            {
+                name: 'Prasad',
+                url: '/products/49'
+            },
+            {
+                name: 'Idols',
+                url: '/products/46'
+            },
+            {
+                name: 'Puja Essentials',
+                url: '/products/48'
             }
         ];
     }
@@ -58,15 +71,17 @@ class Header extends Component {
 
         // If they scrolled down and are past the navbar, add class .nav-up.
         // This is necessary so you never see what is "behind" the navbar.
-        if (st > this.state.lastScrollTop && st > navbarHeight) {
+        if (st < this.state.lastScrollTop && st > navbarHeight) {
             // Scroll Down
             this.setState({
-                navClass: 'fixed-header'
+                navClass: 'fixed-header',
+                headerClass: 'padded-header'
             })
         } else {
             // Scroll Up
             this.setState({
-                navClass: 'static-header'
+                navClass: 'static-header',
+                headerClass: ''
             })
         }
 
@@ -85,7 +100,7 @@ class Header extends Component {
     }
     render() {
         return (
-            <header>
+            <header className={this.state.headerClass}>
                 <Topbar />
                 <div className={this.state.navClass}>
                     <Mainheader />

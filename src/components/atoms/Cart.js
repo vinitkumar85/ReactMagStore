@@ -31,7 +31,7 @@ class Cart extends React.Component {
                     </li>
                     {this.props.cartItems && this.props.cartItems.length > 0 && <li className="checkout"><HashRouter><Link  to="/checkout">Checkout</Link></HashRouter></li>}
                 </ul>
-                <Minicartwrapper isShow = {this.props.showCart} closeCart={this.toggleMiniCart.bind(this)} minicartItms={this.props.cartItems} />
+                <Minicartwrapper isShow = {this.props.showCart} closeCart={this.toggleMiniCart.bind(this)} />
             </div>
         )
     }

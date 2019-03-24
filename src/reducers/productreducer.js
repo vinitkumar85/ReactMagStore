@@ -19,12 +19,16 @@ const initialState = {
     'enabledPay':false,
     'addressInfo':{},
     'orderinfo':{},
-    'recentItem': {
-        sku: ''
-    }
+    'shippingTotals':{},
+    'recentItem': {},
+    'cartStatus': 'open',
+    'deliverymsg': '',
+    'pincode': ''
 };
 
 const productReducer = (state = initialState, action) => {
+    //console.log(action.type);
+    //console.log(state);
     switch (action.type) { 
         case 'GET_PRODUCTLIST':
         return {
@@ -49,10 +53,34 @@ const productReducer = (state = initialState, action) => {
             cartID : action.payload
         }
 
+        case 'SET_DEL_MSG':
+        return {
+            ...state,
+            deliverymsg : action.payload
+        }
+
+        case 'SET_PINCODE':
+        return {
+            ...state,
+            pincode : action.payload
+        }
+
         case 'ENABLE_PAYMENT_FORM':
         return {
             ...state,
             enabledPay : action.payload
+        }
+
+        case 'GET_SHIPPING_PRICES':
+        return {
+            ...state,
+            shippingTotals : action.payload
+        }
+
+        case 'CART_STATUS':
+        return {
+            ...state,
+            cartStatus : action.payload
         }
 
         case 'UPDATE_CART':

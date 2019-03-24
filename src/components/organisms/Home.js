@@ -45,13 +45,13 @@ class Home extends Component {
                 <Banner />
                 <div class="shubh__kit__spacial pb-60 pt-60">
                     <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
-                        <Sectionhead />
+                        <Sectionhead secHeading = "Navratri Special"/>
                         <Productlist productsData={this.props.productsItems} />
                     </div>
                 </div>
                 <div class="festival__spacial pb-60 pt-60">
                     <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
-                        <Sectionhead />
+                        <Sectionhead secHeading = "Featured Products"/>
                         <Productlist productsData={this.props.productsList} />
                     </div>
                 </div>

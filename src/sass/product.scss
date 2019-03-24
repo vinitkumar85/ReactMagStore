@@ -8,6 +8,12 @@
 	border-radius: 6px;
 	float: left;
 	width: 100%;
+	transition: all 0.3s ease-in 0s;
+
+	&:hover {
+		transition: all 0.3s ease-in 0s;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px 1px;
+	}
 }
 .img__box{
 	padding: 10px 5px;
@@ -16,6 +22,8 @@
 	@include respond-above(sm) {
 		float: none;
 		width: auto;
+		height: 250px;
+		overflow: hidden;
 	}
 }
 .product__content{
@@ -27,11 +35,13 @@
 		text-align: center;
 		float: none;
 		width: auto;
+		height: 155px;
 	}
 
 	h3{
 		color:$brand-primary;
 		font-size:18px;
+		font-weight: bold;
 		padding-top: 35px;
 		@include respond-above(sm) {
 			padding-top: 10px;
@@ -39,11 +49,39 @@
 	}
 }
 
-.item__price{
-	color:$black;
-	font-weight: 600;
-	font-size: 18px;
-	margin-bottom: 0px;		
+.item__price {
+	padding-bottom: 20px;
+}
+.item__price--dk {
+	color:$dark-black;
+	font-size: 22px;
+	font-weight:600;
+
+	span {
+		font-size: 14px;
+		color:$gray;
+	}
+}
+.item__price--lt {
+	color:$gray;
+	font-size: 14px;
+	font-weight:600;
+	line-height: 24px;
+}
+.item__price--dt {
+	color:$gray;
+	font-size: 14px;
+	font-weight:600;
+	span {
+		text-decoration: line-through;
+		margin-left: 10px;
+	}
+	
+	em{
+		color:$green-lt;
+		font-size: 14px;
+		font-weight:600;
+	}
 }	
 .add__to__cart {
 	position: absolute;
@@ -91,14 +129,7 @@
         font-weight: 600;
         font-size:20px;
         text-align:center;
-    }
-    .item__price{
-        color:$gray;
-        font-weight: 600;
-        font-size: 20px;
-        text-align: center;
-        margin-bottom: 0px;		
-    }		
+    }	
     
 }
 .view__more{

@@ -9,16 +9,29 @@
 	}
 
 	.minicart-wrapper {
-		position: static;
+		position: sticky;
 		background: $secondary-color;
         color: $white;
         width: 100%;
         height: auto;
+        margin-bottom: 58px;
+        top: -20px;
 
 		h3 {
-			color: $brand-primary;
+            color: $brand-primary;
 		}
-	}
+    }
+    
+    .edit-link {
+        margin: -20px 20px 20px;
+        display: block;
+        text-align: right;
+        a {
+            color: #fff;
+            font-size: 12px;
+            text-decoration: underline;
+        }
+    }
 	.minicart-item {
 		.minicart-item__name {
 			color: $white;
@@ -39,6 +52,14 @@
 			font-size: 36px;
 		}
     }
+    .shipping-prices {
+        padding: 15px 0;
+        .items{
+            text-align: right;
+            line-height: 30px;
+        }
+    }
+
 }
 .checkout__content {
     background: $body-bg;
@@ -47,7 +68,7 @@
     color: $brand-primary;
     padding-bottom: 40px;
     @include respond-above(md) {
-        margin-left: -20px;
+        margin-left: -15px;
 	}
 
     label {

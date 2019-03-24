@@ -4,7 +4,7 @@ const Sectionhead = (props) => {
     return (
         <div class="col-md-12">
             <div class="section-heading">
-                <h2><span>Products</span></h2>
+                <h2><span>{props.secHeading}</span></h2>
             </div>
         </div>
     )

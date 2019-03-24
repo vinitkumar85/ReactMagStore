@@ -1,0 +1,16 @@
+@import "variables";
+@import "mixin";
+
+.login-page {
+    padding: 60px 0;
+    h4 {
+		color: $brand-primary;
+		font-size: 22px;
+		font-family: $font-stack;
+		text-transform: uppercase;
+    }
+    p {
+		font-size: 13px;
+		color: $brand-primary;
+	}
+}

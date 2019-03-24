@@ -17,6 +17,9 @@
 			box-shadow: 1px 0 16px 0 #999;
 		}
 }
+.padded-header {
+	padding-top: 210px;
+}
 .static-header {
 		position: static;
 		width: 100%;
@@ -38,8 +41,9 @@ header {
 		text-transform: uppercase;
 		font-weight: 600;
 		span{
-			color:$white;
+			color:$yellow;
 			margin-left: 5px;
+			font-size: 18px;
 		}
 		@include respond-below(sm) {
 			background:$brand-primary;

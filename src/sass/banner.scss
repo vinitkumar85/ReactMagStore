@@ -1,0 +1,40 @@
+@import "variables";
+@import "mixin";
+
+	.banner  {
+        position: relative;
+        border-bottom: 2px solid #fff;
+        height: auto;
+    }
+
+    .banner-overlay {   
+        z-index: 99;
+        padding: 12px;
+        font-family: 'Fjalla One', sans-serif;
+        right: 30px;
+        bottom: 30px;
+        color: #fff;
+        background: rgba(118, 3, 3, 1);
+
+        @include respond-above(sm) {
+            position: absolute;
+            padding: 20px;
+            background: rgba(118, 3, 3, 0.8);
+        }
+    }
+
+    .banner-text {
+        font-size: 20px;
+        padding-top: 14px;
+        font-family: sans-serif;
+        border-right: 1px solid #fff;
+    }
+    .banner-overlay {
+        font-size: 27px;
+
+        span {
+            font-size: 35px;
+            display: block;
+            color: $yellow;
+        }
+    }
