@@ -61,7 +61,7 @@
     "woocommerce-api": "^1.4.2"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "node server/server.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
