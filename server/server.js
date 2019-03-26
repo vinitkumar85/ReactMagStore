@@ -62,7 +62,7 @@ function getHomedata(catId) {
   )
 }
 app.get('/homelist', function (req, res) {
-  axios.all([getHomedata(2), getHomedata(4)])
+  axios.all([getHomedata(7), getHomedata(13)])
     .then(axios.spread(function (acct, perms) {
       var upres = {};
       upres.firstlist = acct.data.items;
