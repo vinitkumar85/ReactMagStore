@@ -191,7 +191,6 @@ export const makeCartRequest = (item, usercartid) => {
             .then((response) => {
               if(response.data.status !=='error-401'){
                 dispatch(setAction(response.data, 'UPDATE_CART'));
-                dispatch(setAction(true, 'TOGGLE_CART'));
               } 
               
             })
@@ -221,7 +220,6 @@ export const makeCartRequest = (item, usercartid) => {
               dispatch(setAction(response.data, 'UPDATE_CART'));
               dispatch(setAction('open', 'CART_STATUS'));
               dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
-              dispatch(setAction(true, 'TOGGLE_CART'));
             })
         })
     }

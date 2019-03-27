@@ -12,6 +12,11 @@ body {
   font: 100% $font-stack;
   color: $dark-gray;
   background: #fff;
+  padding-top: 140px;
+
+  @include respond-above(sm) {
+		padding-top: 0;
+	}
 }
 img{
 	width:100%;
@@ -174,19 +179,6 @@ input.searchbox {
 	border-bottom: 1px solid #fb7c51;
 }
 
-.zipvalidator {
-	input.zipbox {
-		width: 60%;
-		box-sizing: border-box;
-		font-size: 15px;
-		padding: 12px 20px 12px 20px;
-		-webkit-transition: width 0.4s ease-in-out;
-		transition: width 0.4s ease-in-out;
-		height: 55px;
-		background-size: 55px;
-	}
-}
-
 .hero__image {
   
   height: 300px;
@@ -304,7 +296,11 @@ input.searchbox {
 }
 .shubh__kit__about{
 	background:$body-bg;
-	padding:30px;
+	padding-top:20px;
+
+	@include respond-above(sm) {
+		padding: 30px;
+	}
 
 	h2{
 		color:$primary-color;

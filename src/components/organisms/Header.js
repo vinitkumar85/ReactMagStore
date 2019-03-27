@@ -71,7 +71,8 @@ class Header extends Component {
 
         // If they scrolled down and are past the navbar, add class .nav-up.
         // This is necessary so you never see what is "behind" the navbar.
-        if (st < this.state.lastScrollTop && st > navbarHeight) {
+        //if (st < this.state.lastScrollTop && st > navbarHeight) {
+        if (st > navbarHeight) {
             // Scroll Down
             this.setState({
                 navClass: 'fixed-header',

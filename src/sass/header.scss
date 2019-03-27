@@ -4,9 +4,9 @@
 /* body * {
 	border: 1px solid red;
 } */
-
-.fixed-header {
-	position: fixed;
+@include respond-above(sm) {
+	.fixed-header {
+		position: fixed;
 		z-index: 1100;
 		width: 100%;
 		background: #fff;
@@ -16,24 +16,32 @@
 		.header-mid-area{
 			box-shadow: 1px 0 16px 0 #999;
 		}
-}
-.padded-header {
-	padding-top: 210px;
-}
-.static-header {
-		position: static;
-		width: 100%;
-		top: -200px;
-		transition: all 0.2s ease-in-out;
+	}
+	.padded-header {
+		padding-top: 210px;
+	}
+	.static-header {
+			position: static;
+			width: 100%;
+			top: -200px;
+			transition: all 0.2s ease-in-out;
+	}
 }
 
 header {
 	border-bottom: 5px solid $brand-primary;
 	background: #fff;
+	position: fixed;
+    z-index: 9999;
+    width: 100%;
+	top: 0;
+	@include respond-above(sm) {
+		position: static;
+	}
 }
 .header__top__area{
 	background:$brand-primary;
-	padding: 5px; 
+	padding: 3px; 
 
 	.top__message{
 		color:$third-color;
@@ -69,16 +77,22 @@ header {
 	a{
 	  color:$third-color;
 	  text-decoration: none;
+	  font-size: 13px;
+	  @include respond-above(sm) {
+		font-size: 15px;
+	}
 	}
 }
 .header__logo {
 	img{
-		margin-top: 18px;
-		max-width:150px;
+		margin-top: 3px;
+		max-width:120px;
 	}
 	@include respond-above(sm) {
 		img {
+			margin-top: 18px;
 			width:200px;
+			max-width:150px;
 			.fixed-header & {
 				margin-top: 0
 			}
@@ -90,8 +104,11 @@ header {
 	box-shadow: 1px 4px 16px 2px #eee;
 }
 .header__search{
-	padding: 28px 0;
+	padding: 8px 0;
 	float: left;
+	@include respond-above(sm) {
+		padding: 28px 0;
+	}
 	.fixed-header & {
 		padding: 15px 0;
 	}
@@ -99,19 +116,25 @@ header {
 	input {
 		width: 90%;
 		box-sizing: border-box;
-		font-size: 15px;
+		font-size: 14px;
 		background-image: url(../images/search-icon.svg);
 		background-position: right;
 		background-repeat: no-repeat;
-		padding: 12px 20px 12px 20px;
+		padding: 8px 8px 8px 20px;
 		-webkit-transition: width 0.4s ease-in-out;
 		transition: width 0.4s ease-in-out;
-		height: 55px;
-		background-size: 55px;
+		height: 45px;
+		background-size: 28px;
 		margin-left: 5px;
 		border: none;
 		border-bottom: 1px solid #fb7c51;
 		background-color: #fff;
+		@include respond-above(sm) {
+			background-size: 55px;
+			height: 55px;
+			padding: 12px 20px 12px 20px;
+			font-size: 15px;
+		}
 	}
 	@include respond-above(sm) {
 		input {
@@ -127,8 +150,10 @@ header {
 	right: 0;
 	z-index: 999;
 
-	.fixed-header & {
-		padding: 15px 0;
+	@include respond-above(sm) {
+		.fixed-header & {
+			padding: 15px 0;
+		}
 	}
 
 	ul {
