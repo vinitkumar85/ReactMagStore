@@ -65,7 +65,7 @@ function mapStateToProps(state) {
         return {
             productsItems: state.productReducer.homeProducts.firstlist,
             productsList: state.productReducer.homeProducts.sectlist,
-            showCart: state.productReducer.showCart
+            showCart: state.uiReducer.showCart
         }
     };
 }

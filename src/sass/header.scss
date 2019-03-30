@@ -39,6 +39,13 @@ header {
 		position: static;
 	}
 }
+
+.header-spacer {
+	height: 140px;
+	@include respond-above(sm) {
+		display: none;
+	}
+}
 .header__top__area{
 	background:$brand-primary;
 	padding: 3px; 
@@ -110,7 +117,9 @@ header {
 		padding: 28px 0;
 	}
 	.fixed-header & {
-		padding: 15px 0;
+		@include respond-above(sm) {
+			padding: 15px 0;
+		}
 	}
 
 	input {

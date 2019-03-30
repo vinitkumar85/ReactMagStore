@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Minicart from '../molecules/Minicart';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
+import '../../sass/minicart.scss';
 
 class Minicartwrapper extends Component {
     constructor(props) {
@@ -30,10 +31,10 @@ class Minicartwrapper extends Component {
 function mapStateToProps(state) {
     if (state) {
         return {
-            cartItems: state.productReducer.cartItems,
-            cartID: state.productReducer.cartID,
-            usrID: state.productReducer.usrID,
-            cartStatus: state.productReducer.cartStatus
+            cartItems: state.userReducer.cartItems,
+            cartID: state.userReducer.cartID,
+            usrID: state.userReducer.usrID,
+            cartStatus: state.uiReducer.cartStatus
         }
     };
 }

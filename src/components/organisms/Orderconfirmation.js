@@ -1,5 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
+import { Redirect } from 'react-router';
+import '../../sass/confirmation.scss';
 
 class Orderconfirmation extends Component {
     constructor (props) {
@@ -7,6 +9,14 @@ class Orderconfirmation extends Component {
        
     }
     render() {
+
+        if (!this.props.location.state || !this.props.location.state.orderData) {
+            console.log(this.props.location.state);
+            return <Redirect to={{
+                pathname: 'login'
+            }} />
+        }
+
         let shippingAdd = this.props.location.state.orderData.extension_attributes.shipping_assignments[0].shipping.address;
         let orderitems = this.props.location.state.orderData.items;
         let orderInfo = this.props.location.state.orderData;

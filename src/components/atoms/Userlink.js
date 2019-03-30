@@ -43,8 +43,8 @@ class Userlink extends React.Component {
 function mapStateToProps(state) {
   if (state) {
     return {
-      showPopup: state.productReducer.showPopup,
-      userData: state.productReducer.userData
+      showPopup: state.uiReducer.showPopup,
+      userData: state.userReducer.userData
     }
   };
 }

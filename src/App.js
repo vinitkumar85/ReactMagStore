@@ -156,10 +156,10 @@ class App extends Component {
 function mapStateToProps(state) {
   if (state) {
     return {
-      usrID: state.productReducer.usrID,
-      cartID: state.productReducer.cartID,
-      showCart: state.productReducer.showCart,
-      usrMsg: state.productReducer.usrMsg
+      usrID: state.userReducer.usrID,
+      cartID: state.userReducer.cartID,
+      showCart: state.uiReducer.showCart,
+      usrMsg: state.userReducer.usrMsg
     }
   };
 }

@@ -38,8 +38,8 @@ class Pinchecker extends React.Component {
 function mapStateToProps(state) {
   if (state) {
     return {
-      deliverymsg: state.productReducer.deliverymsg,
-      pincode: state.productReducer.pincode
+      deliverymsg: state.userReducer.deliverymsg,
+      pincode: state.userReducer.pincode
     }
   };
 }

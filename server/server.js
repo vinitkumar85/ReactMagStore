@@ -6,6 +6,7 @@ const axios = require('axios');
 const chalk = require('chalk');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var compression = require('compression');
 
 const appConfig = require('./config');
 
@@ -14,6 +15,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+app.use(compression());
 
 app.use(express.static(path.join(__dirname, '../build')));
 

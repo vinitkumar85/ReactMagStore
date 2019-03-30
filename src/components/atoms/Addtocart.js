@@ -78,12 +78,12 @@ class Addtocart extends Component {
 function mapStateToProps(state) {
     if (state) {
         return {
-            cartID: state.productReducer.cartID,
-            usrID: state.productReducer.usrID,
-            showPreloader: state.productReducer.showPreloader,
-            isCartSuccess: state.productReducer.isCartSuccessfull,
-            itmID: state.productReducer.recentItem.sku,
-            recentItem: state.productReducer.recentItem
+            cartID: state.userReducer.cartID,
+            usrID: state.userReducer.usrID,
+            showPreloader: state.uiReducer.showPreloader,
+            isCartSuccess: state.uiReducer.isCartSuccessfull,
+            itmID: state.userReducer.recentItem.sku,
+            recentItem: state.userReducer.recentItem
         }
     };
 }

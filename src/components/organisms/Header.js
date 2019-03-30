@@ -56,6 +56,7 @@ class Header extends Component {
 
     componentDidMount = () => {
         window.addEventListener('scroll', this.handleScroll);
+        console.log("header mounted....");
     }
 
     componentWillUnmount = () => {
@@ -101,13 +102,16 @@ class Header extends Component {
     }
     render() {
         return (
-            <header className={this.state.headerClass}>
-                <Topbar />
-                <div className={this.state.navClass}>
-                    <Mainheader />
-                    <Navbar navLinks={this.navlinks} />
-                </div>
-            </header>
+            <div>
+                <div className="header-spacer"></div>
+                <header className={this.state.headerClass}>
+                    <Topbar />
+                    <div className={this.state.navClass}>
+                        <Mainheader />{this.state.navOpen}
+                        <Navbar navLinks={this.navlinks} />
+                    </div>
+                </header>
+            </div>
         )
     }
 }

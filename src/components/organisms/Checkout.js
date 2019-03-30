@@ -14,6 +14,7 @@ class Checkout extends Component {
         super(props);
         this.shipRef = React.createRef();
         this.payRef = React.createRef();
+        this.errRef = React.createRef();
         this.shippingMethod = Object.keys(this.props.cartItems).length > 0 && this.props.cartItems.reduce((sum, product) => sum + (product.qty * product.price), 0) >= 200 ? 'freeshipping' : 'flatrate';
 
         if (Cookies.get('usertype') === 'loggeduser') {
@@ -119,8 +120,14 @@ class Checkout extends Component {
                 state: { orderData: this.props.orderinfo }
             }} />
         }
-        if (this.props.userFlow == 'guestuser') {
-            //this.shipRef.current && this.scrollToMyRef(this.shipRef.current.offsetTop);
+        if (Object.keys(this.props.cartItems).length === 0) {
+            console.log(this.props.cartItems);
+            return <Redirect to={{
+                pathname: 'login'
+            }} />
+        }
+        if (this.props.usrMsg) {
+            this.errRef.current && this.scrollToMyRef(this.errRef.current.offsetTop);
         }
         if (this.props.enabledPay) {
             this.payRef.current && this.scrollToMyRef(this.payRef.current.offsetTop);
@@ -128,15 +135,19 @@ class Checkout extends Component {
         
         return (
             <div className="checkout-container">
-                <p>{this.props.usrMsg.message}</p>
-                <div className="row">
-                    <div className="col-12 col-md-4">
-                        <Minicartwrapper cartTitle = 'Order Summary' isShow='true' spot='checkout'  shippingPriceData = {this.props.shippingTotals} />
+                <div ref={this.errRef} className="checkout__msg">{Object.keys(this.props.usrMsg).length > 0 && 
+                    <div className={`alert alert-${this.props.usrMsg.type}`}>
+                    {this.props.usrMsg.message}
                     </div>
+                }</div>
+                <div className="row">
                     <div className="col-12 col-md-8 checkout__content">
                         <Checkoutentry userType={this.props.userFlow} />
                         <div ref={this.shipRef}><Shippingbox userType={this.props.userFlow} onSubmit={this.handleShipping} /></div>
                         <div ref={this.payRef}><Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} /></div>
+                    </div>
+                    <div className="col-12 col-md-4">
+                        <Minicartwrapper cartTitle = 'Order Summary' isShow='true' spot='checkout'  shippingPriceData = {this.props.shippingTotals} />
                     </div>
                 </div>
 
@@ -149,13 +160,13 @@ class Checkout extends Component {
 function mapStateToProps(state) {
     if (state) {
         return {
-            cartItems: state.productReducer.cartItems,
-            userFlow: state.productReducer.userFlow,
-            usrMsg: state.productReducer.usrMsg,
-            enabledPay: state.productReducer.enabledPay,
-            addressInfo: state.productReducer.addressInfo,
-            orderinfo: state.productReducer.orderinfo,
-            shippingTotals: state.productReducer.shippingTotals
+            cartItems: state.userReducer.cartItems,
+            userFlow: state.userReducer.userFlow,
+            usrMsg: state.userReducer.usrMsg,
+            enabledPay: state.userReducer.enabledPay,
+            addressInfo: state.userReducer.addressInfo,
+            orderinfo: state.userReducer.orderinfo,
+            shippingTotals: state.userReducer.shippingTotals
         }
     };
 }

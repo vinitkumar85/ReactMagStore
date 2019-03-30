@@ -40,8 +40,8 @@ class Cart extends React.Component {
 function mapStateToProps(state) {
     if (state) {
         return {
-            cartItems: state.productReducer.cartItems,
-            showCart: state.productReducer.showCart
+            cartItems: state.userReducer.cartItems,
+            showCart: state.uiReducer.showCart
         }
     };
 }

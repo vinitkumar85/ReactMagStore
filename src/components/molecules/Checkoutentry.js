@@ -52,7 +52,7 @@ class Checkoutentry extends Component {
 function mapStateToProps(state) {
     if (state) {
         return {
-            userFlow: state.productReducer.userFlow
+            userFlow: state.userReducer.userFlow
         }
     };
 }

@@ -79,8 +79,8 @@ function mapStateToProps(state) {
   if (state) {
     return {
       // showPopup: state.productReducer.showPopup,
-      userData: state.productReducer.userData,
-      usrMsg: state.productReducer.usrMsg
+      userData: state.userReducer.userData,
+      usrMsg: state.userReducer.usrMsg
     }
   };
 }

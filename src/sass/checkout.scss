@@ -61,15 +61,16 @@
     }
 
 }
+
+.checkout__msg {
+    padding-top: 15px;
+}
 .checkout__content {
     background: $body-bg;
     min-height: 600px;
     padding: 40px;
     color: $brand-primary;
     padding-bottom: 40px;
-    @include respond-above(md) {
-        margin-left: -15px;
-	}
 
     label {
         font-size: 13px;
