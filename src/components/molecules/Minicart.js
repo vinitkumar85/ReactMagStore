@@ -16,7 +16,7 @@ const Minicart = (props) => {
     let cartTitle = props.cartTitle || 'Mini Cart';
     return (
         Object.keys(props.minicartItms).length > 0 && <div class="minicart">
-            <h3 onClick={props.onclosecart}>{cartTitle}</h3> {props.spot === 'checkout' && <EditLink />}
+            <h3 onClick={props.onclosecart}>{cartTitle} <span>Close</span></h3> {props.spot === 'checkout' && <EditLink />}
             <div className="minicart__box">
                 {props.minicartItms.map((itm, index) => (
                     <Minicartitem key={index} cartItemData={itm} onDeleteItemClick={props.deleteCartItem} spot={props.spot} />

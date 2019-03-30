@@ -57,7 +57,7 @@ class Addtocart extends Component {
     }
 
     render() {
-        const btnclass = this.props.pagetype === 'pdp' ? 'btn-dark-brown addtocart__large' : 'btn-orange add__to__cart';
+        const btnclass = this.props.pagetype === 'pdp' ? 'addtocart__large' : 'btn-orange add__to__cart';
        
         let disbledbtn = this.props.showPreloader === 'true' ? 'btn-disabled' : '';
 

@@ -33,12 +33,11 @@
 			font-size: 28px;
 			font-weight:600;
 			text-transform: uppercase;
-			font-weight: normal;
 		}
 		h3{
 			color:$dark-black;
 			font-size: 24px;
-			font-weight:600;    		
+			font-weight:600; 		
     		span{
 				color:$gray;
 				font-size: 20px;
@@ -105,6 +104,7 @@
 		    font-weight: 600;
 			border-radius: 0;
 			width: 100%;
+			background: $newbranddark;
 		    &:hover{
 		    	color:$third-color;
 		    	text-decoration:none;

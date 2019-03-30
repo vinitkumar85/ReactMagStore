@@ -35,7 +35,8 @@ ul, ol{
 @for $i from 1 through 6 {
     h#{7 - $i} {
         font-size: $i * 5px;
-        color:#fff;
+		color:#fff;
+		font-weight: normal;
     }
 }
 
