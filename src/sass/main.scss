@@ -40,7 +40,6 @@ ul, ol{
     }
 }
 
-
 .btn {
 	 color:$white;
 	 text-decoration:none;
@@ -234,7 +233,6 @@ input.searchbox {
 
 		span{
 			color:$brand-primary;
-			font-weight: 600;
 			font-size:30px;
 		}
 		&::after {
@@ -265,13 +263,11 @@ input.searchbox {
 	position: relative;
 	h2 {
 		color:$primary-color;
-		font-weight: 200;
 		font-size:28px;
 		text-align:center;
 
 		span{
 			color:$brand-primary;
-			font-weight: 600;
 			font-size:30px;
 		}
 		&::after {
@@ -305,14 +301,12 @@ input.searchbox {
 	h2{
 		color:$primary-color;
 		text-transform: uppercase;
-		font-weight: 600;
 		font-size:30px;
 		padding-bottom: 8px;
 
 		span{
 			color:$brand-primary;
 			text-transform: uppercase;
-			font-weight: 600;
 			font-size:30px;
 		}
 
@@ -325,7 +319,6 @@ input.searchbox {
 	h3{
 		color:$black;
 		text-transform: uppercase;
-		font-weight: 600;
 	}
 	.widget__fotter_menu{
 		.footer-menu{
@@ -335,7 +328,6 @@ input.searchbox {
 		a {
 		    text-decoration: none;
 		    font-size: 15px;
-		    font-weight: 400;
 		    color:$gray;
 
 		    &:hover {

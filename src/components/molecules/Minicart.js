@@ -8,14 +8,17 @@ const Minicart = (props) => {
     if (!props.minicartItms) {
         return <div>Loading..</div>
     }
-    if (Object.keys(props.minicartItms).length === 0 && props.spot === 'cart') {
+    if (props.minicartItms.length === 0 && props.spot === 'cart') {
         return <div>No Cart Item found</div>
     }
+
+    console.log("############");
+    console.log(props.minicartItms);
     let cartStatus = props.cartStatus;
-    let cartTotal = (props.shippingPrice && props.shippingPrice.grand_total && cartStatus === 'freeze') ? props.shippingPrice.grand_total : Object.keys(props.minicartItms).length > 0 ? props.minicartItms.reduce((sum, product) => sum + (product.qty * product.price), 0) : ' ';
+    let cartTotal = (props.shippingPrice && props.shippingPrice.grand_total && cartStatus === 'freeze') ? props.shippingPrice.grand_total : props.minicartItms.length > 0 ? props.minicartItms.reduce((sum, product) => sum + (product.qty * product.price), 0) : ' ';
     let cartTitle = props.cartTitle || 'Mini Cart';
     return (
-        Object.keys(props.minicartItms).length > 0 && <div class="minicart">
+        props.minicartItms.length > 0 && <div class="minicart">
             <h3 onClick={props.onclosecart}>{cartTitle} <span>Close</span></h3> {props.spot === 'checkout' && <EditLink />}
             <div className="minicart__box">
                 {props.minicartItms.map((itm, index) => (

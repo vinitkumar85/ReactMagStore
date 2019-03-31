@@ -41,6 +41,7 @@ class Checkout extends Component {
                 "shipping_address": {
                     "region": values.city,
                     "country_id": "IN",
+                    "region_id": 12,
                     "street": [
                         values.address
                     ],
@@ -64,6 +65,7 @@ class Checkout extends Component {
                 },
                 "billing_address": {
                     "region": values.city,
+                    "region_id": 12,
                     "country_id": "IN",
                     "street": [
                         values.address
@@ -123,7 +125,7 @@ class Checkout extends Component {
         if (Object.keys(this.props.cartItems).length === 0) {
             console.log(this.props.cartItems);
             return <Redirect to={{
-                pathname: 'login'
+                pathname: '/'
             }} />
         }
         if (this.props.usrMsg) {

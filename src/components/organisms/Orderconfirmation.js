@@ -13,7 +13,7 @@ class Orderconfirmation extends Component {
         if (!this.props.location.state || !this.props.location.state.orderData) {
             console.log(this.props.location.state);
             return <Redirect to={{
-                pathname: 'login'
+                pathname: '/'
             }} />
         }
 

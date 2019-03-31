@@ -11,7 +11,7 @@
 	}
 	p{
 		color:$gray;
-		font-size: 16px;
+		font-size: 13px;
 	}
 
 	.product__details_left{
@@ -31,23 +31,19 @@
 		h2{
 			color:$brand-primary;
 			font-size: 28px;
-			font-weight:600;
 			text-transform: uppercase;
 		}
 		h3{
 			color:$dark-black;
-			font-size: 24px;
-			font-weight:600; 		
+			font-size: 24px;		
     		span{
 				color:$gray;
 				font-size: 20px;
-				font-weight:600;
 				text-decoration: line-through;
 			}
 			em{
 				color:$green;
 				font-size: 20px;
-				font-weight:600;
 			}				
 		}
 		.item__price {
@@ -56,7 +52,6 @@
 		.item__price--dk {
 			color:$dark-black;
 			font-size: 28px;
-			font-weight:600;
 
 			span {
 				font-size: 16px;
@@ -66,13 +61,11 @@
 		.item__price--lt {
 			color:$gray;
 			font-size: 16px;
-			font-weight:600;
 			line-height: 32px;
 		}
 		.item__price--dt {
 			color:$gray;
 			font-size: 16px;
-			font-weight:600;
 			
 			span {
 				text-decoration: line-through;
@@ -82,7 +75,6 @@
 			em {
 				color:$green-lt;
 				font-size: 18px;
-				font-weight:600;
 			}
 		}	
 		.product__icon{
@@ -101,7 +93,6 @@
 		    margin-top: 25px;
 		    padding: 12px 15px;
 		    text-transform: uppercase;
-		    font-weight: 600;
 			border-radius: 0;
 			width: 100%;
 			background: $newbranddark;
@@ -161,7 +152,6 @@
 			h4{
 				color:$brand-primary;
 				font-size: 20px;
-			    font-weight: 600;
 			    border-bottom: 3px solid;
 			    padding-bottom: 10px;
 			}

@@ -55,7 +55,6 @@
 .item__price--dk {
 	color:$dark-black;
 	font-size: 22px;
-	font-weight:600;
 
 	span {
 		font-size: 14px;
@@ -65,13 +64,11 @@
 .item__price--lt {
 	color:$gray;
 	font-size: 14px;
-	font-weight:600;
 	line-height: 24px;
 }
 .item__price--dt {
 	color:$gray;
 	font-size: 14px;
-	font-weight:600;
 	span {
 		text-decoration: line-through;
 		margin-left: 10px;
@@ -80,7 +77,6 @@
 	em{
 		color:$green-lt;
 		font-size: 14px;
-		font-weight:600;
 	}
 }	
 .add__to__cart {
@@ -102,7 +98,6 @@
 	a{
 		background: $white;
 		padding: 12px 5px;
-		font-weight: 600;
 		border-top-right-radius: 5px;
 		border-bottom-right-radius: 5px;
 		box-shadow: 3px 3px 3px 1px #f6dacc;
@@ -126,7 +121,6 @@
     h3{
         color:$gray;
         text-transform: uppercase;
-        font-weight: 600;
         font-size:20px;
         text-align:center;
     }	
@@ -140,7 +134,6 @@
     a{
         background: $white;
         padding: 12px 5px;
-        font-weight: 600;
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
         box-shadow: 3px 3px 3px 1px #f6dacc;

@@ -1,3 +1,5 @@
+import config from '../../common/config';
+
 import React, { Component } from 'react';
 import Addtocart from '../atoms/Addtocart';
 import Pinchecker from '../atoms/Pinchecker';
@@ -49,7 +51,7 @@ class ProductDetail extends Component {
 				<div class="row">
 					<div class="col-sm-5 product__details_left">
 						<div class="product__details__img">
-							<img src={`http://localhost:8888/shop/backend/pub/media/catalog/product/${this.props.productInfo.productImg}`} class="img-responsive img-fluid" alt="" />
+							<img src={`${config.assetPath}media/catalog/product/${this.props.productInfo.productImg}`} class="img-responsive img-fluid" alt="" />
 						</div>
 						<p>Pictures shown are for illustration purpose only. Actual product may vary.</p>
 					</div>

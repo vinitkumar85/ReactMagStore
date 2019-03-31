@@ -47,6 +47,11 @@ var sessionChecker = (req, res, next) => {
   }
 };
 
+var mergeGuestCart = (req, res, next) => {
+  console.log("merge cart");
+  next();
+}
+
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
@@ -470,10 +475,11 @@ app.get('/cartUpdate/:gcartid', function (req, res) {
     })
 })
 
-app.post('/assignCart/:gcartid', sessionChecker, (req, res) => {
+app.post('/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) => {
   var guestId = req.params.gcartid;
   var uid = req.session.user;
 
+  //Attempt to assign guest cart to logged in user
   axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}`,
     req.body,
     {
@@ -481,30 +487,34 @@ app.post('/assignCart/:gcartid', sessionChecker, (req, res) => {
     }
   )
     .then(resp => {
-      console.log(resp.data);
+      //create a new cart for logged user after guest cart assignment
       axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
         {
           headers: { 'Authorization': `Bearer ${uid}` }
         }
       )
         .then((result) => {
-          res.send(result.data);
+          console.log(result.data);
+         // res.send(result.data);
         }).catch(error => {
-          res.send(error.result.data);
+          console.log(error.result.data);
+          //res.send(error.result.data);
         });
     })
-
+    //If there is no cart item as a guest earlier request will fail then create a new cart for logged user
     .catch(error => {
-      console.log("error.resp.data");
+      console.log(error);
       axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
         {
           headers: { 'Authorization': `Bearer ${uid}` }
         }
       )
         .then((result) => {
-          res.send(result.data);
+          console.log(result.data);
+         // res.sendStatus(result.data);
         }).catch(error => {
-          res.send(error.result.data);
+          console.log(error.result.data);
+          //res.sendStatus(error.result.data);
         });
     });
 })

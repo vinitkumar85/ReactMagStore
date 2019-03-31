@@ -24,7 +24,7 @@ class Header extends Component {
             },
             {
                 name: 'Agarbatties / Dhoop',
-                url: '/products/9'
+                url: '/products/8'
             },
             {
                 name: 'Dharmik Books',

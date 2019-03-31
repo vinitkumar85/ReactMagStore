@@ -351,12 +351,16 @@ export const paymentRequest = (paymentdata) => {
     }
     axios.post('/payment', paymentdata)
       .then((response) => {
-        if (!response.data.billingAddress) {
+        if (response.data.billingAddress) {
           dispatch(setAction(response.data, 'SET_ORDER_INFO'));
           dispatch(setAction(false, 'TOGGLE_CART'));
           dispatch(setAction({}, 'UPDATE_CART'));
           sessionStorage.removeItem('guestCartID')
         }
+        if(response.data.message){
+          dispatch(setAction(response.data, 'SET_USR_MSG'));
+        }
+
         // dispatch(setAction(response.data, 'SET_USR_MSG'));
         // dispatch(setAction(true, 'ENABLE_PAYMENT_FORM'));
       })
