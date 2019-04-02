@@ -15,7 +15,7 @@ class Products extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.match.params.catid !== this.props.match.params.catid) {
-            this.props.products = [];
+            this.props.products = {};
             this.props.loadProducts(nextProps.match.params.catid);
         }
     }

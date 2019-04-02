@@ -351,7 +351,7 @@ export const paymentRequest = (paymentdata) => {
     }
     axios.post('/payment', paymentdata)
       .then((response) => {
-        if (response.data.billingAddress) {
+        if (response.data.billing_address) {
           dispatch(setAction(response.data, 'SET_ORDER_INFO'));
           dispatch(setAction(false, 'TOGGLE_CART'));
           dispatch(setAction({}, 'UPDATE_CART'));

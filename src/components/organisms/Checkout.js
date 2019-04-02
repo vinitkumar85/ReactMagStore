@@ -41,7 +41,7 @@ class Checkout extends Component {
                 "shipping_address": {
                     "region": values.city,
                     "country_id": "IN",
-                    "region_id": 12,
+                    "region_id": 542,
                     "street": [
                         values.address
                     ],
@@ -65,8 +65,8 @@ class Checkout extends Component {
                 },
                 "billing_address": {
                     "region": values.city,
-                    "region_id": 12,
                     "country_id": "IN",
+                    "region_id": 542,
                     "street": [
                         values.address
                     ],
@@ -115,8 +115,9 @@ class Checkout extends Component {
 
 
     render() {
+        console.log(this.props.orderinfo);
         if (Object.keys(this.props.orderinfo).length > 0) {
-            console.log(this.props.orderinfo);
+            
             return <Redirect to={{
                 pathname: 'confirmation',
                 state: { orderData: this.props.orderinfo }
