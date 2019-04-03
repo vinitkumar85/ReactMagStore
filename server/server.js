@@ -173,7 +173,7 @@ app.post('/removeitem/:id', function (req, res) {
 app.post('/removeitemuser/:id', function (req, res) {
   //console.log(req.session);
   var id = req.params.id;
-  var uid = req.body.usrid;
+  var uid = req.session.user;
   console.log(uid);
   axios.delete(`${appConfig.basePath}/rest/V1/carts/mine/items/${id}`,
     {

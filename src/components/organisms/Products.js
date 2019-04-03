@@ -15,7 +15,8 @@ class Products extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.match.params.catid !== this.props.match.params.catid) {
-            this.props.products = {};
+            //this.props.products = {};
+            this.props.clearProducts();
             this.props.loadProducts(nextProps.match.params.catid);
         }
     }
@@ -56,7 +57,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    loadProducts: (catid) => dispatch(actionCreaters.getProductList(catid))
+    loadProducts: (catid) => dispatch(actionCreaters.getProductList(catid)),
+    clearProducts: (catid) => dispatch(actionCreaters.clearProducts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products)

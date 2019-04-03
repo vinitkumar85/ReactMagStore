@@ -11,6 +11,8 @@ class Minicartwrapper extends Component {
 
 
     deleteItem = (id) => {
+        console.log(this.props.cartID);
+        console.log(this.props.usrID);
         if(this.props.cartID){
             this.props.guestdeleteItem(id, this.props.cartID);
         }

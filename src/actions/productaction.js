@@ -45,6 +45,13 @@ export function getHomeList() {
   }
 }
 
+export function clearProducts () {
+  return (dispatch) => {
+    dispatch(setAction({}, 'GET_PRODUCTLIST'))
+  }
+}
+
+
 export function getProductList(catId) {
   return (dispatch) => {
     axios.get('/products/' + catId)
@@ -62,6 +69,9 @@ export function guestdeleteCartItem(id, cartid) {
       .then((response) => {
         axios.get(`/cartUpdate/${cartid}`)
           .then((response) => {
+            if(response.data.length === 0){
+              dispatch(setAction(false, 'TOGGLE_CART'));
+            }
             dispatch(setAction(response.data, 'UPDATE_CART'));
             dispatch(setAction('open', 'CART_STATUS'));
             dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
@@ -78,7 +88,9 @@ export function userdeleteCartItem(id, cartid) {
       .then((response) => {
         axios.get(`/cartUpdateUser/${cartid}`)
           .then((response) => {
-            console.log(2);
+            if(response.data.length === 0){
+              dispatch(setAction(false, 'TOGGLE_CART'));
+            }
             dispatch(setAction(response.data, 'UPDATE_CART'));
             dispatch(setAction('open', 'CART_STATUS'));
             dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
@@ -263,6 +275,7 @@ export const processloginRequest = (userdata) => {
         dispatch(setAction({}, 'SET_USR_MSG'));
         dispatch(setAction(false, 'UPDATE_MODAL'));
         dispatch(setAction(response.data, 'GET_USER_DATA'));
+        sessionStorage.removeItem('guestCartID');
         dispatch(setAction('signeduser', 'SET_USR_FLOW'));
         let userid = "siteuser";
         console.log("after loign:",userid);
@@ -280,7 +293,7 @@ export const processloginRequest = (userdata) => {
                 .then((result) => {
                   console.log(41);
                   if(result.data.status !=='error-401'){
-                    dispatch(setAction(result.data, 'UPDATE_CART'))
+                    dispatch(setAction(result.data, 'UPDATE_CART'));
                   }
                 })
             })
@@ -375,6 +388,7 @@ export const getUserData = (uid) => {
       .then((response) => {
         dispatch(setAction(response.data, 'GET_USER_DATA'));
         dispatch(setAction(uid, 'GET_USR_ID'));
+        dispatch(setAction(null, 'GET_CARTID'));
         axios.get(`/cartUpdateUser/${uid}`)
           .then((response) => {
             console.log(1);
