@@ -10,6 +10,8 @@ var compression = require('compression');
 
 const appConfig = require('./config');
 
+console.log(appConfig);
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -189,6 +191,45 @@ app.post('/removeitemuser/:id', function (req, res) {
 
 })
 
+app.post('/edititem/:id', function (req, res) {
+  //console.log(req.session);
+  var id = req.params.id;
+  var cid = req.body.cartid;
+  console.log(req);
+  axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${cid}/items/${id}`,
+    {
+      headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
+    }
+  )
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(error => {
+      res.send(error.response.data);
+    });
+
+})
+
+app.post('/edititemuser/:id', function (req, res) {
+  console.log(req.body);
+  var id = req.params.id;
+  var uid = req.session.user;
+  console.log(uid);
+  axios.put(`${appConfig.basePath}/rest/V1/carts/mine/items/${id}`,req.body,
+    {
+      headers: { 'Authorization': `Bearer ${uid}` }
+    }
+  )
+    .then(response => {
+      res.send(response.data);
+    })
+    .catch(error => {
+      res.send(error.response.data);
+    });
+
+})
+
+
 app.get('/userdata/:uid', sessionChecker, (req, res) => {
   console.log(req.session.user);
   var uid = req.session.user;
@@ -257,6 +298,7 @@ app.post('/makeCartRequestUser/:ucartid', sessionChecker, (req, res) => {
     }
   )
     .then(result => {
+      console.log("quote id: "+ result.data);
       req.body.cartItem.quote_id = result.data;
       console.log(req.body);
       axios.post(`${appConfig.basePath}/rest/V1/carts/mine/items`, req.body,
@@ -346,7 +388,7 @@ app.post('/userregister/', function (req, res) {
       res.send(
         {
           'type': 'success',
-          'message': 'You have successfully regestered'
+          'message': 'You have successfully regestered. Please continue with login.'
         }
       );
     })

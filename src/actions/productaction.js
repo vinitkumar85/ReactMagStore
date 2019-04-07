@@ -13,6 +13,11 @@ export function setUserFlow(option) {
   }
 }
 
+function clearMsg (dispatch) {
+  dispatch(setAction({}, 'ADD_CART'));
+  dispatch(setAction({}, 'SET_USR_MSG'));
+}
+
 export function checkpin(code) {
   return (dispatch) => {
     let pinArr = ['110096','110032','110053'];
@@ -47,13 +52,14 @@ export function getHomeList() {
 
 export function clearProducts () {
   return (dispatch) => {
-    dispatch(setAction({}, 'GET_PRODUCTLIST'))
+    dispatch(setAction(undefined, 'GET_PRODUCTLIST'))
   }
 }
 
 
 export function getProductList(catId) {
   return (dispatch) => {
+    clearMsg(dispatch);
     axios.get('/products/' + catId)
       .then((response) => {
         dispatch(setAction(response.data, 'GET_PRODUCTLIST'))
@@ -99,8 +105,48 @@ export function userdeleteCartItem(id, cartid) {
   }
 }
 
+
+export function guesteditCartItem(id, cartid) {
+  return (dispatch) => {
+    console.log(cartid);
+    console.log(id);
+    axios.post('/edititem/' + id, { cartid: cartid })
+      .then((response) => {
+        axios.get(`/cartUpdate/${cartid}`)
+          .then((response) => {
+            if(response.data.length === 0){
+              dispatch(setAction(false, 'TOGGLE_CART'));
+            }
+            dispatch(setAction(response.data, 'UPDATE_CART'));
+            dispatch(setAction('open', 'CART_STATUS'));
+            dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
+          })
+      })
+  }
+}
+
+export function usereditCartItem(id, cartid, item) {
+  return (dispatch) => {
+    console.log(cartid);
+    console.log(id);
+    axios.post('/edititemuser/' + id, { cartItem: { sku: item.sku, qty: item.qty, quote_id: item.quote_id }})
+      .then((response) => {
+        axios.get(`/cartUpdateUser/${cartid}`)
+          .then((response) => {
+            if(response.data.length === 0){
+              dispatch(setAction(false, 'TOGGLE_CART'));
+            }
+            dispatch(setAction(response.data, 'UPDATE_CART'));
+            dispatch(setAction('open', 'CART_STATUS'));
+            dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
+          })
+      })
+  }
+}
+
 export function getProduct(productId) {
   return (dispatch) => {
+    clearMsg(dispatch);
     axios.get('product/' + productId)
       .then((response) => {
         var productImg, productDesc, productSP, productCost;
@@ -184,6 +230,7 @@ export const makeCartRequest = (item, usercartid) => {
           dispatch(setAction(response.data.sku, 'GET_ITEM_ID'));
           dispatch(setAction('false', 'INIT_PRELOADER'));
           dispatch(setAction(true, 'CART_SUCCESS'));
+          dispatch(setAction({}, 'SET_ORDER_INFO'));
           setTimeout(function () {
             dispatch(setAction(false, 'CART_SUCCESS'));
           }, 3000);
@@ -221,6 +268,7 @@ export const makeCartRequest = (item, usercartid) => {
           dispatch(setAction(response.data.sku, 'GET_ITEM_ID'));
           dispatch(setAction('false', 'INIT_PRELOADER'));
           dispatch(setAction(true, 'CART_SUCCESS'));
+          dispatch(setAction({}, 'SET_ORDER_INFO'));
           setTimeout(function () {
             dispatch(setAction(false, 'CART_SUCCESS'));
           }, 3000);
@@ -263,6 +311,7 @@ export const updateMiniCart = (gcartid) => {
 }
 
 export const processloginRequest = (userdata) => {
+  console.log(userdata);
   let guestCartID = sessionStorage.getItem("guestCartID");
   return (dispatch) => {
     axios.post('/userlogin', userdata)
@@ -315,10 +364,12 @@ export const processloginRequest = (userdata) => {
 }
 
 export const processregisterRequest = (userdata) => {
+  console.log(userdata);
   return (dispatch) => {
     axios.post('/userregister', userdata)
       .then((response) => {
         dispatch(setAction(response.data, 'SET_USR_MSG'));
+        dispatch(setAction('userregistered', 'SET_USR_FLOW'))
       })
   }
 }

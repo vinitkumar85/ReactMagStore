@@ -17,12 +17,15 @@ const Minicart = (props) => {
     let cartStatus = props.cartStatus;
     let cartTotal = (props.shippingPrice && props.shippingPrice.grand_total && cartStatus === 'freeze') ? props.shippingPrice.grand_total : props.minicartItms.length > 0 ? props.minicartItms.reduce((sum, product) => sum + (product.qty * product.price), 0) : ' ';
     let cartTitle = props.cartTitle || 'Mini Cart';
+    if(cartTotal == 0) {
+        cartTotal = <span><span class="one">.</span><span class="two">.</span><span class="three">.</span></span>;
+    }
     return (
         props.minicartItms.length > 0 && <div class="minicart">
             <h3 onClick={props.onclosecart}>{cartTitle} <span>Close</span></h3> {props.spot === 'checkout' && <EditLink />}
             <div className="minicart__box">
                 {props.minicartItms.map((itm, index) => (
-                    <Minicartitem key={index} cartItemData={itm} onDeleteItemClick={props.deleteCartItem} spot={props.spot} />
+                    <Minicartitem key={index} cartItemData={itm} onDeleteItemClick={props.deleteCartItem} onEditItemClick={props.editCartItem} spot={props.spot} changeQty={props.changeQty} />
                 ))}
             </div>
 

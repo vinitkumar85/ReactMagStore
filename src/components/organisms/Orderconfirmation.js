@@ -68,7 +68,7 @@ class Orderconfirmation extends Component {
                         {product.qty_ordered}
                         </div>
                         <div>
-                        ₹{product.price}
+                        ₹{product.qty_ordered * product.price}
                         </div>
                     </div>
                 ))}

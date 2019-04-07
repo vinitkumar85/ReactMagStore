@@ -38,7 +38,7 @@ class Productcard extends Component {
                 <div class="product__content">
                     <Productname productName = {this.props.productItemData.name} level="3"/>
                     <Productprice productPriceData = {this.props.productItemData} productPrice = {this.props.productItemData.price} />
-                    <Quantity productQty = {this.changeQty}/>
+                    <Quantity productQty = {this.changeQty} />
                     <Addtocart id = {this.props.dataid} selectedQty={this.state.qty}  productData = {this.props.productItemData}/>
                 </div>
             </div>

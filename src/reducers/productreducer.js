@@ -1,6 +1,6 @@
 
 const initialState = {
-    'products':{},
+    'products':undefined,
     'homeProducts':{
         firstlist:[],
         sectlist:[]

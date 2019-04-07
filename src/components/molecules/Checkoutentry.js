@@ -34,12 +34,12 @@ class Checkoutentry extends Component {
     render() {
         return (
             this.props.userType !== 'signeduser' && <div className="row entryform">
-                <div className="col-12 col-md-5">
-                    <Newuserentry userType={this.props.userFlow} onFlowChanged={this.handleChange} />
-                </div>
-                <div className="col-12 col-md-1">
-                    <span className="form-devider"></span>
-                </div>
+                {this.props.userFlow !== 'userregistered' && <div className="col-12 col-md-5">
+                <Newuserentry userType={this.props.userFlow} onFlowChanged={this.handleChange} />
+                </div>}
+                {this.props.userFlow !== 'userregistered' && <div className="col-12 col-md-1">
+                <span className="form-devider"></span>
+                </div>}
                 <div className="col-12 col-md-6">  
                     {this.props.userFlow == 'reguser' ? <Registerbox onSubmit={this.handleRegister}/> : <Loginbox onSubmit={this.handleSubmit} />}
                 </div>

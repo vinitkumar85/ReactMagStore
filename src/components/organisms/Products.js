@@ -22,7 +22,7 @@ class Products extends Component {
     }
 
     render() {
-        if (Object.keys(this.props.products).length === 0) {
+        if (!this.props.products) {
             return <div class="row">
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="animated-background">
@@ -40,6 +40,11 @@ class Products extends Component {
                     <div class="animated-background">
                     </div>
                 </div>
+            </div>
+        }
+        if (this.props.products.length === 0) {
+            return <div>
+                No product found
             </div>
         }
         return (
