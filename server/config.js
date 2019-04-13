@@ -15,7 +15,7 @@ var devconfig= {
 }
 var prodconfig= {
     basePath : "http://shopkit.hypernode.io/",
-    secretToken: "ipr6ee1hmn9atl9eanki8lvtsug7v6pa" 
+    secretToken: "zmd70ah06kdfz1kn1kna6mw1ygjv2jg8" //3- Access Token - not secret
 }
 
 module.exports = (function(){
