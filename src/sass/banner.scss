@@ -6,6 +6,18 @@
         border-bottom: 2px solid #fff;
         min-height: 200px;
         height: auto;
+        overflow: hidden;
+
+        img {
+            width: 260%;
+            left: -375px;
+            position: relative;
+
+            @include respond-above(sm) {
+                width: 100%;
+                left: 0;
+            }
+        }
     }
 
     .banner-overlay {   

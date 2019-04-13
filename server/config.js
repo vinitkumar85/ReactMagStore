@@ -14,8 +14,8 @@ var devconfig= {
     secretToken: "tlb5vy2barxkh8pgvlpevxr5b62nwmps" 
 }
 var prodconfig= {
-    basePath : "http://shubhkit.hypernode.io/",
-    secretToken: "99hni9rt40qct5zyvgovjhs14w48itl5" 
+    basePath : "http://shopkit.hypernode.io/",
+    secretToken: "ipr6ee1hmn9atl9eanki8lvtsug7v6pa" 
 }
 
 module.exports = (function(){
