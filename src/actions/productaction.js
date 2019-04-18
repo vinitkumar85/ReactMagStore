@@ -43,7 +43,7 @@ export function toggleMiniCart() {
 
 export function getHomeList() {
   return (dispatch) => {
-    axios.get('/homelist')
+    axios.get('/api/homelist')
       .then((response) => {
         dispatch(setAction(response.data, 'GET_HOMELIST'))
       })
@@ -60,7 +60,7 @@ export function clearProducts () {
 export function getProductList(catId) {
   return (dispatch) => {
     clearMsg(dispatch);
-    axios.get('/products/' + catId)
+    axios.get('/api/products/' + catId)
       .then((response) => {
         dispatch(setAction(response.data, 'GET_PRODUCTLIST'))
       })
@@ -71,9 +71,9 @@ export function guestdeleteCartItem(id, cartid) {
   return (dispatch) => {
     console.log(cartid);
     console.log(id);
-    axios.post('/removeitem/' + id, { cartid: cartid })
+    axios.post('/api/removeitem/' + id, { cartid: cartid })
       .then((response) => {
-        axios.get(`/cartUpdate/${cartid}`)
+        axios.get(`/api/cartUpdate/${cartid}`)
           .then((response) => {
             if(response.data.length === 0){
               dispatch(setAction(false, 'TOGGLE_CART'));
@@ -90,9 +90,9 @@ export function userdeleteCartItem(id, cartid) {
   return (dispatch) => {
     console.log(cartid);
     console.log(id);
-    axios.post('/removeitemuser/' + id, { usrid: cartid })
+    axios.post('/api/removeitemuser/' + id, { usrid: cartid })
       .then((response) => {
-        axios.get(`/cartUpdateUser/${cartid}`)
+        axios.get(`/api/cartUpdateUser/${cartid}`)
           .then((response) => {
             if(response.data.length === 0){
               dispatch(setAction(false, 'TOGGLE_CART'));
@@ -110,9 +110,9 @@ export function guesteditCartItem(id, cartid) {
   return (dispatch) => {
     console.log(cartid);
     console.log(id);
-    axios.post('/edititem/' + id, { cartid: cartid })
+    axios.post('/api/edititem/' + id, { cartid: cartid })
       .then((response) => {
-        axios.get(`/cartUpdate/${cartid}`)
+        axios.get(`/api/cartUpdate/${cartid}`)
           .then((response) => {
             if(response.data.length === 0){
               dispatch(setAction(false, 'TOGGLE_CART'));
@@ -129,9 +129,9 @@ export function usereditCartItem(id, cartid, item) {
   return (dispatch) => {
     console.log(cartid);
     console.log(id);
-    axios.post('/edititemuser/' + id, { cartItem: { sku: item.sku, qty: item.qty, quote_id: item.quote_id }})
+    axios.post('/api/edititemuser/' + id, { cartItem: { sku: item.sku, qty: item.qty, quote_id: item.quote_id }})
       .then((response) => {
-        axios.get(`/cartUpdateUser/${cartid}`)
+        axios.get(`/api/cartUpdateUser/${cartid}`)
           .then((response) => {
             if(response.data.length === 0){
               dispatch(setAction(false, 'TOGGLE_CART'));
@@ -147,7 +147,7 @@ export function usereditCartItem(id, cartid, item) {
 export function getProduct(productId) {
   return (dispatch) => {
     clearMsg(dispatch);
-    axios.get('product/' + productId)
+    axios.get('/api/product/' + productId)
       .then((response) => {
         var productImg, productDesc, productSP, productCost;
         response.data.custom_attributes.map((item) => {
@@ -189,7 +189,7 @@ export function initiateCart() {
   if (guestUser) {
     return (dispatch) => {
       dispatch(setAction(guestUser, 'GET_CARTID'));
-      axios.get(`/cartUpdate/${guestUser}`)
+      axios.get(`/api/cartUpdate/${guestUser}`)
         .then((response) => {
           dispatch(setAction(response.data, 'UPDATE_CART'));
           dispatch(setAction('open', 'CART_STATUS'));
@@ -200,11 +200,11 @@ export function initiateCart() {
 
   else {
     return (dispatch) => {
-      axios.get('getGuestToken')
+      axios.get('/api/getGuestToken')
         .then((response) => {
           sessionStorage.setItem('guestCartID', response.data);
           dispatch(setAction(response.data, 'GET_CARTID'));
-          axios.get(`/cartUpdate/${response.data}`)
+          axios.get(`/api/cartUpdate/${response.data}`)
             .then((resp) => {
               dispatch(setAction(resp.data, 'UPDATE_CART'))
             })
@@ -217,12 +217,11 @@ export const makeCartRequest = (item, usercartid) => {
   
 
   let userid = Cookies.get('usertype');
-  console.log("sfsf");
   if (Cookies.get('usertype') === "loggeduser") {
     return (dispatch) => {
       dispatch(setAction({}, 'ADD_CART'));
       dispatch(setAction('true', 'INIT_PRELOADER'));
-      axios.post(`/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty } },
+      axios.post(`/api/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty } },
 
       )
         .then((response) => {
@@ -246,7 +245,7 @@ export const makeCartRequest = (item, usercartid) => {
             dispatch(setAction({'msg':response.data.message}, 'SET_USR_MSG'));
           }
           else {
-            axios.get(`/cartUpdateUser/${usercartid}`)
+            axios.get(`/api/cartUpdateUser/${usercartid}`)
             .then((response) => {
               if(response.data.status !=='error-401'){
                 dispatch(setAction(response.data, 'UPDATE_CART'));
@@ -260,7 +259,7 @@ export const makeCartRequest = (item, usercartid) => {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
       dispatch(setAction({}, 'ADD_CART'));
-      axios.post(`/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty, quote_id: usercartid } },
+      axios.post(`/api/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty, quote_id: usercartid } },
 
       )
         .then((response) => {
@@ -275,7 +274,7 @@ export const makeCartRequest = (item, usercartid) => {
           if(response.data.message){
             dispatch(setAction({'msg':response.data.message}, 'SET_USR_MSG'));
           }
-          axios.get(`/cartUpdate/${usercartid}`)
+          axios.get(`/api/cartUpdate/${usercartid}`)
             .then((response) => {
               dispatch(setAction(response.data, 'UPDATE_CART'));
               dispatch(setAction('open', 'CART_STATUS'));
@@ -302,7 +301,7 @@ export const makeBulkCartRequest = (prarr, usercartid) => {
 
 export const updateMiniCart = (gcartid) => {
   return (dispatch) => {
-    axios.get(`/cartUpdate/${gcartid}`)
+    axios.get(`/api/cartUpdate/${gcartid}`)
       .then((response) => {
         dispatch(setAction(response.data, 'UPDATE_CART'));
         dispatch(setAction('open', 'CART_STATUS'));
@@ -314,7 +313,7 @@ export const processloginRequest = (userdata) => {
   console.log(userdata);
   let guestCartID = sessionStorage.getItem("guestCartID");
   return (dispatch) => {
-    axios.post('/userlogin', userdata)
+    axios.post('/api/userlogin', userdata)
       .then((response) => {
         console.log("userlogin success");
         if (response.data.message) {
@@ -332,13 +331,13 @@ export const processloginRequest = (userdata) => {
 
         if (guestCartID) {
           console.log("assign guestCartID");
-          axios.post(`/assignCart/${guestCartID}`, {
+          axios.post(`/api/assignCart/${guestCartID}`, {
             "customerId": response.data.id,
             "storeId": response.data.store_id,
             "userToken": userid
           })
             .then((result) => {
-              axios.get(`/cartUpdateUser/${userid}`)
+              axios.get(`/api/cartUpdateUser/${userid}`)
                 .then((result) => {
                   console.log(41);
                   if(result.data.status !=='error-401'){
@@ -348,9 +347,9 @@ export const processloginRequest = (userdata) => {
             })
         } else {
           console.log("assign usrid");
-          axios.post(`/assignCart/${userid}`)
+          axios.post(`/api/assignCart/${userid}`)
             .then((result) => {
-              axios.get(`/cartUpdateUser/${userid}`)
+              axios.get(`/api/cartUpdateUser/${userid}`)
                 .then((result) => {
                   console.log(5);
                   if(result.data.status !=='error-401'){
@@ -366,7 +365,7 @@ export const processloginRequest = (userdata) => {
 export const processregisterRequest = (userdata) => {
   console.log(userdata);
   return (dispatch) => {
-    axios.post('/userregister', userdata)
+    axios.post('/api/userregister', userdata)
       .then((response) => {
         dispatch(setAction(response.data, 'SET_USR_MSG'));
         dispatch(setAction('userregistered', 'SET_USR_FLOW'))
@@ -387,7 +386,7 @@ export const shippingRequest = (userdata) => {
     if (guestUser) {
       userdata.guestUser = guestUser;
     }
-    axios.post('/shipping', userdata)
+    axios.post('/api/shipping', userdata)
       .then((response) => {
         if(response.data.message){
           dispatch(setAction(response.data, 'SET_USR_MSG'));
@@ -413,7 +412,7 @@ export const paymentRequest = (paymentdata) => {
     if (guestUser) {
       paymentdata.guestUser = guestUser;
     }
-    axios.post('/payment', paymentdata)
+    axios.post('/api/payment', paymentdata)
       .then((response) => {
         if (response.data.billing_address) {
           dispatch(setAction(response.data, 'SET_ORDER_INFO'));
@@ -435,12 +434,12 @@ export const getUserData = (uid) => {
   console.info("uid");
   console.info(uid);
   return (dispatch) => {
-    axios.get(`/userdata/${uid}`)
+    axios.get(`/api/userdata/${uid}`)
       .then((response) => {
         dispatch(setAction(response.data, 'GET_USER_DATA'));
         dispatch(setAction(uid, 'GET_USR_ID'));
         dispatch(setAction(null, 'GET_CARTID'));
-        axios.get(`/cartUpdateUser/${uid}`)
+        axios.get(`/api/cartUpdateUser/${uid}`)
           .then((response) => {
             console.log(1);
             dispatch(setAction(response.data, 'UPDATE_CART'))
@@ -460,7 +459,7 @@ export const getUserData = (uid) => {
 export const logOut = () => {
   //Cookies.remove('usertype');
   return (dispatch) => {
-    axios.get('/logout')
+    axios.get('/api/logout')
       .then((response) => {
         dispatch(setAction(null, 'GET_USR_ID'));
         dispatch(setAction([], 'GET_USER_DATA'));

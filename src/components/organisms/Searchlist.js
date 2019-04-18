@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ReactiveBase, CategorySearch, ResultCard } from '@appbaseio/reactivesearch';
+import config from '../../common/config';
 
 class Searchlist extends Component {
     constructor (props){
@@ -13,26 +14,21 @@ class Searchlist extends Component {
   }
     return (
         <ReactiveBase
+        theme={{
+          typography: {
+            fontFamily: 'Raleway, Helvetica, sans-serif',
+          },
+          colors: {
+            primaryColor: '#008000',
+            titleColor: 'red',
+          },
+          component: {
+            padding: 10
+          }
+        }}
         app="shubhshop"
         credentials="fup2re9Xj:d99fecab-4983-453d-b2f8-4cda8e1790ce">
-        <div className='container-fluid'>
-        <div className="row search-filter">
-          <div className='col-sm-4 header__search'>
-              <CategorySearch
-                componentId="searchbox"
-                dataField="name"
-                //dataField={["name", "description", "name.raw", "categories", "meta_title", "meta_keywords"]}
-                //URLParams={true}
-                showClear={true}
-                categoryField="name.raw"
-                placeholder="Search for products"
-                defaultSelected={this.props.match.params.term}
-                onValueSelected= {redirect}
-                //value= {this.props.match.params.term}
-              />
-              
-            </div>
-            </div>
+        <div className='container-fluid search-results'>
           <div className="row">
           <div className='col-sm-12'>
             <ResultCard
@@ -46,22 +42,57 @@ class Searchlist extends Component {
               react={{
                 and: ["searchbox"]
               }}
-              onData={(res) => {
+              onData={this.productsCard}
+              /* onData={(res) => {
                 return {
-                  image: `http://localhost:8888/shubhkit/pub/media/catalog/product/${res.small_image}`,
+                  image: `${config.assetPath}media/catalog/product/${res.small_image}`,
                   title: res.name,
                   price: res.price,
                   url: "#product/"+res.sku,
                   description: res.product_type
                 }
-              }}
+              }
+            } */
             />
           </div>
           </div>
+          <div className="row search-filter">
+          <div className='col-sm-4 header__search'>
+              <CategorySearch
+                componentId="searchbox"
+                //dataField="name"
+                dataField={["name", "description", "name.raw", "categories", "meta_title", "meta_keywords"]}
+                //URLParams={true}
+                showClear={false}
+                showIcon={false}
+                categoryField="name.raw"
+                placeholder="Search for products"
+                defaultSelected={this.props.match.params.term}
+                onValueSelected= {redirect}
+                //value= {this.props.match.params.term}
+              />
+              
+            </div>
+            </div>
           </div>
         </ReactiveBase>
     );
   }
+
+  productsCard(data) {
+		return {
+			description: (
+				<div className="product__content">
+          <h3>{data.name}</h3>
+          <div className="item__price">
+            <span className="item__price--dk"><i className="fas fa-rupee-sign"></i>{data.price}</span>
+          </div>
+        </div>
+			),
+      image: `${config.assetPath}media/catalog/product/${data.small_image}`,
+      url: "#product/"+data.sku,
+		};
+	}
 }
 
 export default Searchlist;

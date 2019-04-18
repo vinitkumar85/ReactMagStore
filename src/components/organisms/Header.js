@@ -20,7 +20,7 @@ class Header extends Component {
             },
             {
                 name: 'Pooja Kits',
-                url: '/products/13'
+                url: '/products/12'
             },
             {
                 name: 'Agarbatties / Dhoop',
@@ -28,15 +28,15 @@ class Header extends Component {
             },
             {
                 name: 'Dharmik Books',
-                url: '/products/10'
+                url: '/products/9'
             },
             {
                 name: 'Prasad',
-                url: '/products/11'
+                url: '/products/10'
             },
             {
                 name: 'Idols',
-                url: '/products/12'
+                url: '/products/11'
             },
             {
                 name: 'Puja Essentials',

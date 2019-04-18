@@ -71,8 +71,8 @@ function getHomedata(catId) {
     }
   )
 }
-app.get('/homelist', function (req, res) {
-  axios.all([getHomedata(7), getHomedata(13)])
+app.get('/api/homelist', function (req, res) {
+  axios.all([getHomedata(7), getHomedata(12)])
     .then(axios.spread(function (acct, perms) {
       var upres = {};
       upres.firstlist = acct.data.items;
@@ -120,7 +120,7 @@ app.post('/addbulkitems', function (req, res) {
 })
 
 //app.get('/products/:catid', function (req, res) {
-app.get('/products/:catid', (req, res) => {
+app.get('/api/products/:catid', (req, res) => {
   var catId = req.params.catid;
   axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=8`,
     {
@@ -136,7 +136,7 @@ app.get('/products/:catid', (req, res) => {
 
 })
 
-app.get('/product/:skuid', function (req, res) {
+app.get('/api/product/:skuid', function (req, res) {
   console.log(req.session);
   var skuid = req.params.skuid;
   axios.get(`${appConfig.basePath}/rest/V1/products/${skuid}`,
@@ -153,7 +153,7 @@ app.get('/product/:skuid', function (req, res) {
 
 })
 
-app.post('/removeitem/:id', function (req, res) {
+app.post('/api/removeitem/:id', function (req, res) {
   //console.log(req.session);
   var id = req.params.id;
   var cid = req.body.cartid;
@@ -172,7 +172,7 @@ app.post('/removeitem/:id', function (req, res) {
 
 })
 
-app.post('/removeitemuser/:id', function (req, res) {
+app.post('/api/removeitemuser/:id', function (req, res) {
   //console.log(req.session);
   var id = req.params.id;
   var uid = req.session.user;
@@ -191,7 +191,7 @@ app.post('/removeitemuser/:id', function (req, res) {
 
 })
 
-app.post('/edititem/:id', function (req, res) {
+app.post('/api/edititem/:id', function (req, res) {
   //console.log(req.session);
   var id = req.params.id;
   var cid = req.body.cartid;
@@ -210,7 +210,7 @@ app.post('/edititem/:id', function (req, res) {
 
 })
 
-app.post('/edititemuser/:id', function (req, res) {
+app.post('/api/edititemuser/:id', function (req, res) {
   console.log(req.body);
   var id = req.params.id;
   var uid = req.session.user;
@@ -230,7 +230,7 @@ app.post('/edititemuser/:id', function (req, res) {
 })
 
 
-app.get('/userdata/:uid', sessionChecker, (req, res) => {
+app.get('/api/userdata/:uid', sessionChecker, (req, res) => {
   console.log(req.session.user);
   var uid = req.session.user;
   axios.get(`${appConfig.basePath}/rest/V1/customers/me`,
@@ -244,7 +244,7 @@ app.get('/userdata/:uid', sessionChecker, (req, res) => {
 
 })
 
-app.get('/getGuestToken', function (req, res) {
+app.get('/api/getGuestToken', function (req, res) {
   axios.post(`${appConfig.basePath}/rest/V1/guest-carts`, {},
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
@@ -260,7 +260,7 @@ app.get('/getGuestToken', function (req, res) {
 
 })
 
-app.get('/logout', function (req, res) {
+app.get('/api/logout', function (req, res) {
   if (req.cookies.userid) {
     res.clearCookie('userid');
     res.clearCookie('usertype');
@@ -270,7 +270,7 @@ app.get('/logout', function (req, res) {
   }
 })
 
-app.post('/makeCartRequest/:guestid', function (req, res) {
+app.post('/api/makeCartRequest/:guestid', function (req, res) {
   var guestId = req.params.guestid;
   console.log(req.body);
   if (guestId) {
@@ -290,7 +290,7 @@ app.post('/makeCartRequest/:guestid', function (req, res) {
 
 })
 
-app.post('/makeCartRequestUser/:ucartid', sessionChecker, (req, res) => {
+app.post('/api/makeCartRequestUser/:ucartid', sessionChecker, (req, res) => {
   var ucartid = req.session.user;
   axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
     {
@@ -322,7 +322,7 @@ app.post('/makeCartRequestUser/:ucartid', sessionChecker, (req, res) => {
     });
 })
 
-app.post('/userlogin/', function (req, res) {
+app.post('/api/userlogin/', function (req, res) {
   axios.post(`${appConfig.basePath}/rest/V1/integration/customer/token`, req.body,
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
@@ -378,7 +378,7 @@ app.post('/userlogin/', function (req, res) {
 
 })
 
-app.post('/userregister/', function (req, res) {
+app.post('/api/userregister/', function (req, res) {
   axios.post(`${appConfig.basePath}/rest/V1/customers`, req.body,
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
@@ -413,7 +413,7 @@ app.post('/userregister/', function (req, res) {
     });
 })
 
-app.post('/shipping/', function (req, res) {
+app.post('/api/shipping/', function (req, res) {
 
   var guestId = req.body.guestUser;
   var usrId = req.session.user;
@@ -448,7 +448,7 @@ app.post('/shipping/', function (req, res) {
     });
 })
 
-app.post('/payment/', function (req, res) {
+app.post('/api/payment/', function (req, res) {
 
   var guestId = req.body.guestUser;
   var usrId = req.session.user;
@@ -504,7 +504,7 @@ app.post('/payment/', function (req, res) {
     });
 })
 
-app.get('/cartUpdate/:gcartid', function (req, res) {
+app.get('/api/cartUpdate/:gcartid', function (req, res) {
   var guestId = req.params.gcartid;
 
   axios.get(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}/items`,
@@ -517,7 +517,7 @@ app.get('/cartUpdate/:gcartid', function (req, res) {
     })
 })
 
-app.post('/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) => {
+app.post('/api/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) => {
   var guestId = req.params.gcartid;
   var uid = req.session.user;
 
@@ -561,7 +561,7 @@ app.post('/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) => {
     });
 })
 
-app.get('/cartUpdateUser/:ucartid', sessionChecker, (req, res) => {
+app.get('/api/cartUpdateUser/:ucartid', sessionChecker, (req, res) => {
   var ucartid = req.session.user;
 
   axios.get(`${appConfig.basePath}/rest/V1/carts/mine/items`,
@@ -577,6 +577,15 @@ app.get('/cartUpdateUser/:ucartid', sessionChecker, (req, res) => {
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', './index.html'));
 });
+
+app.get('/view/*', function(req, res) {
+  console.log(__dirname);
+  res.sendFile(path.join(__dirname, '../build', './index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 app.listen(process.env.PORT || 3005, function () {
   console.log(chalk.green('Express listening on port ') + chalk.bgRed.bold(this.address().port));

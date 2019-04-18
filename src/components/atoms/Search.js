@@ -24,8 +24,10 @@ class Search extends Component {
                  <CategorySearch
                 componentId="searchbox"
                 dataField="name"
-               // URLParams={true}
-                showClear={true}
+                // URLParams={true}
+                autoSuggest={true}
+                showClear={false}
+                showIcon={false}
                 categoryField="brand.raw"
                 placeholder="Search products"
                 onValueSelected= {redirect}

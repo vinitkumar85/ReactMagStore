@@ -881,3 +881,10 @@ div.a6 {
     0%, 100% { -moz-transform: translateY(-120px); }
     10%, 90% { -moz-transform: translateY(0px); }
 }
+
+.search-results {
+	a:hover {
+		text-decoration: none;
+		outline: none;
+	}
+}

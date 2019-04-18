@@ -6,6 +6,26 @@ class Productlist extends Component {
         super(props);
     }
     render() {
+        if (Object.keys(this.props.productsData).length === 0 ) {
+            return <div class="row">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="animated-background">
+                    </div>
+                </div>
+            </div>
+        }
         return (
             Object.keys(this.props.productsData).length > 0 && <div class="row">
                 {this.props.productsData.map((product, index) => (

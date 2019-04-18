@@ -1,3 +1,3 @@
 module.exports = {
-    assetPath : "http://shubhkit.hypernode.io/"
+    assetPath : "http://shopkit.hypernode.io/"
 }

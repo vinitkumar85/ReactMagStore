@@ -3,7 +3,7 @@ import './sass/main.scss';
 import './sass/_form.scss';
 
 import Footer from './components/organisms/Footer';
-import { Route, HashRouter } from 'react-router-dom';
+import { Route, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Header from './components/organisms/Header';
@@ -70,7 +70,7 @@ class App extends Component {
       <div>
         {this.props.usrMsg.msg && <div id="notice">{this.props.usrMsg.msg}</div>}
 
-        <HashRouter>
+        <BrowserRouter basename="/view">
           <ScrollToTop>
             <div>
               <Route exact path="/"
@@ -145,7 +145,7 @@ class App extends Component {
                 )} />
             </div>
           </ScrollToTop>
-        </HashRouter>
+        </BrowserRouter>
 
       </div>
 
