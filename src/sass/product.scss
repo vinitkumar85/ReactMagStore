@@ -16,10 +16,10 @@
 	}
 }
 .img__box{
-	padding: 10px 5px;
 	float: left;
-	width: 48%;
+	width: 38%;
 	@include respond-above(sm) {
+		padding: 10px 5px;
 		float: none;
 		width: auto;
 		height: 250px;
@@ -29,9 +29,11 @@
 .product__content{
 	padding-bottom: 0px;
 	float: left;
-	width: 50%;
+	width: 60%;
 	text-align:left;
+	padding-left: 10px;
 	@include respond-above(sm) {
+		padding-left: 0;
 		text-align: center;
 		float: none;
 		width: auto;
@@ -40,9 +42,8 @@
 
 	h3{
 		color:$brand-primary;
-		font-size:18px;
-		font-weight: bold;
-		padding-top: 35px;
+		font-size:20px;
+		padding-top: 15px;
 		@include respond-above(sm) {
 			padding-top: 10px;
 		}
@@ -51,14 +52,19 @@
 
 .item__price {
 	padding-bottom: 20px;
+	padding-left: 5px;
 }
 .item__price--dk {
 	color:$dark-black;
-	font-size: 22px;
+	font-size: 18px;
 
 	span {
 		font-size: 14px;
 		color:$gray;
+		display: block;
+		@include respond-above(sm) {
+			display: inline;
+		}
 	}
 }
 .item__price--lt {
@@ -69,9 +75,15 @@
 .item__price--dt {
 	color:$gray;
 	font-size: 14px;
+	display: block;
+	@include respond-above(sm) {
+		display: inline;
+	}
 	span {
 		text-decoration: line-through;
-		margin-left: 10px;
+		@include respond-above(sm) {
+			margin-left: 10px;
+		}
 	}
 	
 	em{

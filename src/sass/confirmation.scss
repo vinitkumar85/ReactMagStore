@@ -8,7 +8,6 @@
 		color: $brand-primary;
 		text-transform: uppercase;
 		text-align: left;
-		font-weight: bold;
 		margin-bottom: 20px;
 
 		@include respond-above(sm) {
@@ -31,7 +30,6 @@
 	border-bottom: 1px solid $brand-primary;
 	justify-content: space-between;
 	padding-bottom: 10px;
-	font-weight: bold;
 	color: $dark-black;
 	margin-bottom: 15px;
   }
@@ -42,7 +40,7 @@
 	padding: 8px 0;
 
 	&--header {
-		font-weight: bold;
+		 
 		color: $dark-black;
 		border-bottom-width: 2px;
 	}
