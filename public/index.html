@@ -8,8 +8,8 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/store/build/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/store/build/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/favicon.ico">
 
      <!-- Tell the browser it's a PWA -->
      <meta name="mobile-web-app-capable" content="yes">
@@ -38,7 +38,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
-          navigator.serviceWorker.register('service-worker.js', {
+          navigator.serviceWorker.register('/service-worker.js', {
             scope: '/'
           }).then(function(registration) {
             // Registration was successful

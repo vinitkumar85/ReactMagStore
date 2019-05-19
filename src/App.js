@@ -19,6 +19,7 @@ import Orderconfirmation from './components/organisms/Orderconfirmation';
 import Searchlist from './components/organisms/Searchlist';
 import * as actionCreaters from './actions/productaction';
 import Userlogin from './components/organisms/Userlogin';
+import StaticContent from './components/organisms/StaticContent';
 import ScrollToTop from './ScrollToTop';
 import Cookies from 'js-cookie';
 
@@ -60,7 +61,7 @@ class App extends Component {
     if (Cookies.get('usertype') === "loggeduser") {
       sessionStorage.removeItem('guestCartID');
       this.props.getUserData('username');
-    } else {
+    } else if(!sessionStorage.getItem('guestCartID')) {
       this.props.getGuestCartID();
     }
   }
@@ -112,6 +113,17 @@ class App extends Component {
                     <div class="cart-page pt-60 pb-60">
                       <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
                         <CartPage />
+                      </div>
+                    </div>
+                  </MainLayout>
+                )} />
+
+              <Route path="/content/:page"
+                render={props => (
+                  <MainLayout>
+                    <div class="pt-60 pb-60">
+                      <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
+                        <StaticContent  {...props} />
                       </div>
                     </div>
                   </MainLayout>

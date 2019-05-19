@@ -5,6 +5,7 @@ const Pdpimg = (props) => {
         <div>
             <div class="product__details__img">
                 <img src="images/product-details.jpg" class="img-responsive img-fluid" alt="" />
+                {!props.productImg && <span className="img-placer"></span>}
             </div>
             <h4>Lorem Ipsum is simply dummy text of the printing </h4>
         </div>

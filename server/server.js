@@ -191,12 +191,12 @@ app.post('/api/removeitemuser/:id', function (req, res) {
 
 })
 
-app.post('/api/edititem/:id', function (req, res) {
+app.post('/api/edititem/:id/:cartid', function (req, res) {
   //console.log(req.session);
   var id = req.params.id;
-  var cid = req.body.cartid;
+  var cid = req.params.cartid;
   console.log(req);
-  axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${cid}/items/${id}`,
+  axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${cid}/items/${id}`, req.body,
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }
@@ -521,6 +521,8 @@ app.post('/api/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) 
   var guestId = req.params.gcartid;
   var uid = req.session.user;
 
+  console.log(1);
+
   //Attempt to assign guest cart to logged in user
   axios.put(`${appConfig.basePath}/rest/V1/guest-carts/${guestId}`,
     req.body,
@@ -529,6 +531,7 @@ app.post('/api/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) 
     }
   )
     .then(resp => {
+      console.log(2);
       //create a new cart for logged user after guest cart assignment
       axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
         {
@@ -536,28 +539,38 @@ app.post('/api/assignCart/:gcartid', sessionChecker, mergeGuestCart, (req, res) 
         }
       )
         .then((result) => {
-          console.log(result.data);
+          console.log(3);
+         // console.log(result.data);
          // res.send(result.data);
         }).catch(error => {
-          console.log(error.result.data);
+          console.log(4);
+          //console.log(error.result.data);
           //res.send(error.result.data);
         });
     })
     //If there is no cart item as a guest earlier request will fail then create a new cart for logged user
     .catch(error => {
-      console.log(error);
+      console.log(5);
+      //console.log(error);
       axios.post(`${appConfig.basePath}/rest/V1/carts/mine`, {},
         {
           headers: { 'Authorization': `Bearer ${uid}` }
         }
       )
         .then((result) => {
-          console.log(result.data);
-         // res.sendStatus(result.data);
-        }).catch(error => {
-          console.log(error.result.data);
-          //res.sendStatus(error.result.data);
+          console.log(6);
+          //console.log(result.data);
+         //res.send(result.data);
+         console.log(error.data);
+         res.send(error.data);
+        }).catch(err => {
+          console.log(7);
+          //console.log(error.result.data);
+          //res.send(error.result.data);
+          res.send(error.data);
         });
+        //console.log(8);
+        
     });
 })
 
@@ -576,6 +589,10 @@ app.get('/api/cartUpdateUser/:ucartid', sessionChecker, (req, res) => {
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, '../build', './index.html'));
+});
+
+app.get('/static/terms/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', './terms.html'));
 });
 
 app.get('/view/*', function(req, res) {

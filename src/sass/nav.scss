@@ -23,14 +23,16 @@
   
       &:hover {
           color:$primary-color;
-      }
-    }
-  
-    .active{
-        color: $brand-primary;
-      border-bottom: 6px solid $primary-color;
-      margin-bottom: -16px;
+	  }
+	  &.active {
+		color: $primary-color;
+		}
 	}
+	
+	li:first-child a.active{
+		color: $brand-primary;
+	}
+  
 	@include respond-above(md) {
 		.fixed-header & {
 			position: absolute;

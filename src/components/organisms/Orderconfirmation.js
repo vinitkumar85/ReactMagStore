@@ -20,7 +20,7 @@ class Orderconfirmation extends Component {
         let shippingAdd = this.props.location.state.orderData.extension_attributes.shipping_assignments[0].shipping.address;
         let orderitems = this.props.location.state.orderData.items;
         let orderInfo = this.props.location.state.orderData;
-        let cusname = this.props.location.state.orderData.customer_firstname ? this.props.location.state.orderData.customer_firstname :this.props.location.state.orderData.billing_address.firstname;
+        let cusname = this.props.location.state.orderData ? (this.props.location.state.orderData.customer_firstname ? this.props.location.state.orderData.customer_firstname :this.props.location.state.orderData.billing_address.firstname) : 'Guest';
         return (
             <div class="row">
                 <div class="col-12 order-confirmation">

@@ -3,8 +3,10 @@ import React from 'react';
 
 const Productimg = (props) => {
     return (
+        
         <div class="img__box">
-          <img src={`${config.assetPath}media/catalog/product/${props.productImg}`} class="img-responsive img-fluid" alt="" />
+          {props.productImg && <img src={`${config.assetPath}/${props.productImg}`} class="img-responsive img-fluid" alt="" />}
+          {!props.productImg && <span className="img-placer"></span>}
         </div>
     )
 }

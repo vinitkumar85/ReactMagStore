@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Loginbox from '../molecules/Loginbox';
 import Registerbox from '../molecules/Registerbox';
+import Preloader from '../atoms/Preloader';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import '../../sass/login.scss';
@@ -49,6 +50,7 @@ class Userlogin extends Component {
   render() {
     return (
       <div>
+        {this.props.isPreloader === 'true' && <Preloader/> }
         <div className="row">
           <div className="col-12">
           {Object.keys(this.props.usrMsg).length > 0 && 
@@ -80,7 +82,8 @@ function mapStateToProps(state) {
     return {
       // showPopup: state.productReducer.showPopup,
       userData: state.userReducer.userData,
-      usrMsg: state.userReducer.usrMsg
+      usrMsg: state.userReducer.usrMsg,
+      isPreloader: state.uiReducer.isLoader
     }
   };
 }

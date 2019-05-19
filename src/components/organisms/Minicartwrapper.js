@@ -65,7 +65,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
     guestdeleteItem: (id, cartid) => dispatch(actionCreaters.guestdeleteCartItem(id, cartid)),
     usrdeleteItem: (id, cartid) => dispatch(actionCreaters.userdeleteCartItem(id, cartid)),
-    guesteditItem: (id, cartid) => dispatch(actionCreaters.guesteditCartItem(id, cartid)),
+    guesteditItem: (id, cartid, itm) => dispatch(actionCreaters.guesteditCartItem(id, cartid, itm)),
     usreditItem: (id, cartid, itm) => dispatch(actionCreaters.usereditCartItem(id, cartid, itm))
 })
 

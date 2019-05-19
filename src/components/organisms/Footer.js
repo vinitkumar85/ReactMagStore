@@ -1,7 +1,5 @@
 import React from 'react';
-//import Topbar from '../molecules/Topbar';
-//import Navbar from '../molecules/Navbar';
-//import Mainheader from '../molecules/Mainheader';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
@@ -12,9 +10,9 @@ const Footer = () => {
                         <div class="widget__fotter_menu">
                             <h3>Informtion</h3>
                             <ul class="footer-menu">
-                                <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Refund &amp; Cancellation Policy</a></li>
+                                <li><Link to='/content/terms'>Terms &amp; Conditions</Link></li>
+                                <li><Link to="/content/privacy">Privacy Policy</Link></li>
+                                <li><Link to="/content/refund">Refund &amp; Cancellation Policy</Link></li>
                                 <li><a href="#">Shipping / Delivery Options</a></li>
                                 <li><a href="#">Payment Modes</a></li>
                                 <li><a href="#">FAQs</a></li>

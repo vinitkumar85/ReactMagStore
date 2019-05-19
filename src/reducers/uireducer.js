@@ -3,6 +3,7 @@ const initialState = {
     'showPopup':false,
     'showPreloader':'false',
     'showCart':false,
+    'isLoader': 'false',
     'isCartSuccessfull': 'false',
     'cartStatus': 'open'
 };
@@ -39,6 +40,12 @@ const uiReducer = (state = initialState, action) => {
         return {
             ...state,
             showPreloader : action.payload
+        }
+
+        case 'SET_LOADER':
+        return {
+            ...state,
+            isLoader : action.payload
         }
 
         default: return state;

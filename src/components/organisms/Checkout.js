@@ -6,12 +6,16 @@ import Minicartwrapper from '../organisms/Minicartwrapper';
 import Checkoutentry from '../molecules/Checkoutentry';
 import Shippingbox from '../molecules/Shippingbox';
 import Paymentbox from '../molecules/Paymentbox';
+import Preloader from '../atoms/Preloader';
 import Cookies from 'js-cookie';
 import '../../sass/checkout.scss';
 
 class Checkout extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            shippAddress : JSON.parse(localStorage.getItem('useraddress'))
+        };
         this.shipRef = React.createRef();
         this.payRef = React.createRef();
         this.errRef = React.createRef();
@@ -22,11 +26,18 @@ class Checkout extends Component {
         } else {
             this.props.setUserFlow('');
         }
+
+        String.prototype.capitalize = function() {
+            return this.charAt(0).toUpperCase() + this.slice(1);
+        }
     }
 
     componentWillReceiveProps(nextProps) {
         this.shippingMethod = Object.keys(this.props.cartItems).length > 0 && this.props.cartItems.reduce((sum, product) => sum + (product.qty * product.price), 0) >= 200 ? 'freeshipping' : 'flatrate';
-        console.log(this.shippingMethod);
+        this.setState({
+            shippAddress : JSON.parse(localStorage.getItem('useraddress'))
+        });
+        
     }
 
     scrollToMyRef = (elempos) => window.scrollTo({
@@ -145,8 +156,19 @@ class Checkout extends Component {
                 }</div>
                 <div className="row">
                     <div className="col-12 col-md-8 checkout__content">
+                    {this.props.isPreloader === 'true' && <Preloader/> }
                         <Checkoutentry userType={this.props.userFlow} />
-                        <div ref={this.shipRef}><Shippingbox userType={this.props.userFlow} onSubmit={this.handleShipping} /></div>
+                        <div ref={this.shipRef}>
+                            <Shippingbox isPayEnabled={this.props.enabledPay} userType={this.props.userFlow} onSubmit={this.handleShipping} />
+                        </div>
+                       { this.props.enabledPay && <div>
+                            <strong>Deliver to:</strong> <br/>
+                             {this.state.shippAddress.firstname.capitalize()} {this.state.shippAddress.lastname.capitalize()}<br/>
+                             Phone: {this.state.shippAddress.telephone}<br/>
+                             Address: {this.state.shippAddress.street[0]}<br/>
+                             City: {this.state.shippAddress.city.capitalize()}<br/>
+                            <button className="btn btn-link" onClick={this.props.offPaymentBtn}>Edit</button>
+                        </div>}
                         <div ref={this.payRef}><Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} /></div>
                     </div>
                     <div className="col-12 col-md-4">
@@ -169,7 +191,8 @@ function mapStateToProps(state) {
             enabledPay: state.userReducer.enabledPay,
             addressInfo: state.userReducer.addressInfo,
             orderinfo: state.userReducer.orderinfo,
-            shippingTotals: state.userReducer.shippingTotals
+            shippingTotals: state.userReducer.shippingTotals,
+            isPreloader: state.uiReducer.isLoader
         }
     };
 }
@@ -177,7 +200,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
     setUserFlow: (option) => dispatch(actionCreaters.setUserFlow(option)),
     shippingRequest: (cusdata) => dispatch(actionCreaters.shippingRequest(cusdata)),
-    paymentRequest: (paydata) => dispatch(actionCreaters.paymentRequest(paydata))
+    paymentRequest: (paydata) => dispatch(actionCreaters.paymentRequest(paydata)),
+    offPaymentBtn: () => dispatch(actionCreaters.offPaymentBtn())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import config from '../common/config';
 
 export function togglemodal() {
   return (dispatch) => {
@@ -12,15 +13,21 @@ export function setUserFlow(option) {
     dispatch(setAction(option, 'SET_USR_FLOW'))
   }
 }
+export function offPaymentBtn() {
+  return (dispatch) => {
+    dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
+  }
+}
 
 function clearMsg (dispatch) {
   dispatch(setAction({}, 'ADD_CART'));
   dispatch(setAction({}, 'SET_USR_MSG'));
+  dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
 }
 
 export function checkpin(code) {
   return (dispatch) => {
-    let pinArr = ['110096','110032','110053'];
+    let pinArr = config.pinCodes;
     console.log(code);
     if(pinArr.includes(code)){
       dispatch(setAction(`We deliver at ${code} and COD available for this location. You are eligible for same day delivery if order before 11AM`, 'SET_DEL_MSG'));
@@ -106,11 +113,11 @@ export function userdeleteCartItem(id, cartid) {
 }
 
 
-export function guesteditCartItem(id, cartid) {
+export function guesteditCartItem(id, cartid, item) {
   return (dispatch) => {
     console.log(cartid);
     console.log(id);
-    axios.post('/api/edititem/' + id, { cartid: cartid })
+    axios.post(`/api/edititem/${id}/${cartid}`, {cartItem: { sku: item.sku, qty: item.qty, quote_id: item.quote_id }})
       .then((response) => {
         axios.get(`/api/cartUpdate/${cartid}`)
           .then((response) => {
@@ -219,7 +226,8 @@ export const makeCartRequest = (item, usercartid) => {
   let userid = Cookies.get('usertype');
   if (Cookies.get('usertype') === "loggeduser") {
     return (dispatch) => {
-      dispatch(setAction({}, 'ADD_CART'));
+      clearMsg(dispatch);
+      //dispatch(setAction({}, 'ADD_CART'));
       dispatch(setAction('true', 'INIT_PRELOADER'));
       axios.post(`/api/makeCartRequestUser/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty } },
 
@@ -258,7 +266,8 @@ export const makeCartRequest = (item, usercartid) => {
   } else {
     return (dispatch) => {
       dispatch(setAction('true', 'INIT_PRELOADER'));
-      dispatch(setAction({}, 'ADD_CART'));
+      //dispatch(setAction({}, 'ADD_CART'));
+      clearMsg(dispatch);
       axios.post(`/api/makeCartRequest/${usercartid}`, { cartItem: { sku: item.sku, qty: item.qty, quote_id: usercartid } },
 
       )
@@ -313,9 +322,12 @@ export const processloginRequest = (userdata) => {
   console.log(userdata);
   let guestCartID = sessionStorage.getItem("guestCartID");
   return (dispatch) => {
+    clearMsg(dispatch);
+    dispatch(setAction('true', 'SET_LOADER'));
     axios.post('/api/userlogin', userdata)
       .then((response) => {
         console.log("userlogin success");
+        dispatch(setAction('false', 'SET_LOADER'));
         if (response.data.message) {
           dispatch(setAction(response.data, 'SET_USR_MSG'));
           return false;
@@ -364,9 +376,13 @@ export const processloginRequest = (userdata) => {
 
 export const processregisterRequest = (userdata) => {
   console.log(userdata);
+  
   return (dispatch) => {
+    clearMsg(dispatch);
+    dispatch(setAction('true', 'SET_LOADER'));
     axios.post('/api/userregister', userdata)
       .then((response) => {
+        dispatch(setAction('false', 'SET_LOADER'));
         dispatch(setAction(response.data, 'SET_USR_MSG'));
         dispatch(setAction('userregistered', 'SET_USR_FLOW'))
       })
@@ -374,10 +390,12 @@ export const processregisterRequest = (userdata) => {
 }
 
 export const shippingRequest = (userdata) => {
+  
   return (dispatch) => {
+    clearMsg(dispatch);
     let userId = Cookies.get('userid');
     let guestUser = sessionStorage.getItem("guestCartID");
-
+    dispatch(setAction('true', 'SET_LOADER'));
     dispatch(setAction(userdata.addressInformation, 'SET_ADD_INFO'));
 
     if (userId) {
@@ -388,10 +406,12 @@ export const shippingRequest = (userdata) => {
     }
     axios.post('/api/shipping', userdata)
       .then((response) => {
+        dispatch(setAction('false', 'SET_LOADER'));
         if(response.data.message){
           dispatch(setAction(response.data, 'SET_USR_MSG'));
         }
         if(response.data.totals){
+          localStorage.setItem('useraddress', JSON.stringify(userdata.addressInformation.shipping_address));
           dispatch(setAction(true, 'ENABLE_PAYMENT_FORM'));
           dispatch(setAction('freeze', 'CART_STATUS'));
           dispatch(setAction(response.data.totals, 'GET_SHIPPING_PRICES'));
@@ -403,6 +423,7 @@ export const shippingRequest = (userdata) => {
 
 export const paymentRequest = (paymentdata) => {
   return (dispatch) => {
+    clearMsg(dispatch);
     let userId = Cookies.get('userid');
     let guestUser = sessionStorage.getItem("guestCartID");
 
@@ -412,8 +433,10 @@ export const paymentRequest = (paymentdata) => {
     if (guestUser) {
       paymentdata.guestUser = guestUser;
     }
+    dispatch(setAction('true', 'SET_LOADER'));
     axios.post('/api/payment', paymentdata)
       .then((response) => {
+        dispatch(setAction('false', 'SET_LOADER'));
         if (response.data.billing_address) {
           dispatch(setAction(response.data, 'SET_ORDER_INFO'));
           dispatch(setAction(false, 'TOGGLE_CART'));
@@ -422,6 +445,7 @@ export const paymentRequest = (paymentdata) => {
         }
         if(response.data.message){
           dispatch(setAction(response.data, 'SET_USR_MSG'));
+          dispatch(setAction(false, 'ENABLE_PAYMENT_FORM'));
         }
 
         // dispatch(setAction(response.data, 'SET_USR_MSG'));

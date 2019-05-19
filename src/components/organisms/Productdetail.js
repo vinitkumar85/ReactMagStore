@@ -51,7 +51,8 @@ class ProductDetail extends Component {
 				<div class="row">
 					<div class="col-sm-5 product__details_left">
 						<div class="product__details__img">
-							<img src={`${config.assetPath}media/catalog/product/${this.props.productInfo.productImg}`} class="img-responsive img-fluid" alt="" />
+							{this.props.productInfo.productImg && <img src={`${config.assetPath}/${this.props.productInfo.productImg}`} class="img-responsive img-fluid" alt="" />}
+							{!this.props.productInfo.productImg && <span className="img-placer"></span>}
 						</div>
 						<p>Pictures shown are for illustration purpose only. Actual product may vary.</p>
 					</div>

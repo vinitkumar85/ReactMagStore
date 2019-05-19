@@ -4,16 +4,12 @@ import CheckoutLink from '../atoms/CheckoutLink';
 import EditLink from '../atoms/EditLink';
 
 const Minicart = (props) => {
-    console.log(props.minicartItms);
     if (!props.minicartItms) {
         return <div>Loading..</div>
     }
     if (props.minicartItms.length === 0 && props.spot === 'cart') {
         return <div>No Cart Item found</div>
     }
-
-    console.log("############");
-    console.log(props.minicartItms);
     let cartStatus = props.cartStatus;
     let cartTotal = (props.shippingPrice && props.shippingPrice.grand_total && cartStatus === 'freeze') ? props.shippingPrice.grand_total : props.minicartItms.length > 0 ? props.minicartItms.reduce((sum, product) => sum + (product.qty * product.price), 0) : ' ';
     let cartTitle = props.cartTitle || 'Mini Cart';
@@ -28,7 +24,6 @@ const Minicart = (props) => {
                     <Minicartitem key={index} cartItemData={itm} onDeleteItemClick={props.deleteCartItem} onEditItemClick={props.editCartItem} spot={props.spot} changeQty={props.changeQty} />
                 ))}
             </div>
-
             <div className="minicart__total">
                 {props.shippingPrice && cartStatus === 'freeze' && <div className="shipping-prices">
                 <div className="row">

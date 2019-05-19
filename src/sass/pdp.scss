@@ -31,7 +31,6 @@
 		h2{
 			color:$brand-primary;
 			font-size: 28px;
-			text-transform: uppercase;
 		}
 		h3{
 			color:$dark-black;
@@ -168,4 +167,9 @@
 			}
 		}
 	}
+}
+
+.product__details__img {
+	min-height: 300px;
+	background: #f6f6f6;
 }

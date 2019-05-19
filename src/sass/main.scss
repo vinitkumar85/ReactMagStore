@@ -45,6 +45,20 @@ ul, ol{
 	 padding:15px 25px;
 	 border-radius:3px;
 	 font-size:1em;
+
+	 &:disabled {
+		 opacity: 0.6;
+	 }
+}
+
+.btn-link {
+	color:$primary-color;
+	text-decoration:underline;
+	padding:15px 0;
+
+	&:hover {
+		color:$brand-primary;
+	}
 }
 
 .btn-dark-brown {
@@ -497,10 +511,12 @@ input.searchbox {
 }
 .modal-body {
 	padding: 20px;
-	height: 550px;
+	padding-bottom: 60px;
+	height: 80vh;
 	overflow: auto;
 	@include respond-above(sm) {
 		height: auto;
+		padding: 20px;
 	}
 }
 .modal-title {
@@ -887,3 +903,89 @@ div.a6 {
 		outline: none;
 	}
 }
+.preloader {
+	background: rgba(255, 255, 255, 0.6);
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+.loader {
+	position: absolute;
+	left: 40%;
+	top:30%;
+}
+.lds-ellipsis {
+	display: inline-block;
+	position: relative;
+	width: 64px;
+	height: 64px;
+  }
+  .lds-ellipsis div {
+	position: absolute;
+	top: 27px;
+	width: 11px;
+	height: 11px;
+	border-radius: 50%;
+	background: $primary-color;
+	animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+	left: 6px;
+	animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+	left: 6px;
+	animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+	left: 26px;
+	animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+	left: 45px;
+	animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+	0% {
+	  transform: scale(0);
+	}
+	100% {
+	  transform: scale(1);
+	}
+  }
+  @keyframes lds-ellipsis3 {
+	0% {
+	  transform: scale(1);
+	}
+	100% {
+	  transform: scale(0);
+	}
+  }
+  @keyframes lds-ellipsis2 {
+	0% {
+	  transform: translate(0, 0);
+	}
+	100% {
+	  transform: translate(19px, 0);
+	}
+  }
+
+.validation-error, .validation-warn {
+	color: red;
+	display: block;
+	text-align: right;
+	font-size: 11px;
+	line-height: 15px;
+	border-top: 2px solid red;
+	margin-top: -1px;
+}
+.img-placer {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: #f2f2f2;
+}
+  

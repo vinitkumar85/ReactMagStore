@@ -10,8 +10,8 @@
 } */
 
 var devconfig= {
-    basePath : "http://localhost:8888/shop/backend/",
-    secretToken: "tlb5vy2barxkh8pgvlpevxr5b62nwmps" 
+    basePath : "http://localhost:8888/localshop/",
+    secretToken: "xs1dhwllwenug9xvykyurgpwqq052ck4" 
 }
 var prodconfig= {
     basePath : "http://shopkit.hypernode.io/",

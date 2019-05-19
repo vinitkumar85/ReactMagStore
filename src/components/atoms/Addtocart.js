@@ -11,24 +11,16 @@ class Addtocart extends Component {
     }
 
     handleClick = (itm, id) => {
-        console.log(itm);
         this.loadericon = <span>Adding <i class="fa fa-spinner fa-spin"></i></span>;
 
-        this.props.showPreloader = 'true';
+       // this.props.showPreloader = 'true';
         this.setState({
             loading: 'true',
             isCartSuccess: 'true'
         }, () => {
-            this.loadericon = this.state.loading === 'true' && <span>Adding <i class="fa fa-spinner fa-spin"></i></span>;
+            this.loadericon = <span>Adding <i class="fa fa-spinner fa-spin"></i></span>;
            });
-
-        console.log("userid####");
-        console.log(this.props.usrID);
-
-        console.log("cartID####");
-        console.log(this.props.cartID);
-
-        
+                
         if (this.props.usrID) {
             this.props.addtocart(itm, this.props.usrID);
         }
@@ -50,10 +42,11 @@ class Addtocart extends Component {
             loading: nextProps.showPreloader,
             isCartSuccess: nextProps.isCartSuccess
         });
+        if(nextProps.showPreloader === 'false'){
+            this.loadericon = <span>Add to Cart</span>;
+       }
 
-           if(nextProps.showPreloader === 'false'){
-                this.loadericon = <span>Add to Cart</span>;
-           }
+          
     }
 
     render() {
