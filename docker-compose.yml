@@ -6,7 +6,7 @@ services:
         restart: always
         user: application
         environment:
-          - WEB_ALIAS_DOMAIN=local.shubhkit.com
+          - WEB_ALIAS_DOMAIN=store.shubhkit.com
           - WEB_DOCUMENT_ROOT=/app/pub
           - PHP_DATE_TIMEZONE=EST
           - PHP_DISPLAY_ERRORS=1
@@ -17,7 +17,7 @@ services:
         volumes:
           - ./magento:/app:cached
         ports:
-          - "80:80"
+          - "8010:8010"
           - "443:443"
           - "32823:22"
         links:
@@ -51,7 +51,7 @@ services:
           - PMA_USER=root
           - PMA_PASSWORD=root
         ports:
-          - "8080:80"
+          - "8080:8010"
         links:
           - mysql:db
         depends_on:
