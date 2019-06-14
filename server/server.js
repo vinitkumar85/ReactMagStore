@@ -77,6 +77,7 @@ app.get('/api/homelist', function (req, res) {
       var upres = {};
       upres.firstlist = acct.data.items;
       upres.sectlist = perms.data.items;
+      upres.processid = process.pid;
       res.send(upres);
     }));
 })
@@ -245,6 +246,7 @@ app.get('/api/userdata/:uid', sessionChecker, (req, res) => {
 })
 
 app.get('/api/getGuestToken', function (req, res) {
+  console.log("1");
   axios.post(`${appConfig.basePath}/rest/V1/guest-carts`, {},
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
@@ -604,6 +606,6 @@ app.get('/view/*', function(req, res) {
   })
 })
 
-app.listen(process.env.PORT || 3005, function () {
+app.listen(process.env.PORT || 3009, function () {
   console.log(chalk.green('Express listening on port ') + chalk.bgRed.bold(this.address().port));
 });

@@ -14,7 +14,7 @@ var devconfig= {
     secretToken: "xs1dhwllwenug9xvykyurgpwqq052ck4" 
 }
 var prodconfig= {
-    basePath : "http://shopkit.hypernode.io/",
+    basePath : "http://magento:80/",
     secretToken: "zmd70ah06kdfz1kn1kna6mw1ygjv2jg8" //3- Access Token - not secret
 }
 

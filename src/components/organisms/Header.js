@@ -45,7 +45,6 @@ class Header extends Component {
         ];
     }
 
-
     getInitialState = () => {
         return {
             didScroll: true,
@@ -56,7 +55,6 @@ class Header extends Component {
 
     componentDidMount = () => {
         window.addEventListener('scroll', this.handleScroll);
-        console.log("header mounted....");
     }
 
     componentWillUnmount = () => {
@@ -65,11 +63,9 @@ class Header extends Component {
 
     hasScrolled = () => {
         const st = window.scrollY;
-
         // Make sure they scroll more than delta
         if (Math.abs(this.state.lastScrollTop - st) <= delta)
             return;
-
         // If they scrolled down and are past the navbar, add class .nav-up.
         // This is necessary so you never see what is "behind" the navbar.
         //if (st < this.state.lastScrollTop && st > navbarHeight) {

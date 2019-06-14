@@ -14,7 +14,7 @@ class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            shippAddress : JSON.parse(localStorage.getItem('useraddress'))
+            shippAddress: JSON.parse(localStorage.getItem('useraddress'))
         };
         this.shipRef = React.createRef();
         this.payRef = React.createRef();
@@ -27,7 +27,7 @@ class Checkout extends Component {
             this.props.setUserFlow('');
         }
 
-        String.prototype.capitalize = function() {
+        String.prototype.capitalize = function () {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
     }
@@ -35,9 +35,9 @@ class Checkout extends Component {
     componentWillReceiveProps(nextProps) {
         this.shippingMethod = Object.keys(this.props.cartItems).length > 0 && this.props.cartItems.reduce((sum, product) => sum + (product.qty * product.price), 0) >= 200 ? 'freeshipping' : 'flatrate';
         this.setState({
-            shippAddress : JSON.parse(localStorage.getItem('useraddress'))
+            shippAddress: JSON.parse(localStorage.getItem('useraddress'))
         });
-        
+
     }
 
     scrollToMyRef = (elempos) => window.scrollTo({
@@ -124,18 +124,14 @@ class Checkout extends Component {
         this.props.paymentRequest(paymentData)
     }
 
-
     render() {
-        console.log(this.props.orderinfo);
         if (Object.keys(this.props.orderinfo).length > 0) {
-            
             return <Redirect to={{
                 pathname: 'confirmation',
                 state: { orderData: this.props.orderinfo }
             }} />
         }
         if (Object.keys(this.props.cartItems).length === 0) {
-            console.log(this.props.cartItems);
             return <Redirect to={{
                 pathname: '/'
             }} />
@@ -146,41 +142,39 @@ class Checkout extends Component {
         if (this.props.enabledPay) {
             this.payRef.current && this.scrollToMyRef(this.payRef.current.offsetTop);
         }
-        
+
         return (
             <div className="checkout-container">
-                <div ref={this.errRef} className="checkout__msg">{Object.keys(this.props.usrMsg).length > 0 && 
+                <div ref={this.errRef} className="checkout__msg">{Object.keys(this.props.usrMsg).length > 0 &&
                     <div className={`alert alert-${this.props.usrMsg.type}`}>
-                    {this.props.usrMsg.message}
+                        {this.props.usrMsg.message}
                     </div>
                 }</div>
                 <div className="row">
                     <div className="col-12 col-md-8 checkout__content">
-                    {this.props.isPreloader === 'true' && <Preloader/> }
+                        {this.props.isPreloader === 'true' && <Preloader />}
                         <Checkoutentry userType={this.props.userFlow} />
                         <div ref={this.shipRef}>
                             <Shippingbox isPayEnabled={this.props.enabledPay} userType={this.props.userFlow} onSubmit={this.handleShipping} />
                         </div>
-                       { this.props.enabledPay && <div>
-                            <strong>Deliver to:</strong> <br/>
-                             {this.state.shippAddress.firstname.capitalize()} {this.state.shippAddress.lastname.capitalize()}<br/>
-                             Phone: {this.state.shippAddress.telephone}<br/>
-                             Address: {this.state.shippAddress.street[0]}<br/>
-                             City: {this.state.shippAddress.city.capitalize()}<br/>
+                        {this.props.enabledPay && <div>
+                            <strong>Deliver to:</strong> <br />
+                            {this.state.shippAddress.firstname.capitalize()} {this.state.shippAddress.lastname.capitalize()}<br />
+                            Phone: {this.state.shippAddress.telephone}<br />
+                            Address: {this.state.shippAddress.street[0]}<br />
+                            City: {this.state.shippAddress.city.capitalize()}<br />
                             <button className="btn btn-link" onClick={this.props.offPaymentBtn}>Edit</button>
                         </div>}
                         <div ref={this.payRef}><Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} /></div>
                     </div>
                     <div className="col-12 col-md-4">
-                        <Minicartwrapper cartTitle = 'Order Summary' isShow='true' spot='checkout'  shippingPriceData = {this.props.shippingTotals} />
+                        <Minicartwrapper cartTitle='Order Summary' isShow='true' spot='checkout' shippingPriceData={this.props.shippingTotals} />
                     </div>
                 </div>
-
             </div>
         )
     }
 }
-
 
 function mapStateToProps(state) {
     if (state) {
@@ -194,7 +188,7 @@ function mapStateToProps(state) {
             shippingTotals: state.userReducer.shippingTotals,
             isPreloader: state.uiReducer.isLoader
         }
-    };
+    }
 }
 
 const mapDispatchToProps = (dispatch) => ({

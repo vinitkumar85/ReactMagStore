@@ -6,7 +6,7 @@ const Productimg = (props) => {
         
         <div class="img__box">
           {props.productImg && <img src={`${config.assetPath}/${props.productImg}`} class="img-responsive img-fluid" alt="" />}
-          {!props.productImg && <span className="img-placer"></span>}
+          {!props.productImg && <span className="img-placer">Image not available</span>}
         </div>
     )
 }

@@ -16,11 +16,9 @@ class Userlogin extends Component {
       "username": values.uname,
       "password": values.upassword
     })
-   // this.props.closePopup();
   }
 
   handleRegister = (values) => {
-    console.log(values)
     this.props.registerRequest({
       "customer": {
         "firstname": values.fname,
@@ -29,35 +27,29 @@ class Userlogin extends Component {
       },
       "password": values.upassword
     })
-    //this.props.closePopup();
   }
 
   loginRequest = (UserData) => {
-    // this.setState({isAjaxProgress: true});
-   // setTimeout(() => {
-      axios.post(`/userlogin/`,
-        UserData
-      )
-        .then((response) => {
-          console.log(response);
-        }).catch((error) => {
-          // Error
-          console.log("error");
-          console.log(error);
-        });
-   // }, 200);
+    axios.post(`/userlogin/`,
+      UserData
+    )
+      .then((response) => {
+        console.log(response);
+      }).catch((error) => {
+        console.log(error);
+      });
   };
   render() {
     return (
       <div>
-        {this.props.isPreloader === 'true' && <Preloader/> }
+        {this.props.isPreloader === 'true' && <Preloader />}
         <div className="row">
           <div className="col-12">
-          {Object.keys(this.props.usrMsg).length > 0 && 
-          <div className={`alert alert-${this.props.usrMsg.type}`}>
-          {this.props.usrMsg.message}
-        </div>
-          }
+            {Object.keys(this.props.usrMsg).length > 0 &&
+              <div className={`alert alert-${this.props.usrMsg.type}`}>
+                {this.props.usrMsg.message}
+              </div>
+            }
           </div>
         </div>
         <div className="row">
@@ -76,18 +68,16 @@ class Userlogin extends Component {
   }
 }
 
-//export default Userlogin;
 function mapStateToProps(state) {
   if (state) {
     return {
-      // showPopup: state.productReducer.showPopup,
       userData: state.userReducer.userData,
       usrMsg: state.userReducer.usrMsg,
       isPreloader: state.uiReducer.isLoader
     }
   };
 }
-//export default Addtocart;
+
 const mapDispatchToProps = (dispatch) => ({
   loginRequest: (usrdata) => dispatch(actionCreaters.processloginRequest(usrdata)),
   registerRequest: (cusdata) => dispatch(actionCreaters.processregisterRequest(cusdata))

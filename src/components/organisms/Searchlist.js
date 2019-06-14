@@ -3,17 +3,15 @@ import { ReactiveBase, CategorySearch, ResultCard } from '@appbaseio/reactivesea
 import config from '../../common/config';
 
 class Searchlist extends Component {
-    constructor (props){
-        super(props)
-    }
+  constructor(props) {
+    super(props)
+  }
   render() {
     const redirect = (term) => {
-      console.log(term);
-     this.props.history.push(`/searchlist/${term}`)
-     
-  }
+      this.props.history.push(`/searchlist/${term}`)
+    }
     return (
-        <ReactiveBase
+      <ReactiveBase
         theme={{
           typography: {
             fontFamily: 'Raleway, Helvetica, sans-serif',
@@ -30,19 +28,18 @@ class Searchlist extends Component {
         credentials="fup2re9Xj:d99fecab-4983-453d-b2f8-4cda8e1790ce">
         <div className='container-fluid search-results'>
           <div className="row">
-          <div className='col-sm-12'>
-            <ResultCard
-              componentId="result"
-              title="Results"
-              dataField="name"
-             
-              //from={0}
-              //size={6}
-              //pagination={true}
-              react={{
-                and: ["searchbox"]
-              }}
-              onData={this.productsCard}
+            <div className='col-sm-12'>
+              <ResultCard
+                componentId="result"
+                title="Results"
+                dataField="name"
+                //from={0}
+                //size={6}
+                //pagination={true}
+                react={{
+                  and: ["searchbox"]
+                }}
+                onData={this.productsCard}
               /* onData={(res) => {
                 return {
                   image: `${config.assetPath}media/catalog/product/${res.small_image}`,
@@ -53,11 +50,11 @@ class Searchlist extends Component {
                 }
               }
             } */
-            />
-          </div>
+              />
+            </div>
           </div>
           <div className="row search-filter">
-          <div className='col-sm-4 header__search'>
+            <div className='col-sm-4 header__search'>
               <CategorySearch
                 componentId="searchbox"
                 //dataField="name"
@@ -65,34 +62,33 @@ class Searchlist extends Component {
                 //URLParams={true}
                 showClear={false}
                 showIcon={false}
-                categoryField="name.raw"
+                categoryField="brand.keyword"
                 placeholder="Search for products"
                 defaultSelected={this.props.match.params.term}
-                onValueSelected= {redirect}
-                //value= {this.props.match.params.term}
+                onValueSelected={redirect}
+              //value= {this.props.match.params.term}
               />
-              
-            </div>
             </div>
           </div>
-        </ReactiveBase>
+        </div>
+      </ReactiveBase>
     );
   }
 
   productsCard(data) {
-		return {
-			description: (
-				<div className="product__content">
+    return {
+      description: (
+        <div className="product__content">
           <h3>{data.name}</h3>
           <div className="item__price">
             <span className="item__price--dk"><i className="fas fa-rupee-sign"></i>{data.price}</span>
           </div>
         </div>
-			),
+      ),
       image: `${config.assetPath}media/catalog/product/${data.small_image}`,
-      url: "#product/"+data.sku,
-		};
-	}
+      url: "#product/" + data.sku,
+    };
+  }
 }
 
 export default Searchlist;

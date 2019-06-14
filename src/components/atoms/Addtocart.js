@@ -12,8 +12,6 @@ class Addtocart extends Component {
 
     handleClick = (itm, id) => {
         this.loadericon = <span>Adding <i class="fa fa-spinner fa-spin"></i></span>;
-
-       // this.props.showPreloader = 'true';
         this.setState({
             loading: 'true',
             isCartSuccess: 'true'
@@ -36,7 +34,6 @@ class Addtocart extends Component {
         }
     }
 
-
     componentWillReceiveProps(nextProps) {
         this.setState({
             loading: nextProps.showPreloader,
@@ -44,25 +41,15 @@ class Addtocart extends Component {
         });
         if(nextProps.showPreloader === 'false'){
             this.loadericon = <span>Add to Cart</span>;
-       }
-
-          
+       }    
     }
 
     render() {
         const btnclass = this.props.pagetype === 'pdp' ? 'addtocart__large' : 'btn-orange add__to__cart';
-       
         let disbledbtn = this.props.showPreloader === 'true' ? 'btn-disabled' : '';
-
-        console.log(this.state.loading);
-        console.log(this.loadericon);
-
         return (
             <div class="addtocart-wrapper"> {Object.keys(this.props.recentItem).length > 0 ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
-
-            {/* <Flyer itemdata='{"item_id":1151,"sku":"24-UG06","qty":2,"name":"Affirm Water Bottle ","price":7,"product_type":"simple","quote_id":"2401"}' msg="Added" /> */}
                 <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: this.props.selectedQty }, this.props.productData.sku) }}>{this.loadericon}</button>
-                {/* <br/><button class={`btn ${btnclass}`} onClick={() => { this.handleBulkClick()}}>Bulk Add</button> */}
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import config from '../../common/config';
 
 const required = value => value ? undefined : 'Required'
 const maxLength = max => value =>
@@ -17,6 +18,10 @@ const tooOld = value =>
 const aol = value =>
   value && /.+@aol\.com/.test(value) ?
   'Really? You still use AOL for your email?' : undefined
+
+const  checkpin = value =>
+  value && config.pinCodes.includes(value) ? undefined : "We do not deliver at pincode mentioned here"
+    
 
 const renderField = ({ input, label, type, meta: { touched, error, warning }, className, placeholder }) => (
   <div>
@@ -66,7 +71,7 @@ let Shippingbox = (props) => {
                         <div className="col-12 col-md-6">
                             <div className="form-group">
                                 <label htmlFor="pincode">Pincode</label>
-                                <Field name="pincode" component={renderField} validate={[required, number ]}  placeholder="Pincode" className="form-control" type="text" />
+                                <Field name="pincode" component={renderField} validate={[required, number, checkpin ]}  placeholder="Pincode" className="form-control" type="text" />
                             </div>
                         </div>
                         <div className="col-12 col-md-6">

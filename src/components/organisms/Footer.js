@@ -11,11 +11,12 @@ const Footer = () => {
                             <h3>Informtion</h3>
                             <ul class="footer-menu">
                                 <li><Link to='/content/terms'>Terms &amp; Conditions</Link></li>
-                                <li><Link to="/content/privacy">Privacy Policy</Link></li>
-                                <li><Link to="/content/refund">Refund &amp; Cancellation Policy</Link></li>
-                                <li><a href="#">Shipping / Delivery Options</a></li>
-                                <li><a href="#">Payment Modes</a></li>
-                                <li><a href="#">FAQs</a></li>
+                                <li><Link to="/content/refund">Return &amp; Refund</Link></li>
+                                <li><Link to="/content/shipping">Shipping / Delivery Options</Link></li>
+                                <li><Link to="/content/payment">Payment Modes</Link></li>
+                                <li><Link to="/content/faqs">FAQs</Link></li>
+                                <li><Link to="searchlist/fitness">Search</Link></li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -23,9 +24,8 @@ const Footer = () => {
                         <div class="widget__fotter_menu">
                             <h3>About Us</h3>
                             <ul class="footer-menu">
-                                <li><a href="#">Who we are</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Career</a></li>
+                                <li><Link to="/content/about">Who we are</Link></li>
+                                <li><Link to="/content/contact">Contact Us</Link></li>
                             </ul>
                         </div>
                     </div>

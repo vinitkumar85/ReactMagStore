@@ -1,4 +1,4 @@
-# Functional React Shopping Cart for guest users
+# React Shopping Cart frontend
 
 #### The idea of this project to create e-commerce app with react frontend and magento backend.
 
