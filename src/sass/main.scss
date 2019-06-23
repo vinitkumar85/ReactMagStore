@@ -240,13 +240,15 @@ input.searchbox {
 	padding-top: 20px;
 	h2{
 		color:$primary-color;
-		font-weight: 200;
 		font-size:28px;
 		text-align:center;
 
 		span{
 			color:$brand-primary;
-			font-size:30px;
+			font-size:26px;
+			@include respond-above(sm) {
+				font-size: 30px;
+			}
 		}
 		&::after {
 		    content: "";
@@ -259,9 +261,12 @@ input.searchbox {
 		}		
 	}
 }
-.shubh__kit__item{		
-	padding-top: 30px;
-	padding-bottom: 30px;
+.shubh__kit__row{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.shubh__kit__item{
+	padding: 30px 5px;
 }
 
 .container {
@@ -279,9 +284,12 @@ input.searchbox {
 		font-size:28px;
 		text-align:center;
 
-		span{
+		span {
 			color:$brand-primary;
-			font-size:30px;
+			font-size:26px;
+			@include respond-above(sm) {
+				font-size: 30px;
+			}
 		}
 		&::after {
 		    content: "";
@@ -426,7 +434,8 @@ input.searchbox {
 			}
 		}
 		p{
-		    text-align: justify;
+			text-align: justify;
+			font-size: 14px;
 		}
 	}
 	.footer__section{
@@ -828,9 +837,14 @@ div.a6 {
 
 .qtybox {
 	border: none;
-	line-height: 40px;
+	line-height: 30px;
 	-webkit-appearance: none; 
 	font-size: 22px;
+
+	@include respond-above(sm) {
+		line-height: 40px;
+		font-size: 30px;
+	}
 
 	.minicart-item__qty-item & {
 		font-size: 14px;
@@ -848,17 +862,24 @@ div.a6 {
 }
 .qty-ctr {
 	background: $newbrandlt;
-	font-size: 30px;
+	font-size: 22px;
 	color: $brand-primary;
 	text-align: center;
-	height: 40px;
-	width: 40px;
-	line-height: 40px;
+	height: 30px;
+	width: 30px;
+	line-height: 30px;
 	border-radius: 50%;
 	display: inline-block;
 	border: none;
 	margin: 0 3px;
 	cursor: pointer;
+
+	@include respond-above(sm) {
+		height: 40px;
+		width: 40px;
+		line-height: 40px;
+		font-size: 30px;
+	}
 
 	.minicart-item__qty-item & {
 		font-size: 14px;
@@ -986,24 +1007,11 @@ div.a6 {
 	display: block;
 	width: 100%;
 	height: 100%;
-	background: #f2f2f2;
+	background: #f6f6f6;
 	color: #cccccc;
 	text-decoration: none;
 	text-align: center;
     line-height: 50px;
-	&::before {
-		display: block;
-		width: 50px;
-		height: 50px;
-		background: #999;
-		content: " ";
-		position: absolute;
-		left: 50%;
-		top: 20%;
-		transform: rotate(-45deg);
-		margin-left: -25px;
-		opacity: 0.3;
-	}
 }
 
 .static-page {

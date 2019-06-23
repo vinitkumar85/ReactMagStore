@@ -24,19 +24,19 @@ class Products extends Component {
     render() {
         if (!this.props.products) {
             return <div class="row">
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-lg-3">
                     <div class="animated-background">
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-lg-3">
                     <div class="animated-background">
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-lg-3">
                     <div class="animated-background">
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-6 col-sm-6 col-lg-3">
                     <div class="animated-background">
                     </div>
                 </div>

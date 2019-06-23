@@ -16,8 +16,7 @@
 	}
 }
 .img__box{
-	float: left;
-	width: 38%;
+	width: 100%;
 	@include respond-above(sm) {
 		padding: 10px 5px;
 		float: none;
@@ -28,12 +27,9 @@
 }
 .product__content{
 	padding-bottom: 0px;
-	float: left;
-	width: 60%;
+	width: 100%;
 	text-align:left;
-	padding-left: 10px;
 	@include respond-above(sm) {
-		padding-left: 0;
 		text-align: center;
 		float: none;
 		width: auto;
@@ -42,28 +38,32 @@
 
 	h3{
 		color:$brand-primary;
-		font-size:20px;
+		font-size:15px;
 		padding-top: 15px;
 		@include respond-above(sm) {
 			padding-top: 10px;
+			font-size:20px;
 		}
 	}
 }
 
 .item__price {
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 	padding-left: 5px;
 }
 .item__price--dk {
 	color:$dark-black;
-	font-size: 18px;
+	font-size: 14px;
+	@include respond-above(sm) {
+		font-size: 18px;
+	}
 
 	span {
-		font-size: 14px;
+		font-size: 9px;
 		color:$gray;
-		display: block;
 		@include respond-above(sm) {
 			display: inline;
+			font-size: 14px;
 		}
 	}
 }
@@ -97,7 +97,9 @@
     left: 50%;
     bottom: -60px;
 	text-transform: uppercase;
-
+	@include respond-below(sm) {
+		padding: 10px 20px;
+	}
 	&:hover{
 		color:$white;
 	}

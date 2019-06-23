@@ -31,7 +31,7 @@ class Productcard extends Component {
             }
         })
         return (
-            <div className="col-12 col-sm-6 col-lg-3 shubh__kit__item">
+            <div className="col-6 col-sm-6 col-lg-3 shubh__kit__item">
                 <div class="product__wrapper">
                     <Link to={`/product/${this.props.productItemData.sku}`}> <Productimg productImg={this.imgpath} /></Link>
                     <div class="product__content">

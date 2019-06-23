@@ -17,7 +17,7 @@ services:
         volumes:
           - ./magento:/app:cached
         ports:
-          - "8010:8010"
+          - "8010:80"
           - "443:443"
           - "32823:22"
         links:
@@ -33,14 +33,6 @@ services:
           - MYSQL_DATABASE=magento
         volumes:
           - db-data:/var/lib/mysql
-    react:
-      container_name: react
-      build: .
-      ports:
-          - "3010:3010"
-      restart: unless-stopped
-      links:
-          - magento
 
     phpmyadmin:
         container_name: phpmyadmin
@@ -51,7 +43,7 @@ services:
           - PMA_USER=root
           - PMA_PASSWORD=root
         ports:
-          - "8080:8010"
+          - "8080:80"
         links:
           - mysql:db
         depends_on:
@@ -60,3 +52,4 @@ services:
 volumes:
     db-data:
         external: false
+

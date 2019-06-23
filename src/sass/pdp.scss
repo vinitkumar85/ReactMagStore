@@ -27,34 +27,54 @@
 		@include respond-above(sm) {
 			padding: 30px 40px;
 		}
-
 		h2{
 			color:$brand-primary;
-			font-size: 28px;
+			font-size: 20px;
+			@include respond-above(sm) {
+				font-size: 24px;
+			}
 		}
 		h3{
 			color:$dark-black;
-			font-size: 24px;		
+			font-size: 18px;
+			@include respond-above(sm) {
+				font-size: 20px;
+			}	
     		span{
 				color:$gray;
-				font-size: 20px;
+				font-size: 14px;
 				text-decoration: line-through;
+				@include respond-above(sm) {
+					font-size: 18px;
+				}	
 			}
 			em{
 				color:$green;
-				font-size: 20px;
+				font-size: 14px;
+				@include respond-above(sm) {
+					font-size: 18px;
+				}	
 			}				
 		}
 		.item__price {
-			padding-bottom: 20px;
+			padding-bottom: 10px;
+			@include respond-above(sm) {
+				padding-bottom: 18px;
+			}	
 		}
 		.item__price--dk {
 			color:$dark-black;
-			font-size: 28px;
+			font-size: 18px;
+			@include respond-above(sm) {
+				font-size: 20px;
+			}
 
 			span {
-				font-size: 16px;
+				font-size: 14px;
 				color:$gray;
+				@include respond-above(sm) {
+					font-size: 16px;
+				}
 			}
 		}
 		.item__price--lt {
@@ -150,13 +170,13 @@
 			padding:30px 0;
 			h4{
 				color:$brand-primary;
-				font-size: 20px;
+				font-size: 16px;
 			    border-bottom: 3px solid;
-			    padding-bottom: 10px;
+			    padding-bottom: 8px;
 			}
 			p{
 				color:$black;
-				font-size: 16px;
+				font-size: 14px;
 			}
 
 			ul{

@@ -15,7 +15,7 @@ var devconfig= {
 }
 var prodconfig= {
     basePath : "http://magento:8010/",
-    secretToken: "zmd70ah06kdfz1kn1kna6mw1ygjv2jg8" //3- Access Token - not secret
+    secretToken: "se1mjyfrr86hhriaan4r0dh23v7p5kdd" //3- Access Token - not secret
 }
 
 module.exports = (function(){
