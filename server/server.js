@@ -72,7 +72,7 @@ function getHomedata(catId) {
   )
 }
 app.get('/api/homelist', function (req, res) {
-  axios.all([getHomedata(7), getHomedata(12)])
+  axios.all([getHomedata(9), getHomedata(4)])
     .then(axios.spread(function (acct, perms) {
       var upres = {};
       upres.firstlist = acct.data.items;
