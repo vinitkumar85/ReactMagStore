@@ -1,4 +1,4 @@
 module.exports = {
-    assetPath : "http://68.65.121.119:8010/media/catalog/product/",
+    assetPath : "http://www.shubhkit.com:8080/media/catalog/product/",
     pinCodes: ['110092','110051','110090','110032','110053','110091','110095','110031','110096','110094','110093']
 }

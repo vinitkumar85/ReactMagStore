@@ -14,7 +14,7 @@ var devconfig= {
     secretToken: "xs1dhwllwenug9xvykyurgpwqq052ck4" 
 }
 var prodconfig= {
-    basePath : "http://68.65.121.119:8010/",
+    basePath : "http://www.shubhkit.com:8080/",
     secretToken: "se1mjyfrr86hhriaan4r0dh23v7p5kdd" //3- Access Token - not secret
 }
 

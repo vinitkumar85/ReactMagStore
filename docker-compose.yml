@@ -17,7 +17,7 @@ services:
         volumes:
           - ./magento:/app:cached
         ports:
-          - "8010:80"
+          - "8080:80"
           - "443:443"
           - "32823:22"
         links:
@@ -43,7 +43,7 @@ services:
           - PMA_USER=root
           - PMA_PASSWORD=root
         ports:
-          - "8080:80"
+          - "8010:80"
         links:
           - mysql:db
         depends_on:
