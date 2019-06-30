@@ -15,7 +15,6 @@ const Footer = () => {
                                 <li><Link to="/content/shipping">Shipping / Delivery Options</Link></li>
                                 <li><Link to="/content/payment">Payment Modes</Link></li>
                                 <li><Link to="/content/faqs">FAQs</Link></li>
-                                <li><Link to="searchlist/fitness">Search</Link></li>
                                 
                             </ul>
                         </div>
@@ -33,8 +32,6 @@ const Footer = () => {
                         <ul class="social__media text__dark">
                             <li class="list-inline-item"><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
                             <li class="list-inline-item"><a class="youtube" href="#"><i class="fab fa-youtube"></i></a></li>
-                            <li class="list-inline-item"><a class="linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
-                            <li class="list-inline-item"><a class="google" href="#"><i class="fab fa-google-plus"></i></a></li>
                             <li class="list-inline-item"><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
                         </ul>
                     </div>
@@ -44,7 +41,7 @@ const Footer = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="copyright__text text-center">Copyright © 2018 <a href="#">abc.com</a>
+                            <div class="copyright__text text-center">Copyright © 2019 <a href="http://shubhkit.com/">shubhkit.com</a>
                             </div>
                         </div>
                     </div>

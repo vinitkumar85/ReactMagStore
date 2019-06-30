@@ -94,4 +94,11 @@ input {
 input[type='text'], input[type='password'] {
     border-radius: 0;
 }
+
+.caveat {
+    display: block;
+    font-size: 10px;
+    color: $primary-color;
+    padding: 2px;
+}
     

@@ -42,7 +42,7 @@ class Checkoutentry extends Component {
                 <span className="form-devider"></span>
                 </div>}
                 <div className="col-12 col-md-6">
-                    {this.props.userFlow == 'reguser' ? <Registerbox onSubmit={this.handleRegister}/> : <Loginbox onSubmit={this.handleSubmit} />}
+                    {this.props.userFlow == 'reguser' ? <Registerbox onSubmit={this.handleRegister}/> : this.props.userFlow == 'guestuser' ? '' : <Loginbox onSubmit={this.handleSubmit} />}
                 </div>
             </div>
         )

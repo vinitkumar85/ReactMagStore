@@ -123,7 +123,7 @@ app.post('/addbulkitems', function (req, res) {
 //app.get('/products/:catid', function (req, res) {
 app.get('/api/products/:catid', (req, res) => {
   var catId = req.params.catid;
-  axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=8`,
+  axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=20`,
     {
       headers: { 'Authorization': `Bearer ${appConfig.secretToken}` }
     }

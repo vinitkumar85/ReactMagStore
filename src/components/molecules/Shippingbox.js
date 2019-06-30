@@ -72,6 +72,7 @@ let Shippingbox = (props) => {
                             <div className="form-group">
                                 <label htmlFor="pincode">Pincode</label>
                                 <Field name="pincode" component={renderField} validate={[required, number, checkpin ]}  placeholder="Pincode" className="form-control" type="text" />
+                                <span class="caveat">Currently we support delivery only in East Delhi</span>
                             </div>
                         </div>
                         <div className="col-12 col-md-6">

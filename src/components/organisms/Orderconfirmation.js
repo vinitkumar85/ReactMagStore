@@ -24,9 +24,9 @@ class Orderconfirmation extends Component {
                     <h1>Thanks for your Order</h1>
                     <h5>Hi {cusname} </h5>
 
-                    <p>Your order with abc.com has been processed. Your order will be shipped in next 1-2 days. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
+                    <p>Your order with shubhkit.com has been processed. Your order will be shipped in next 1-2 days. </p>
 
-                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quiaPlesae pay <strong>₹{orderInfo.total_due}</strong> at the time of delivery. </p>
+                    <p>Please pay <strong>₹{orderInfo.total_due}</strong> at the time of delivery. </p>
 
                     <div class="order-infobar">
                         <div className="text-left">
@@ -77,12 +77,13 @@ class Orderconfirmation extends Component {
                         <div>
                             Subtotal : ₹{orderInfo.subtotal_incl_tax}<br />
                             Shipping Charges : ₹{orderInfo.shipping_incl_tax}<br />
+                            {orderInfo.discount_amount !== undefined && <span>
+                            Discount : {orderInfo.discount_amount}</span>}<br />
                             <strong>Total : ₹{orderInfo.base_grand_total}</strong>
+
                         </div>
                     </div>
-                    <p>
-                        Your order with abc.com has been processed. Your order will be shipped in next 1-2 days. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
-                    </p>
+                    
                 </div>
             </div>
         )

@@ -351,7 +351,9 @@ export const processregisterRequest = (userdata) => {
       .then((response) => {
         dispatch(setAction('false', 'SET_LOADER'));
         dispatch(setAction(response.data, 'SET_USR_MSG'));
-        dispatch(setAction('userregistered', 'SET_USR_FLOW'))
+        if(response.data.type === 'success'){
+          dispatch(setAction('userregistered', 'SET_USR_FLOW'))
+        }
       })
   }
 }

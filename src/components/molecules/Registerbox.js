@@ -19,10 +19,12 @@ let Registerbox = (props) => {
                 <div className="form-group">
                     {/* <label htmlFor="uemail">Email</label> */}
                     <Field name="uemail" component="input" placeholder="Email" className="form-control" type="text" />
+                    <span className="caveat">This will be your username</span>
                 </div>
                 <div className="form-group">
                    {/*  <label htmlFor="upassword">Password</label> */}
                     <Field name="upassword" component="input" placeholder="Password" className="form-control" type="password" />
+                    <span className="caveat">Password should contain atleast 8 char mix of capital letter, numeric letter, small letter and special characters </span>
                 </div>
                 <button type="submit" className='btn btn-lg btn-dark-brown'>Register</button>
             </form>

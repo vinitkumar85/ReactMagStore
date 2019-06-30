@@ -106,7 +106,7 @@
 	transform: rotate(-45deg);
   }
 .minicart__box {
-	height: 40vh;
+	height: calc(50vh - 65px);
 	overflow: auto;
 	min-height: 80px;
 

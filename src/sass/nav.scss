@@ -204,7 +204,8 @@
 
 				&__links {
 					position: absolute;
-					height: 100vh;
+					height: 450px;
+					overflow: auto;
 					width: 320px;
 					margin: -50px 0 0 -50px;
 					padding: 30px 0 0 30px;

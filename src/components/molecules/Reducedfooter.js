@@ -7,7 +7,7 @@ const Reducedfooter = () => {
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="copyright__text text-center"> Copyright © 2018 <a href="#">abc.com</a>
+                            <div class="copyright__text text-center"> Copyright © 2019 <a href="http://shubhkit.com/">shubhkit.com</a>
                             </div>
                         </div>
                     </div>
