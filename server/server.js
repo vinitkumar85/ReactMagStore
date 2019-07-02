@@ -4,6 +4,7 @@ const path = require('path');
 const app = express();
 const axios = require('axios');
 const chalk = require('chalk');
+var mcache = require('memory-cache');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
@@ -15,6 +16,24 @@ console.log(appConfig);
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+var cache = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url
+    let cachedBody = mcache.get(key)
+    if (cachedBody) {
+      res.send(cachedBody)
+      return
+    } else {
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+}
 
 app.use(bodyParser.json());
 
@@ -121,7 +140,7 @@ app.post('/addbulkitems', function (req, res) {
 })
 
 //app.get('/products/:catid', function (req, res) {
-app.get('/api/products/:catid', (req, res) => {
+app.get('/api/products/:catid', cache(300),(req, res) => {
   var catId = req.params.catid;
   axios.get(`${appConfig.basePath}/rest/V1/products/?searchCriteria[filterGroups][0][filters][0][field]=category_id&searchCriteria[filterGroups][0][filters][0][value]=${catId}&searchCriteria[pageSize]=20`,
     {
@@ -137,7 +156,7 @@ app.get('/api/products/:catid', (req, res) => {
 
 })
 
-app.get('/api/product/:skuid', function (req, res) {
+app.get('/api/product/:skuid', cache(300), function (req, res) {
   console.log(req.session);
   var skuid = req.params.skuid;
   axios.get(`${appConfig.basePath}/rest/V1/products/${skuid}`,
