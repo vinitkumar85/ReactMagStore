@@ -5,7 +5,7 @@ let Loginbox = (props) => {
   const { handleSubmit } = props;
   return (
     <div>
-      <h4>Login</h4>
+      <h4>Existing user</h4>
       <p>Login to access website features</p>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

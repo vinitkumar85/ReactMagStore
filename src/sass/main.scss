@@ -286,7 +286,7 @@ input.searchbox {
 
 		span {
 			color:$brand-primary;
-			font-size:26px;
+			font-size:24px;
 			@include respond-above(sm) {
 				font-size: 30px;
 			}
@@ -407,7 +407,7 @@ input.searchbox {
 		}
 	}
 	.shubh__kit__spacial{
-	    padding: 30px 0px;
+	    padding: 20px 0px;
 
 	    .view__more{
     		position: relative;
@@ -422,7 +422,7 @@ input.searchbox {
 	    }
 	}
 	.festival__spacial{
-	    padding: 30px 0px;
+	    padding: 20px 0px;
 	}
 	.shubh__kit__about{
 		h2{
@@ -523,6 +523,7 @@ input.searchbox {
 	padding-bottom: 60px;
 	height: 80vh;
 	overflow: auto;
+	text-align: left;
 	@include respond-above(sm) {
 		height: auto;
 		padding: 20px;

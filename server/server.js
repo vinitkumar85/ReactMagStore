@@ -90,7 +90,7 @@ function getHomedata(catId) {
     }
   )
 }
-app.get('/api/homelist', function (req, res) {
+app.get('/api/homelist', cache(300000), function (req, res) {
   axios.all([getHomedata(9), getHomedata(4)])
     .then(axios.spread(function (acct, perms) {
       var upres = {};

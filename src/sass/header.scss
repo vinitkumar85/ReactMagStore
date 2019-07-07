@@ -60,6 +60,7 @@ header {
 			font-size: 18px;
 		}
 		@include respond-below(sm) {
+			display: none;
 			background:$brand-primary;
 			padding: 6px;
 			position: fixed;

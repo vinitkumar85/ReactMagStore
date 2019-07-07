@@ -28,17 +28,7 @@ class Userlogin extends Component {
       "password": values.upassword
     })
   }
-
-  loginRequest = (UserData) => {
-    axios.post(`/userlogin/`,
-      UserData
-    )
-      .then((response) => {
-        console.log(response);
-      }).catch((error) => {
-        console.log(error);
-      });
-  };
+  
   render() {
     return (
       <div>

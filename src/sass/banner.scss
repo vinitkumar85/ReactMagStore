@@ -4,19 +4,20 @@
 	.banner  {
         position: relative;
         border-bottom: 2px solid #fff;
-        min-height: 200px;
+        min-height: 100px;
         height: auto;
         overflow: hidden;
         background: $brand-primary;
 
         img {
-            width: 260%;
-            left: -375px;
+            width: 200%;
+            left: -200px;
             position: relative;
 
             @include respond-above(sm) {
                 width: 100%;
                 left: 0;
+                min-height: 200px;
             }
         }
     }
@@ -25,15 +26,18 @@
         z-index: 99;
         padding: 12px;
         font-family: 'Fjalla One', sans-serif;
-        right: 30px;
-        bottom: 30px;
+        position: absolute;
         color: #fff;
-        background: rgba(118, 3, 3, 1);
+        background: rgba(118, 3, 3, 0.8);
+        top:20px;
+        left: 0;
 
-        @include respond-above(sm) {
-            position: absolute;
+        @include respond-above(sm) { 
             padding: 20px;
-            background: rgba(118, 3, 3, 0.8);
+            right: 30px;
+            bottom: 30px;
+            top: auto;
+            left: auto;
         }
     }
 
@@ -48,11 +52,19 @@
         }
     }
     .banner-overlay {
-        font-size: 26px;
+        font-size: 22px;
+
+        @include respond-above(sm) { 
+            font-size: 26px;
+        }
 
         span {
-            font-size: 35px;
+            font-size: 32px;
             display: block;
             color: $yellow;
+
+            @include respond-above(sm) { 
+                font-size: 35px;
+            }
         }
     }

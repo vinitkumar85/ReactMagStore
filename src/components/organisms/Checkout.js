@@ -165,7 +165,7 @@ class Checkout extends Component {
                             City: {this.state.shippAddress.city.capitalize()}<br />
                             <button className="btn btn-link" onClick={this.props.offPaymentBtn}>Edit</button>
                         </div>}
-                        <div ref={this.payRef}><Paymentbox isPayEnabled={this.props.enabledPay} onPaymentSubmit={this.handlePayment} /></div>
+                        <div ref={this.payRef}><Paymentbox isPayEnabled={this.props.enabledPay} shippingPrice={this.props.shippingTotals}  onPaymentSubmit={this.handlePayment} /></div>
                     </div>
                     <div className="col-12 col-md-4">
                         <Minicartwrapper cartTitle='Order Summary' isShow='true' spot='checkout' shippingPriceData={this.props.shippingTotals} />
