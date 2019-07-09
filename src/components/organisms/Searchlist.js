@@ -85,8 +85,8 @@ class Searchlist extends Component {
           </div>
         </div>
       ),
-      image: `${config.assetPath}media/catalog/product/${data.small_image}`,
-      url: "#product/" + data.sku,
+      image: `${config.assetPath}${data.small_image}`,
+      url: "http://shubhkit.com/view/product/" + data.sku,
     };
   }
 }

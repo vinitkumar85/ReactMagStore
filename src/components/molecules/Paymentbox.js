@@ -15,14 +15,14 @@ let Paymentbox = (props) => {
                             <i class="fas fa-rupee-sign"></i> {props.shippingPrice.subtotal}
                         </div>
                     </div>}
-                    {props.shippingPrice.shipping_amount && <div className="row">
+                    <div className="row">
                         <div className="col-7">
                             Shipping Charges :
                     </div>
                         <div className="col-5">
                             <i class="fas fa-rupee-sign"></i> {props.shippingPrice.shipping_amount}
                         </div>
-                    </div>}
+                    </div>
                     {props.shippingPrice.discount_amount !== undefined && <div className="row">
                         <div className="col-7">
                             Discount :
