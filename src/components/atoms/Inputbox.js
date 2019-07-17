@@ -2,7 +2,7 @@ import React from 'react';
 
 const Inputbox = () => {
     return (
-            <input class="searchbox" type="text"/>
+        <input className="searchbox" type="text" />
     )
 }
 

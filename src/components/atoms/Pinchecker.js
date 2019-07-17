@@ -5,7 +5,9 @@ import * as actionCreaters from '../../actions/productaction';
 class Pinchecker extends React.Component {
   constructor(props) {
     super(props);
-    //this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      pin: ''
+    };
   }
   submitpin = (e) => {
     e.preventDefault();
@@ -14,24 +16,24 @@ class Pinchecker extends React.Component {
 
   handleChange = (e) => {
     this.setState({ pin: e.target.value });
- }
+  }
 
   render() {
 
     const pin = this.state && this.state.pin ? this.state.pin : this.props.pincode
     return (
-        <form onSubmit={this.submitpin}>
+      <form onSubmit={this.submitpin}>
         <div class="zipvalidator">
           <span class="caveat">Currently we support delivery only in East Delhi</span>
-            <input class="zipbox" type="text" value={pin} placeholder="Enter Pincode for Delivery Details" onChange={this.handleChange}  />
-            <button type="submit" class="zipbutton">
-                Check
+          <input class="zipbox" type="text" value={pin} placeholder="Enter Pincode for Delivery Details" onChange={this.handleChange} />
+          <button type="submit" class="zipbutton">
+            Check
             </button>
-            <p className="small-msg">
+          <p className="small-msg">
             {this.props.deliverymsg}
-            </p>
+          </p>
         </div>
-        </form>
+      </form>
     )
   }
 }
@@ -45,7 +47,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    checkpin: (code) => dispatch(actionCreaters.checkpin(code))
+  checkpin: (code) => dispatch(actionCreaters.checkpin(code))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pinchecker)

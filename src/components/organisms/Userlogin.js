@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Loginbox from '../molecules/Loginbox';
 import Registerbox from '../molecules/Registerbox';
 import Preloader from '../atoms/Preloader';

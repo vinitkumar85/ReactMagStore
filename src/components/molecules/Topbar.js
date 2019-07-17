@@ -4,16 +4,16 @@ import Userlink from '../atoms/Userlink';
 
 const Topbar = () => {
     return (
-        <div class="header__top__area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-12">
-                        <div class="header__top__left">
+        <div className="header__top__area">
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6 col-12">
+                        <div className="header__top__left">
                             <Teaser />
                         </div>
                     </div>
-                    <div class="col-md-6 col-12">
-                        <div class="header__top__right float-right">
+                    <div className="col-md-6 col-12">
+                        <div className="header__top__right float-right">
                             <Userlink />
                         </div>
                     </div>

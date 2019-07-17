@@ -21,8 +21,8 @@ class Userlink extends React.Component {
         <ul>
           <li>
             {this.props.userData && this.props.userData.firstname ?
-              <span> Welcome <strong className="userlinks__msg">{this.props.userData.firstname} </strong> <a href="#" onClick={this.logOut.bind(this)}>Logout</a> </span>
-              : <a href="#" onClick={this.togglePopup.bind(this)}><i class="fas fa-user"></i> Login/Register</a>
+              <span> Welcome <strong className="userlinks__msg">{this.props.userData.firstname} </strong> <button onClick={this.logOut.bind(this)}>Logout</button> </span>
+              : <button className="btnlink" onClick={this.togglePopup.bind(this)}><i class="fas fa-user"></i> Login/Register</button>
             }
           </li>
         </ul>

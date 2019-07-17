@@ -61,7 +61,9 @@ export function clearProducts() {
 }
 
 
-export function getProductList(catId) {
+export function getProductList(cat) {
+  let catObj = config.categories;
+  let catId = catObj[cat];
   return (dispatch) => {
     clearMsg(dispatch);
     axios.get('/api/products/' + catId)
@@ -146,16 +148,16 @@ export function getProduct(productId) {
       .then((response) => {
         var productImg, productDesc, productSP, productCost;
         response.data.custom_attributes.map((item) => {
-          if (item.attribute_code == 'image') {
+          if (item.attribute_code === 'image') {
             productImg = item.value
           }
-          if (item.attribute_code == 'description') {
+          if (item.attribute_code === 'description') {
             productDesc = item.value
           }
-          if (item.attribute_code == 'special_price') {
+          if (item.attribute_code === 'special_price') {
             productSP = parseFloat(item.value).toFixed(2);
           }
-          if (item.attribute_code == 'cost') {
+          if (item.attribute_code === 'cost') {
             productCost = parseFloat(item.value).toFixed(2);
           }
         })

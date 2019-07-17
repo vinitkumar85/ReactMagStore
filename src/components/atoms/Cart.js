@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import Minicartwrapper from '../organisms/Minicartwrapper';
-import {Link, HashRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 class Cart extends React.Component {
@@ -20,7 +20,7 @@ class Cart extends React.Component {
         let cartcount = <span class="header__mid__area__cart header__mid__area__cart--inactive"> <span class="cart__no">0</span></span>;
 
         if(this.props.cartItems && this.props.cartItems.length) {
-            cartcount = <a class="header__mid__area__cart" href="#" onClick={this.toggleMiniCart.bind(this)}> <span class="cart__no">{this.props.cartItems && this.props.cartItems.length && this.props.cartItems.reduce((sum, product) => sum + (product.qty), 0)}</span></a>
+            cartcount = <button class="header__mid__area__cart" onClick={this.toggleMiniCart.bind(this)}> <span class="cart__no">{this.props.cartItems && this.props.cartItems.length && this.props.cartItems.reduce((sum, product) => sum + (product.qty), 0)}</span></button>
         }
 
         return (

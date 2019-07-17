@@ -20,31 +20,31 @@ class Header extends Component {
             },
             {
                 name: 'Pooja Kits',
-                url: '/products/9'
+                url: '/products/puja-kits'
             },
             {
                 name: 'Agarbatties / Dhoop',
-                url: '/products/5'
+                url: '/products/dhoop'
             },
             {
                 name: 'Dharmik Books',
-                url: '/products/6'
+                url: '/products/books'
             },
             {
                 name: 'Prasad',
-                url: '/products/7'
+                url: '/products/prasad'
             },
             {
-                name: 'Idols',
-                url: '/products/8'
+                name: 'Samagri',
+                url: '/products/samagri'
             },
             {
                 name: 'Puja Essentials',
-                url: '/products/4'
+                url: '/products/puja-essentials'
             },
             {
                 name: 'Holy Leaves',
-                url: '/products/10'
+                url: '/products/leaves'
             }
         ];
     }

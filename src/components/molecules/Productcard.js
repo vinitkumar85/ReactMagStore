@@ -4,7 +4,7 @@ import Productname from '../atoms/Productname';
 import Productprice from '../atoms/Productprice';
 import Addtocart from '../atoms/Addtocart';
 import Quantity from '../atoms/Quantity';
-import { Link, HashRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../../sass/product.scss';
 
 class Productcard extends Component {
@@ -20,13 +20,13 @@ class Productcard extends Component {
     }
     render() {
         this.props.productItemData.custom_attributes.map((item) => {
-            if (item.attribute_code == 'thumbnail') {
+            if (item.attribute_code === 'thumbnail') {
                 this.imgpath = item.value
             }
-            if (item.attribute_code == 'special_price') {
+            if (item.attribute_code === 'special_price') {
                 this.props.productItemData.productSP = parseFloat(item.value).toFixed(2);
             }
-            if (item.attribute_code == 'cost') {
+            if (item.attribute_code === 'cost') {
                 this.props.productItemData.productCost = parseFloat(item.value).toFixed(2);
             }
         })

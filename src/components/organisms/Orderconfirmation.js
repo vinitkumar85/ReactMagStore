@@ -1,23 +1,18 @@
 import React from 'react';
-import { Component } from 'react';
 import { Redirect } from 'react-router';
 import '../../sass/confirmation.scss';
 
-class Orderconfirmation extends Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        if (!this.props.location.state || !this.props.location.state.orderData) {
+const Orderconfirmation = (props) => {
+        if (!props.location.state || !props.location.state.orderData) {
             return <Redirect to={{
                 pathname: '/'
             }} />
         }
 
-        let shippingAdd = this.props.location.state.orderData.extension_attributes.shipping_assignments[0].shipping.address;
-        let orderitems = this.props.location.state.orderData.items;
-        let orderInfo = this.props.location.state.orderData;
-        let cusname = this.props.location.state.orderData ? (this.props.location.state.orderData.customer_firstname ? this.props.location.state.orderData.customer_firstname : this.props.location.state.orderData.billing_address.firstname) : 'Guest';
+        let shippingAdd = props.location.state.orderData.extension_attributes.shipping_assignments[0].shipping.address;
+        let orderitems = props.location.state.orderData.items;
+        let orderInfo = props.location.state.orderData;
+        let cusname = props.location.state.orderData ? (props.location.state.orderData.customer_firstname ? props.location.state.orderData.customer_firstname : props.location.state.orderData.billing_address.firstname) : 'Guest';
         return (
             <div class="row">
                 <div class="col-12 order-confirmation">
@@ -30,10 +25,10 @@ class Orderconfirmation extends Component {
 
                     <div class="order-infobar">
                         <div className="text-left">
-                            Order #<strong>{this.props.location.state.orderData.items[0].order_id}</strong>
+                            Order #<strong>{props.location.state.orderData.items[0].order_id}</strong>
                         </div>
                         <div className="text-right">
-                            You placed this order on <strong>{this.props.location.state.orderData.created_at}</strong>
+                            You placed this order on <strong>{props.location.state.orderData.created_at}</strong>
                         </div>
                     </div>
                     <div className="shipping-destinition">
@@ -87,7 +82,6 @@ class Orderconfirmation extends Component {
                 </div>
             </div>
         )
-    }
 }
 
 export default Orderconfirmation;

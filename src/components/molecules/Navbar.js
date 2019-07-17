@@ -20,7 +20,7 @@ import '../../sass/nav.scss';
         //let checkboxelm = this.state.navStatus === 'true' ? <input type="checkbox" checked /> : <input type="checkbox" />
         return (
         <div class="header-bottom-area">
-            <nav role="navigation" class="navbar navbar-expand-sm navbar-light scrolling-navbar">
+            <nav class="navbar navbar-expand-sm navbar-light scrolling-navbar">
                 <div className="navbar-toggle">
                     
                     <input type="checkbox" checked={this.state.navStatus} onChange={ this.handleChecked } />

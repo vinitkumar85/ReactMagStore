@@ -28,13 +28,13 @@ const Footer = () => {
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
+{/*                     <div class="col-lg-4 col-md-6">
                         <ul class="social__media text__dark">
                             <li class="list-inline-item"><a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a></li>
                             <li class="list-inline-item"><a class="youtube" href="#"><i class="fab fa-youtube"></i></a></li>
                             <li class="list-inline-item"><a class="twitter" href="#"><i class="fab fa-twitter"></i></a></li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div class="footer__copyright">

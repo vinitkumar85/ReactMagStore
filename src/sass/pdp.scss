@@ -13,6 +13,11 @@
 		color:$gray;
 		font-size: 13px;
 	}
+	.disc{
+		color:$gray;
+		font-size: 11px;
+		line-height: 12px;
+	}
 
 	.product__details_left{
 		h4{
@@ -20,6 +25,13 @@
 			font-size: 18px;
     		text-align: right;
     		padding: 16px;
+		}
+		h2{
+			color:$brand-primary;
+			font-size: 20px;
+			@include respond-above(sm) {
+				font-size: 24px;
+			}
 		}
 
 	}
@@ -190,6 +202,7 @@
 }
 
 .product__details__img {
-	min-height: 300px;
-	background: #f6f6f6;
+	min-height: 200px;
+	background: #fff;
+	padding: 20px;
 }

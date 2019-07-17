@@ -4,7 +4,6 @@ import * as actionCreaters from '../../actions/productaction';
 import Loginbox from './Loginbox';
 import Registerbox from './Registerbox';
 import Newuserentry from './Newuserentry';
-import Preloader from '../atoms/Preloader';
 
 class Checkoutentry extends Component {
     constructor(props) {
@@ -42,7 +41,7 @@ class Checkoutentry extends Component {
                 <span className="form-devider"></span>
                 </div>}
                 <div className="col-12 col-md-6">
-                    {this.props.userFlow == 'reguser' ? <Registerbox onSubmit={this.handleRegister}/> : this.props.userFlow == 'guestuser' ? '' : <Loginbox onSubmit={this.handleSubmit} />}
+                    {this.props.userFlow === 'reguser' ? <Registerbox onSubmit={this.handleRegister}/> : this.props.userFlow === 'guestuser' ? '' : <Loginbox onSubmit={this.handleSubmit} />}
                 </div>
             </div>
         )

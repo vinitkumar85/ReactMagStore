@@ -8,6 +8,7 @@ import Productprice from '../atoms/Productprice';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import Quantity from '../atoms/Quantity';
+import BackBtn from '../atoms/BackBtn';
 import '../../sass/pdp.scss';
 
 class ProductDetail extends Component {
@@ -46,13 +47,14 @@ class ProductDetail extends Component {
 		}
 		return (
 			Object.keys(this.props.productInfo).length > 0 && this.props.productInfo.product && <div class="products__des pb-60">
+			<BackBtn/>
 				<div class="row">
 					<div class="col-sm-5 product__details_left">
 						<div class="product__details__img">
 							{this.props.productInfo.productImg && <img src={`${config.assetPath}/${this.props.productInfo.productImg}`} class="img-responsive img-fluid" alt="" />}
 							{!this.props.productInfo.productImg && <span className="img-placer">Image not available</span>}
 						</div>
-						<p>Pictures shown are for illustration purpose only. Actual product may vary.</p>
+						<p className="disc">Pictures shown are for illustration purpose only. Actual product may vary.</p>
 					</div>
 					<div class="col-sm-7 product__details_right">
 						<Productname productName={this.props.productInfo.product.name} level="2" />

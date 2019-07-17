@@ -13,7 +13,7 @@ const Minicart = (props) => {
     let cartStatus = props.cartStatus;
     let cartTotal = (props.shippingPrice && props.shippingPrice.grand_total && cartStatus === 'freeze') ? props.shippingPrice.grand_total : props.minicartItms.length > 0 ? props.minicartItms.reduce((sum, product) => sum + (product.qty * product.price), 0) : ' ';
     let cartTitle = props.cartTitle || 'Mini Cart';
-    if(cartTotal == 0) {
+    if(cartTotal === 0) {
         cartTotal = <span><span class="one">.</span><span class="two">.</span><span class="three">.</span></span>;
     }
     return (
