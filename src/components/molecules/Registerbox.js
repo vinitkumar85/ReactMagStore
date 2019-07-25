@@ -24,7 +24,7 @@ let Registerbox = (props) => {
                 <div className="form-group">
                    {/*  <label htmlFor="upassword">Password</label> */}
                     <Field name="upassword" component="input" placeholder="Password" className="form-control" type="password" />
-                    <span className="caveat">Password should contain atleast 8 char mix of capital letter, numeric letter, small letter and special characters </span>
+                    <span className="caveat">Password should contain atleast 8 characters </span>
                 </div>
                 <button type="submit" className='btn btn-lg btn-dark-brown'>Register</button>
             </form>

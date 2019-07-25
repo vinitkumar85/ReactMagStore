@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import Quantity from '../atoms/Quantity';
 import BackBtn from '../atoms/BackBtn';
+import { Link } from 'react-router-dom';
 import '../../sass/pdp.scss';
 
 class ProductDetail extends Component {
@@ -47,7 +48,7 @@ class ProductDetail extends Component {
 		}
 		return (
 			Object.keys(this.props.productInfo).length > 0 && this.props.productInfo.product && <div class="products__des pb-60">
-			<BackBtn/>
+			<div className="sk-breadcrumb"><Link to="/">Home</Link> > <BackBtn/></div>
 				<div class="row">
 					<div class="col-sm-5 product__details_left">
 						<div class="product__details__img">

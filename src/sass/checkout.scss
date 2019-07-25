@@ -3,46 +3,81 @@
 
 .checkout-container {
     margin: 0 auto;
+    .item--summary {
+		display: block;
+    }
+    .item--total {
+        display: none;
+    }
     
     @include respond-above(md) {
-		width: 1200px;
+        width: 1200px;
+        .item--summary {
+            display: none;
+        }
+        .item--total {
+            display: block;
+        }
 	}
 
 	.minicart-wrapper {
 		position: sticky;
-		background: $secondary-color;
-        color: $white;
         width: 100%;
         height: auto;
-        margin-bottom: 58px;
         top: -20px;
+        @include respond-above(sm) {
+            color: $white;
+            background: $secondary-color;
+        }
 
 		h3 {
             color: $brand-primary;
-        }
-        
-        @include respond-below(sm) {
             display: none;
+            @include respond-above(sm) {
+                display: block;
+            }
+        }
+
+        .minicart__box {
+            display: none;
+        }
+        @include respond-above(sm) {
+            .minicart__box {
+                display: block;
+            }
         }
     }
     
     .edit-link {
-        margin: -20px 20px 20px;
         display: block;
         text-align: right;
+        position: relative;
         a {
-            color: #fff;
-            font-size: 12px;
+            font-size: 15px;
+            position: absolute;
+            left: 15px;
+            top: 15px;
             text-decoration: underline;
+            z-index: 9999;
+            display: block;
+            @include respond-above(sm) {
+                color: #fff;
+                right: 15px;
+                top: -45px;
+            }
         }
     }
 	.minicart-item {
 		.minicart-item__name {
-			color: $white;
+            @include respond-above(sm) {
+                color: #fff;
+            }
 		}
 		.minicart-item__qty {
-			color: $white;
-			font-size: 17px;
+            font-size: 17px;
+            @include respond-above(sm) {
+                color: #fff;
+            }
 		}
 		.minicart-item__price {
 			font-size: 18px;
@@ -53,7 +88,11 @@
 		background: $brand-primary;
 
 		.minicart-item__price {
-			font-size: 36px;
+            font-size: 24px;
+            
+            @include respond-above(sm) {
+                font-size: 36px;
+            }
 		}
     }
     .shipping-prices {

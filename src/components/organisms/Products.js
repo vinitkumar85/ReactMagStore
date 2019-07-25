@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Productlist from './Productlist';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
+import { Link } from 'react-router-dom';
 
 class Products extends Component {
     constructor(props) {
@@ -48,7 +49,10 @@ class Products extends Component {
             </div>
         }
         return (
-            <Productlist productsData={this.props.products} />
+            <div>
+                <div className="sk-breadcrumb"><Link to="/">Home</Link> > {this.props.match.params.catid}</div>
+                <Productlist productsData={this.props.products} />
+            </div>
         )
     }
 }

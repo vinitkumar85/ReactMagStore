@@ -1029,3 +1029,17 @@ div.a6 {
 	color:$primary-color;
 	text-decoration: underline;
 }
+
+.sk-breadcrumb {
+	font-size: 13px;
+	text-transform: capitalize;
+	a {
+		font-size: 13px;
+		text-decoration: underline;
+
+		&:hover {
+			text-decoration: none;
+			color:$primary-color;
+		}
+	}
+}

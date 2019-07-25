@@ -19,6 +19,10 @@
 		background: $white;
 	}
 
+	.item--summary {
+		display: none;
+	}
+
 	h3{
 		background: $primary-color;
 		padding-left: 20px;

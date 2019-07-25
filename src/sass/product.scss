@@ -77,20 +77,23 @@
 .item__price--dt {
 	color:$gray;
 	font-size: 14px;
-	display: block;
-	@include respond-above(sm) {
-		display: inline;
-	}
 	span {
 		text-decoration: line-through;
+		margin-left: 5px;
 		@include respond-above(sm) {
 			margin-left: 10px;
 		}
 	}
 	
 	em{
-		color:$green-lt;
+		background:$green-lt;
 		font-size: 14px;
+		position: absolute;
+		left: -5px;
+		top:-5px;
+		display: inline-block;
+		padding: 2px 5px;
+		color: #fff;
 	}
 }	
 .add__to__cart {

@@ -53,7 +53,9 @@ const Minicart = (props) => {
                 </div>}
                 <div className="row">
                     <div className="col-7">
-                        Total :
+                        <span className="item--total">Total :</span>
+
+                        <span className="item--summary">Order Summary Total</span>
                     </div>
                     <div className="col-5 minicart-item__price">
                         <i class="fas fa-rupee-sign"></i>

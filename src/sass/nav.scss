@@ -30,7 +30,7 @@
 	}
 	
 	li:first-child a.active{
-		color: $brand-primary;
+		color: #fff;
 	}
   
 	@include respond-above(md) {
