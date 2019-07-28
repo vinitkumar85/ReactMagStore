@@ -183,7 +183,7 @@ header {
 	}
 }
 .header__mid__area__cart{
-	padding: 13px 20px;
+	padding: 18px 20px;
 	background-image: url(../images/cart-icon.svg);
 	background-position: 9px 8px;
 	background-repeat: no-repeat;
@@ -191,6 +191,7 @@ header {
 	display: inline-block;
 	background-color: transparent;
 	border: none;
+	cursor: pointer;
     &:hover{
     	color: $third-color;
     	text-decoration: none;
@@ -204,14 +205,26 @@ header {
 	}
 }
 .cart__no{
-	padding: 0px 0px 0px 25px;
-    font-size: 22px;
-	font-weight: 700;
-	color: $primary-color;
-	cursor: pointer;
+	padding: 5px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    background: orangered;
+    border-radius: 30%;
+    margin-left: 10px;
+    margin-top: -10px;
+    display: block;
+    border: 1px solid #fff;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 2px 1px;
     &:hover{
     	color: $third-color;
-    }
+	}
+	.header__mid__area__cart--inactive & {
+		background: #ccc;
+		box-shadow: none;
+	}
+
 }
 .header-bottom-area{
 	padding:0;

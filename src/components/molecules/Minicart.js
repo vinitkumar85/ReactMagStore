@@ -2,13 +2,14 @@ import React from 'react';
 import Minicartitem from '../atoms/Minicartitem';
 import CheckoutLink from '../atoms/CheckoutLink';
 import EditLink from '../atoms/EditLink';
+import Blankcart from './Blankcart';
 
 const Minicart = (props) => {
     if (!props.minicartItms) {
         return <div>Loading..</div>
     }
     if (props.minicartItms.length === 0 && props.spot === 'cart') {
-        return <div>No Cart Item found</div>
+        return <Blankcart/>
     }
     let cartStatus = props.cartStatus;
     let cartTotal = (props.shippingPrice && props.shippingPrice.grand_total && cartStatus === 'freeze') ? props.shippingPrice.grand_total : props.minicartItms.length > 0 ? props.minicartItms.reduce((sum, product) => sum + (product.qty * product.price), 0) : ' ';

@@ -7,7 +7,7 @@
         bottom: 195px;
         left: 0;
         right: 0;
-        background:$green-lt;
+        background:indianred;
         text-align: center;
         line-height: 1.2;
         opacity: 0.1;
@@ -66,11 +66,13 @@
 
     @-webkit-keyframes fadein {
         0%{  opacity: 0.1; }
-        50%{  opacity: 0.7; }
-        100% { opacity: 1; }
+        30%{  opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
     }
     @-moz-keyframes fadein {
         0%{  opacity: 0.1; }
-        50%{  opacity: 0.7; }
-        100% { opacity: 1; }
+        30%{  opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; }
     }
