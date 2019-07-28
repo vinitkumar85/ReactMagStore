@@ -24,25 +24,8 @@ class Search extends Component {
                     categoryField="categories"
                     // URLParams={true}
                     autoSuggest={true}
+                    showIcon = {false}
                     iconPosition={"right"}
-                    icon={
-                        <button
-                          style={{
-                            background: "#e74c3c",
-                            outline: "none",
-                            border: 0,
-                            position: "absolute",
-                            right: -10,
-                            height: 48,
-                            top: -19,
-                            width: 80,
-                            margin: 0,
-                            color: "white",
-                            cursor: "pointer"
-                          }}
-                        >
-                          Search
-                        </button>}
                     categoryField="brand.keyword"
                     placeholder="Search products"
                     onValueSelected={redirect}

@@ -63,7 +63,7 @@ class Searchlist extends Component {
               <CategorySearch
                 componentId="search"
                 //dataField="name"
-                dataField={["name", "description", "name.raw", "meta_title", "meta_keywords"]}
+                dataField={["name", "name.raw", "meta_title", "meta_keywords"]}
                 //URLParams={true}
                 showClear={true}
                 showIcon={false}
