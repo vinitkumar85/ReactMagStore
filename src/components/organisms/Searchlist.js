@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ReactiveBase, CategorySearch, ResultCard } from '@appbaseio/reactivesearch';
+import { ReactiveBase, CategorySearch, ResultCard, SelectedFilters } from '@appbaseio/reactivesearch';
+import { Link } from 'react-router-dom';
 import config from '../../common/config';
 
 class Searchlist extends Component {
@@ -26,9 +27,14 @@ class Searchlist extends Component {
         }}
         app="shubhshop"
         credentials="fup2re9Xj:d99fecab-4983-453d-b2f8-4cda8e1790ce">
+                <SelectedFilters
+                showClearAll={false}
+                clearAllLabel="Clear filters"
+              />
         <div className='container-fluid search-results'>
           <div className="row">
             <div className='col-sm-12'>
+
               <ResultCard
                 componentId="result"
                 title="Results"
@@ -37,7 +43,7 @@ class Searchlist extends Component {
                 //size={6}
                 //pagination={true}
                 react={{
-                  and: ["searchbox"]
+                  and: ["search"]
                 }}
                 onData={this.productsCard}
               /* onData={(res) => {
@@ -54,21 +60,19 @@ class Searchlist extends Component {
             </div>
           </div>
           <div className="row search-filter">
-            <div className='col-sm-4 header__search'>
               <CategorySearch
-                componentId="searchbox"
+                componentId="search"
                 //dataField="name"
-                dataField={["name", "description", "name.raw", "categories", "meta_title", "meta_keywords"]}
+                dataField={["name", "description", "name.raw", "meta_title", "meta_keywords"]}
                 //URLParams={true}
-                showClear={false}
+                showClear={true}
                 showIcon={false}
-                categoryField="brand.keyword"
+                categoryField="categories"
                 placeholder="Search for products"
                 defaultSelected={this.props.match.params.term}
                 onValueSelected={redirect}
               //value= {this.props.match.params.term}
               />
-            </div>
           </div>
         </div>
       </ReactiveBase>
@@ -78,15 +82,16 @@ class Searchlist extends Component {
   productsCard(data) {
     return {
       description: (
-        <div className="product__content">
+       
+        <div className="product__content product__content--search">
           <h3>{data.name}</h3>
           <div className="item__price">
-            <span className="item__price--dk"><i className="fas fa-rupee-sign"></i>{data.price}</span>
+            <span className="item__price--dk"><i className="fas fa-rupee-sign"></i>{parseFloat(data.price)}</span>
           </div>
+          <Link to={"/product/" + data.sku}> View Product Details</Link>
         </div>
       ),
-      image: `${config.assetPath}${data.small_image}`,
-      url: "http://shubhkit.com/view/product/" + data.sku,
+      image: `${config.assetPath}${data.small_image}`
     };
   }
 }
