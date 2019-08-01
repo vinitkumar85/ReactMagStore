@@ -44,7 +44,7 @@
 		min-height: 50px;
 		@include respond-above(sm) {
 			padding-top: 10px;
-			font-size:20px;
+			font-size:17px;
 		}
 	}
 }
@@ -55,7 +55,6 @@
 
 .item__price {
 	padding-bottom: 10px;
-	padding-left: 5px;
 }
 .item__price--dk {
 	color:$dark-black;
