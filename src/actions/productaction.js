@@ -68,7 +68,8 @@ export function getProductList(cat) {
     clearMsg(dispatch);
     axios.get('/api/products/' + catId)
       .then((response) => {
-        dispatch(setAction(response.data, 'GET_PRODUCTLIST'))
+        dispatch(setAction(response.data, 'GET_PRODUCTLIST'));
+        dispatch(setAction({}, 'GET_PRODUCT'))
       })
   }
 }
@@ -168,7 +169,8 @@ export function getProduct(productId) {
           productCost: productCost,
           productSP: productSP
         }
-        dispatch(setAction(productData, 'GET_PRODUCT'))
+        dispatch(setAction(productData, 'GET_PRODUCT'));
+        dispatch(setAction(undefined, 'GET_PRODUCTLIST'));
       })
   }
 }
