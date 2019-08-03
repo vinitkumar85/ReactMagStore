@@ -36,6 +36,14 @@ const MainLayout = ({ children }) => (
   </div>
 );
 
+const ContentLayout = ({ children }) => (
+  <div>
+    <Header />
+    {children}
+    <Footer />
+  </div>
+);
+
 const CheckoutLayout = ({ children }) => (
   <div>
     <Reducedheader />
@@ -120,13 +128,13 @@ class App extends Component {
 
               <Route path="/content/:page"
                 render={props => (
-                  <MainLayout>
+                  <ContentLayout>
                     <div class="pt-60 pb-60">
                       <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
                         <StaticContent  {...props} />
                       </div>
                     </div>
-                  </MainLayout>
+                  </ContentLayout>
                 )} />
 
               <Route path="/login"

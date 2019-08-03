@@ -4,8 +4,8 @@ const About = () => {
     return (
         <div className="static-page">
             <h2>About Us</h2>
-            <p>
-            Shubhkit.com is a dedicated spiritual online marketplace for spiritual and religious products. E-commerce marketplace is growing rapidly in India and has made way for new business opportunities, keeping spiritual genre in mind we have come out with this Idea to provide an e-commerce platform.</p>
+            <p>Shubhkit.com is an initiative to help the people to attach to their traditional culture and fulfill their needs of all puja related items with an advanced e-commerce platform. We help the devotees to get all puja related items at their doorstep in the quickest delivery time. </p>
+            <p>We have a wide range of puja related items including Hawan Samagri, Holy Leaves, Idols &amp; God Pictures and Pattals, Dona etc.</p>
         </div>
     )
 }

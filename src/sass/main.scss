@@ -312,7 +312,7 @@ input.searchbox {
   background-size: cover;
 }
 .shubh__kit__about{
-	background:$body-bg;
+	background:#fff;
 	padding-top:20px;
 
 	@include respond-above(sm) {
@@ -334,7 +334,7 @@ input.searchbox {
 	}
 }
 .layout__light{
-	background:$white;
+	background:$body-bg;
 	color:$black;
 
 	h3{
