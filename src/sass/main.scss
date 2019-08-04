@@ -314,6 +314,7 @@ input.searchbox {
 .shubh__kit__about{
 	background:#fff;
 	padding-top:20px;
+	border-top: 2px solid #fcebe3;
 
 	@include respond-above(sm) {
 		padding: 30px;
