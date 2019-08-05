@@ -11,10 +11,12 @@ import Quantity from '../atoms/Quantity';
 import BackBtn from '../atoms/BackBtn';
 import { Link } from 'react-router-dom';
 import '../../sass/pdp.scss';
+import ReactGA from 'react-ga';
 
 class ProductDetail extends Component {
 	constructor(props) {
 		super(props);
+		ReactGA.pageview(window.location.pathname + window.location.search);
 		this.props.loadProduct(this.props.match.params.id);
 		this.state = {
 			qty: 1

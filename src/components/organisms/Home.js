@@ -4,6 +4,7 @@ import Sectionhead from '../atoms/Sectionhead';
 import Productlist from '../organisms/Productlist';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
+import ReactGA from 'react-ga';
 
 class Home extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class Home extends Component {
     componentWillMount() {
         this.props.productsItems = [];
         this.props.productsList = [];
+        ReactGA.pageview(window.location.pathname + window.location.search);
     }
 
     render() {

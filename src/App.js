@@ -22,6 +22,7 @@ import Userlogin from './components/organisms/Userlogin';
 import StaticContent from './components/organisms/StaticContent';
 import ScrollToTop from './ScrollToTop';
 import Cookies from 'js-cookie';
+import ReactGA from 'react-ga';
 
 const MainLayout = ({ children }) => (
   <div>
@@ -63,6 +64,9 @@ class App extends Component {
     }
   }
 
+  componentWillMount() {
+    ReactGA.initialize('UA-142998385-1');
+  }
 
 
   componentWillReceiveProps(nextProps) {

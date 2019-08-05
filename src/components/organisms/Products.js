@@ -3,10 +3,12 @@ import Productlist from './Productlist';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import { Link } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 class Products extends Component {
     constructor(props) {
         super(props);
+        ReactGA.pageview(window.location.pathname + window.location.search);
         this.props.loadProducts(this.props.match.params.catid);
     }
 
