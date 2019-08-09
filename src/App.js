@@ -83,7 +83,7 @@ class App extends Component {
       <div>
         {this.props.usrMsg.msg && <div id="notice">{this.props.usrMsg.msg}</div>}
 
-        <BrowserRouter basename="/view">
+        <BrowserRouter basename="/">
           <ScrollToTop>
             <div>
               <Route exact path="/"
@@ -92,7 +92,7 @@ class App extends Component {
                     <Home />
                   </MainLayout>
                 )} />
-              <Route path="/product/:id"
+              <Route path="view/product/:id"
                 render={props => (
                   <MainLayout>
                     <div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
@@ -101,7 +101,7 @@ class App extends Component {
                   </MainLayout>
                 )} />
 
-              <Route path="/searchlist/:term"
+              <Route path="view/searchlist/:term"
                 render={props => (
                   <MainLayout>
                     <div class="shubh__kit__spacial pb-60"><div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
@@ -110,7 +110,7 @@ class App extends Component {
                   </MainLayout>
                 )} />
 
-              <Route path="/products/:catid"
+              <Route path="view/products/:catid"
                 render={props => (
                   <MainLayout>
                     <div class="shubh__kit__spacial pb-60"><div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
@@ -119,7 +119,7 @@ class App extends Component {
                   </MainLayout>
                 )} />
 
-              <Route path="/cart"
+              <Route path="view/cart"
                 render={props => (
                   <MainLayout>
                     <div class="cart-page pt-60 pb-60">
@@ -130,7 +130,7 @@ class App extends Component {
                   </MainLayout>
                 )} />
 
-              <Route path="/content/:page"
+              <Route path="view/content/:page"
                 render={props => (
                   <ContentLayout>
                     <div class="pt-60 pb-60">
@@ -141,7 +141,7 @@ class App extends Component {
                   </ContentLayout>
                 )} />
 
-              <Route path="/login"
+              <Route path="view/login"
                 render={props => (
                   <MainLayout>
                     <div className="login-page"><div className={`container ${this.props.showCart ? 'push-section' : ''}`}>
@@ -150,7 +150,7 @@ class App extends Component {
                   </MainLayout>
                 )} />
 
-              <Route path="/checkout"
+              <Route path="view/checkout"
                 render={props => (
                   <CheckoutLayout>
                     <div>
@@ -159,7 +159,7 @@ class App extends Component {
                   </CheckoutLayout>
                 )} />
 
-              <Route path="/confirmation"
+              <Route path="view/confirmation"
                 render={props => (
                   <MainLayout>
                     <div className={`container`}>
