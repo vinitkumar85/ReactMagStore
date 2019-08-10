@@ -105,7 +105,7 @@ class Header extends Component {
             <div>
                 <div className="header-spacer"></div>
                 <header className={this.state.headerClass}>
-                    <Topbar />
+                    <div className="d-none d-sm-block"><Topbar /></div>
                     <div className={this.state.navClass}>
                         <Mainheader />{this.state.navOpen}
                         <Navbar navLinks={this.navlinks} />

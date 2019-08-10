@@ -47,9 +47,10 @@ class Addtocart extends Component {
     render() {
         const btnclass = this.props.pagetype === 'pdp' ? 'addtocart__large' : 'btn-orange add__to__cart';
         let disbledbtn = this.props.showPreloader === 'true' ? 'btn-disabled' : '';
+        let skudata = this.props.productSku ? this.props.productSku : this.props.productData.sku;
         return (
             <div class="addtocart-wrapper"> {Object.keys(this.props.recentItem).length > 0 ? (this.props.productData.sku === this.props.itmID ? <Flyer itemdata={this.props.recentItem} msg="Added" /> : '') : ''}
-                <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: this.props.productData.sku, qty: this.props.selectedQty }, this.props.productData.sku) }}>{this.loadericon}</button>
+                <button class={`btn ${btnclass} ${disbledbtn}`} onClick={() => { this.handleClick({ sku: skudata, qty: this.props.selectedQty }, this.props.productData.sku) }}>{this.loadericon}</button>
             </div>
         )
     }

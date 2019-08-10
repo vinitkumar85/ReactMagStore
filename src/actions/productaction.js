@@ -147,7 +147,7 @@ export function getProduct(productId) {
     clearMsg(dispatch);
     axios.get('/api/product/' + productId)
       .then((response) => {
-        var productImg, productDesc, productSP, productCost;
+        var productImg, productDesc, productSP, productCost, productTitle;
         response.data.custom_attributes.map((item) => {
           if (item.attribute_code === 'image') {
             productImg = item.value
@@ -161,13 +161,17 @@ export function getProduct(productId) {
           if (item.attribute_code === 'cost') {
             productCost = parseFloat(item.value).toFixed(2);
           }
+          if (item.attribute_code === 'meta_title') {
+            productTitle = item.value;
+          }
         })
         var productData = {
           product: response.data,
           productImg: productImg,
           productDesc: productDesc,
           productCost: productCost,
-          productSP: productSP
+          productSP: productSP,
+          productTitle: productTitle
         }
         dispatch(setAction(productData, 'GET_PRODUCT'));
         dispatch(setAction(undefined, 'GET_PRODUCTLIST'));

@@ -1,6 +1,15 @@
 import React from 'react';
 
 const Productprice = (props) => {
+
+    if (props.optionPrice){
+        return (
+            <div class="item__price">
+            <div className="item__price--dk"><i class="fas fa-rupee-sign"></i> {props.optionPrice} </div>
+        </div> 
+        )
+    }
+    
     return (
         <div class="item__price">
 {/*             {props.productPriceData.productCost && <div className="item__price--lt">MRP <i class="fas fa-rupee-sign"></i> {props.productPriceData.productCost}</div>} */}

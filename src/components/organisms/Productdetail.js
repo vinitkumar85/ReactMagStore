@@ -5,6 +5,7 @@ import Pinchecker from '../atoms/Pinchecker';
 import Productname from '../atoms/Productname';
 import Productdesc from '../atoms/Productdesc';
 import Productprice from '../atoms/Productprice';
+import ProductOptions from '../atoms/ProductOptions';
 import { connect } from 'react-redux';
 import * as actionCreaters from '../../actions/productaction';
 import Quantity from '../atoms/Quantity';
@@ -25,6 +26,14 @@ class ProductDetail extends Component {
 
 	changeQty = (qty) => {
 		this.setState({ qty: qty });
+	}
+
+	updateOptions = (sku, price, unit) => {
+		this.setState({ sku: sku });
+		this.setState({ price: price });
+		this.setState({ unit: unit });
+		console.log(sku);
+		console.log(unit);
 	}
 
 	componentWillMount() {
@@ -48,6 +57,12 @@ class ProductDetail extends Component {
 				<div class="a6"></div>
 			</div></div>
 		}
+
+		let skunum = this.state.sku ?  this.state.sku : this.props.productInfo.product.sku;
+		let optprice = this.state.price ?  this.state.price : this.props.productInfo.product.price;
+		let productName = this.state.price ?  this.props.productInfo.productTitle : this.props.productInfo.product.name;
+		let productUnit = this.state.unit ?  this.state.unit : '';
+
 		return (
 			Object.keys(this.props.productInfo).length > 0 && this.props.productInfo.product && <div class="products__des pb-60">
 			<div className="sk-breadcrumb"><Link to="/">Home</Link> > <BackBtn/></div>
@@ -60,14 +75,15 @@ class ProductDetail extends Component {
 						<p className="disc">Pictures shown are for illustration purpose only. Actual product may vary.</p>
 					</div>
 					<div class="col-sm-7 product__details_right">
-						<Productname productName={this.props.productInfo.product.name} level="2" />
-						<Productprice productPrice={this.props.productInfo.product.price} productPriceData={this.props.productInfo} />
+						<Productname productName={productName} productUnit = {productUnit} level="2" />
+						<Productprice optionPrice = {optprice} productPrice={this.props.productInfo.product.price} productPriceData={this.props.productInfo} />
+						{this.props.productInfo.product.options && this.props.productInfo.product.options[0] && <ProductOptions onChangeOptions = {this.updateOptions} optionsItem ={this.props.productInfo.product.options[0]} />}
 						<Pinchecker />
 						<div className="row">
 							<div className="col-12 col-md-4">
 								<Quantity productQty={this.changeQty} />
 							</div>
-							<div className="col-12 col-md-8"><Addtocart pagetype="pdp" productData={this.props.productInfo.product} selectedQty={this.state.qty} /></div></div>
+							<div className="col-12 col-md-8"><Addtocart pagetype="pdp" productSku = {skunum} productData={this.props.productInfo.product} selectedQty={this.state.qty} /></div></div>
 						<Productdesc prdesc={this.props.productInfo.productDesc} />
 					</div>
 

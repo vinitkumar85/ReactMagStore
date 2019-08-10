@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Navitem from '../atoms/Navitem'
+import Navitem from '../atoms/Navitem';
+import Userlink from '../atoms/Userlink'
 import '../../sass/nav.scss';
 
     class Topbar extends Component {
@@ -33,6 +34,7 @@ import '../../sass/nav.scss';
                             <Navitem key={index} linkItem={link} />
                         ))}
                     </ul>
+                    <div className="d-block d-sm-none"><Userlink /></div>
                     </div>
                 </div>
             </nav>
