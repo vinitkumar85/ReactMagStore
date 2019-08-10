@@ -41,7 +41,7 @@ header {
 }
 
 .header-spacer {
-	height: 120px;
+	height: 118px;
 	@include respond-above(sm) {
 		display: none;
 	}

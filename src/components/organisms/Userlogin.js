@@ -46,7 +46,7 @@ class Userlogin extends Component {
             <Loginbox onSubmit={this.handleSubmit} />
           </div>
           <div className="col-12 col-md-1">
-            <span className="form-devider"> </span>
+            <div className="form-devider"> </div>
           </div>
           <div className="col-12 col-md-5">
             <Registerbox onSubmit={this.handleRegister} />

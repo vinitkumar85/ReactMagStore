@@ -4,14 +4,22 @@
 .minicart-wrapper {
 	background: #fdf5f1;
 	position:fixed;
-    top:152px;
-	right: -300px;
+    top:118px;
+	right: -350px;
 	-webkit-transition: right 0.3s;
 	-moz-transition: right 0.3s;
 	transition: right 0.3s;
-    width:300px;
+    width:40vh;
 	height:100%;
 	z-index: 999;
+	-webkit-box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.5);
+	-moz-box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.5);
+	box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.5);
+
+	@include respond-above(md) {
+		top:152px;
+		width:300px;
+	}
 
 	.cart-page & {
 		position: static;
