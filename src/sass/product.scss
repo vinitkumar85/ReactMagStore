@@ -105,6 +105,7 @@
     left: 50%;
     bottom: -60px;
 	text-transform: uppercase;
+	border-radius: 30px;
 	@include respond-below(sm) {
 		padding: 10px 20px;
 	}

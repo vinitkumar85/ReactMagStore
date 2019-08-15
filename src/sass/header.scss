@@ -92,6 +92,22 @@ header {
 		font-size: 15px;
 	}
 	}
+
+	@include respond-below(sm) {
+		ul {
+			padding: 0;
+
+			li {
+				border: none;
+			}
+		}
+
+		.btnlink { 
+			background: #fff;
+			color: $brand-primary;
+			padding: 10px 15px;
+		}
+	}
 }
 .header__logo {
 	img{

@@ -1047,3 +1047,20 @@ div.a6 {
 		}
 	}
 }
+
+.search-results {
+	a > div {
+		margin-top: 8px;
+	}
+
+	.product__content--search {
+		a {
+			background: $newbranddark;
+			color: #fff;
+			display: inline-block;
+			padding: 12px;
+			font-size: 15px;
+			border-radius: 30px;
+		}
+	}
+}

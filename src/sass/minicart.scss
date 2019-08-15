@@ -5,16 +5,16 @@
 	background: #fdf5f1;
 	position:fixed;
     top:118px;
-	right: -350px;
+	right: -500px;
 	-webkit-transition: right 0.3s;
 	-moz-transition: right 0.3s;
 	transition: right 0.3s;
-    width:40vh;
+    width:45vh;
 	height:100%;
 	z-index: 999;
-	-webkit-box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.5);
-	-moz-box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.5);
-	box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.5);
+	-webkit-box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.2);
+	-moz-box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.2);
+	box-shadow: -5px 0px 5px -1px rgba(0,0,0,0.2);
 
 	@include respond-above(md) {
 		top:152px;
