@@ -1,6 +1,6 @@
 module.exports = {
     assetPath : "http://www.shubhkit.com:8080/media/catalog/product/",
-    pinCodes: ['110092','110051','110090','110032','110053','110091','110095','110031','110096','110094','110093'],
+    pinCodes: ['201301','201009','201014'],
     categories : {
         'puja-kits' : 9,
         'prasad' : 7,

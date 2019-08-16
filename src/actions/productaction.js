@@ -28,12 +28,12 @@ function clearMsg(dispatch) {
 export function checkpin(code) {
   return (dispatch) => {
     let pinArr = config.pinCodes;
-    if (pinArr.includes(code)) {
+    if (pinArr.includes(code) || (code >= 110001 && code <= 110096)) {
       dispatch(setAction(`We deliver at ${code} and COD available for this location. You are eligible for same day delivery if order before 11AM`, 'SET_DEL_MSG'));
       dispatch(setAction(code, 'SET_PINCODE'));
     }
     else {
-      dispatch(setAction(`Sorry. we do not deliver at ${code}. COD only availble for East Delhi`, 'SET_DEL_MSG'));
+      dispatch(setAction(`Sorry. we do not deliver at ${code}. `, 'SET_DEL_MSG'));
       dispatch(setAction(null, 'SET_PINCODE'));
     }
   }

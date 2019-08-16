@@ -24,8 +24,8 @@ class Pinchecker extends React.Component {
     return (
       <form onSubmit={this.submitpin}>
         <div class="zipvalidator">
-          <span class="caveat">Currently we support delivery only in East Delhi</span>
-          <input class="zipbox" type="text" value={pin} placeholder="Enter Pincode for Delivery Details" onChange={this.handleChange} />
+          <span class="caveat">Currently we support delivery only in Delhi Region</span>
+          <input class="zipbox" type="text" value={pin} placeholder="Check your pincode" onChange={this.handleChange} />
           <button type="submit" class="zipbutton">
             Check
             </button>

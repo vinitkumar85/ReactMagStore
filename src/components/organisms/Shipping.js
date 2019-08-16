@@ -5,7 +5,7 @@ const Shipping = () => {
         <div className="static-page">
             <h2>Shipping / Delivery Options</h2>
             <p>
-            Currently we supports shipping only in East Delhi using local courior service. 
+            Currently we supports shipping only in Delhi NCR using local courior service.
             </p>
         </div>
     )

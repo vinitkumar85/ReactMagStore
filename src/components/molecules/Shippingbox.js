@@ -17,7 +17,7 @@ const aol = value =>
     value && /.+@aol\.com/.test(value) ?
         'Really? You still use AOL for your email?' : undefined
 const checkpin = value =>
-    value && config.pinCodes.includes(value) ? undefined : "We do not deliver at pincode mentioned here"
+    value && (config.pinCodes.includes(value) || (config.pinCodes >= 110001 && config.pinCodes <= 110096)) ? undefined : "We do not deliver at pincode mentioned here"
 
 
 const renderField = ({ input, type, meta: { touched, error, warning }, className, placeholder }) => (
@@ -69,7 +69,7 @@ let Shippingbox = (props) => {
                                 <div className="form-group">
                                     <label htmlFor="pincode">Pincode</label>
                                     <Field name="pincode" component={renderField} validate={[required, number, checkpin, minValue6]} placeholder="Pincode" className="form-control" type="text" />
-                                    <span class="caveat">Currently we support delivery only in East Delhi</span>
+                                    <span class="caveat">Currently we support delivery only in Delhi Region</span>
                                 </div>
                             </div>
                             <div className="col-12 col-md-6">
