@@ -17,7 +17,7 @@ const aol = value =>
     value && /.+@aol\.com/.test(value) ?
         'Really? You still use AOL for your email?' : undefined
 const checkpin = value =>
-    value && (config.pinCodes.includes(value) || (config.pinCodes >= 110001 && config.pinCodes <= 110096)) ? undefined : "We do not deliver at pincode mentioned here"
+    value && (config.pinCodes.includes(value) || (value >= 110001 && value <= 110096)) ? undefined : "We do not deliver at pincode mentioned here"
 
 
 const renderField = ({ input, type, meta: { touched, error, warning }, className, placeholder }) => (
